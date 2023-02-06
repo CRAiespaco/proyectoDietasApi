@@ -9,7 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    public function receta(){
+    public function recetas(){
         return $this->belongToMany(Receta::class);
     }
 }

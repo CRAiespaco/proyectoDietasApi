@@ -25,6 +25,7 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         return redirect ('/receta')->withCookie();
+        'f'
     }
 
     /**

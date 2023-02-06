@@ -1,0 +1,9 @@
+.navbar-collapse{
+    justify-content: flex-end;
+}
+.navbar-nav{
+    gap:20px;
+}
+.linkT{
+    font-size: 25px;
+}

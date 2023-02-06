@@ -1,0 +1,47 @@
+.recetasBuscadas{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+}
+
+.filtrosRecetas{
+    padding-left: 20px;
+    padding-top: 25px;
+    color: white;
+}
+
+.filtrosRecetas button{
+    margin-top: 10px;
+}
+
+.cajaRecetas{
+    display: flex;
+    background-color: #034D37;
+}
+.recetas{
+    width: 85%;
+}
+.tituloReceta{
+    text-align: center;
+    display: block;
+    padding: 20px;
+    margin: 0;
+    *border-bottom: 1px solid rgb(145, 145, 145);
+}
+.buscadorIngre{
+    left: 25%;
+    width: 650px;
+    padding: 20px 20px;
+}
+.inicial{
+    display: none;
+}
+.modal-custom{
+    display: block;
+    position: fixed;
+    z-index: 20;
+    background-color: #c6c6c6;
+    width: 60%;
+}

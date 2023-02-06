@@ -1,0 +1,23 @@
+#bannerContent{
+    position: relative;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+#bannerContent article{
+    padding: 50px;
+    width: 50%;
+    background: #10926b;
+}
+#bannerContent article:first-child{
+    border-right: 1px solid black;
+}
+@media only screen and (max-width: 750px) {
+    #bannerContent article{
+        width: auto;
+        background: lightslategrey;
+    }
+}

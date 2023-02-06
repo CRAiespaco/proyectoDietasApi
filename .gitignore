@@ -15,3 +15,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/resources/node_modules
+/resources/.pnp
+/resources/coverage
+/resources/build

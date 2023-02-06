@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\RecetaController;
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -24,9 +25,7 @@ Route::get('/receta/{id}', function ($id) {
     return view('Receta con el id: '.$id);
 });
 
-Route::get('/receta', function () {
-    return view('Estas son todas las recetas');
-});
+Route::get('/receta',[RecetaController::class,'index']);
 
 Route::put('/receta', function () {
     return view('creacion de receta');

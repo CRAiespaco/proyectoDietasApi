@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ingrediente;
 use App\Models\Receta;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Foundation\Validation;
+use Illuminate\Support\Facades\Validator;
 
 class RecetaController extends Controller
 {
@@ -27,9 +28,15 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        Validation::make($request->all(),[
-            "email"=>"required|email|unique:user",
+        Validator::make($request->all(),[
+            "valoracion"=>"decimal:0,2",
+            "pasosASeguir"=>"required",
+            "ingredientes"=>"required",
+            "imagen"=>"string",
+            "validacion"=>"boolean",
         ]);
+        Receta::create();
+
     }
 
     /**

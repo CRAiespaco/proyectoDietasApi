@@ -19,13 +19,13 @@ return new class extends Migration
             $table->integer('valoracion');
             $table->text('pasosASeguir');
             $table->foreignId('ingrediente_id')->constrained();
-            $table->enum('horario',["desayuno","comida","cena"]);
+            //$table->enum('horario',["desayuno","comida","cena"]);
             $table->foreignId('categoria_id')->constrained();
             $table->string('Imagen');
             $table->float('totalNutricional');
-            $table->float('peso');
             $table->foreignId('usuario_id')->constrained();
-            $table->boolean('Validacion');
+            $table->boolean('validacion');
+            $table->dateTime('fechaCreacion');
             $table->timestamps();
         });
     }

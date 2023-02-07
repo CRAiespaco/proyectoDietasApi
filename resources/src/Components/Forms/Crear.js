@@ -43,6 +43,9 @@ function Crear(){
                     <Label>Alegernos/Ingredientes que no te gusta.</Label>
                     <FormControl type="search"/>
                 </Fila>
+                <Fila className="d-flex justify-content-center align-items-center pt-3">
+                    <Button className="w-auto">Enviar</Button>
+                </Fila>
             </Form>
             </div>
         </React.Fragment>

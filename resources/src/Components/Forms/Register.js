@@ -11,6 +11,7 @@ import  Image  from "react-bootstrap/Image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash,faEye} from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { Alert } from "react-bootstrap";
 
 
 function Register(){
@@ -39,6 +40,16 @@ function Register(){
     }
   }
 
+  const evitarPaste = (e)=>{e.preventDefault();}
+
+  const [form,setForm] = useState({
+    email:"",
+    passwordFirst:"",
+    passwordSecond: "",
+  });
+
+  console.log(form.passwordFirst === form.passwordSecond);
+
     return(
         <React.Fragment>
         <div className="vh-100 d-flex justify-content-center fondoRegistro">
@@ -46,21 +57,44 @@ function Register(){
             <h1 className="tituloRegistro">Registro</h1>
             <Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Label>Usuario</Label>
-              <FormControl type="text" placeholder="Introduce un nombre de usuario" />
+              <FormControl type="text"
+              placeholder="Introduce un nombre de usuario" />
             </Group>
             <Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Label>Email</Label>
-              <FormControl type="email" placeholder="Introduce un email" />
+              <FormControl
+                type="email"
+                onChange={e=>setForm({...form,email:e.target.value})} 
+                isValid={/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(form.email)}
+                isInvalid={!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(form.email)}
+                required placeholder="Introduce un email" />
             </Group>
             <Group className="mb-3 cajaVer" controlId="formBasicPassword">
               <Label>Contraseña</Label>
-              <FormControl ref={pass1} type="password" placeholder="Introduce tu contraseña"/>
+              <FormControl
+               ref={pass1}
+               type="password"
+               placeholder="Introduce tu contraseña"
+               isValid={/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.passwordFirst)}
+               isInvalid={!/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.passwordFirst)}
+               onChange={e=>setForm({...form,passwordFirst:e.target.value})}
+               />
               <FontAwesomeIcon icon={ojo1} className="btnVer"  onClick={ocultar}/>
             </Group>
             <Group className="mb-3 cajaVer" controlId="formBasicPassword">
               <Label>Confirmar Contraseña</Label>
-              <FormControl ref={pass2} type="password" placeholder="Introduce tu contraseña otra vez"/>
+              <FormControl 
+              ref={pass2} 
+              type="password" 
+              placeholder="Introduce tu contraseña otra vez"
+              isValid={form.passwordFirst === form.passwordSecond}
+              isInvalid={form.passwordFirst!==form.passwordSecond}
+              onChange={e=>setForm({...form,passwordSecond:e.target.value})}
+              onPaste={evitarPaste}
+              />
               <FontAwesomeIcon icon={ojo2} className="btnVer"  onClick={ocultar2}/>
+              <FormControl.Feedback type="invalid">¡La contraseña no coincide!</FormControl.Feedback>
+            <FormControl.Feedback type="valid">¡La contraseña coincide!</FormControl.Feedback>
             </Group>
             <Group className="mb-3">
               <Check type="checkbox" label="Recordar Dispositivo"/>

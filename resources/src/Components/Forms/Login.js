@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import 'Components/Forms/login.css';
 import { useNavigate} from 'react-router-dom';
-import { Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import Label from 'react-bootstrap/FormLabel';
 import FormControl from "react-bootstrap/FormControl";
 import Group from 'react-bootstrap/FormGroup';
@@ -43,7 +43,7 @@ function Login (){
     return(
       <React.Fragment>
       <div className="vh-100 d-flex justify-content-center fondoLogin">
-        <Form className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white was-validated">
+        <Form validated className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white was-validated">
           <h2 className="tituloLogin">Login</h2>
           <Group className="mb-3 mt-3">
             <Label>Email</Label>

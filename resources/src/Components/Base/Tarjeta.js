@@ -34,7 +34,7 @@ function Tarjeta() {
         <Card.Title>Título de la Receta</Card.Title>
         <div className=' d-flex '>
           <EstrellasPrueba key={generarUUID()}/>
-          <Link className='btn btn-primary btn-sm masDetalles' to="/detallesReceta">Más detalles</Link>
+          <Link className='btn btn-success btn-sm masDetalles' to="/detallesReceta">Más detalles</Link>
         </div>
         <FontAwesomeIcon icon={faHeart} className='heartCard' onClick={favorito} />
       <div className='d-flex justify-content-around mt-2'>

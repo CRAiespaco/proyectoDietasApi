@@ -15,14 +15,14 @@ function Header (){
             titulo:"Recetas",
             path:"/recetas"
         },
-        {
+        /* {
             titulo:"Personalizados",
             path:"/crear"
-        },
-        {
+        }, */
+        /* {
             titulo:"Incidencias",
             path:"/incidencias"
-        },
+        }, */
         {
             titulo:"Crea tu propia receta",
             path:"/crear"

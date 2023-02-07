@@ -21,15 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/receta/{id}', function ($id) {
-    return view('Receta con el id: '.$id);
-});
-
 Route::get('/receta',[RecetaController::class,'index']);
+Route::get('/receta/{receta}',[RecetaController::class,'show']);
+Route::post('/receta',[RecetaController::class,'store']);
 
-Route::put('/receta', function () {
-    return view('creacion de receta');
-});
+Route::put('/receta/{receta}',[RecetaController::class,'update']);
+Route::delete('/receta/{receta}',[RecetaController::class,'destroy']);
+
 
 Route::get('/usuario', function () {
     return view('Estos son todos los usuarios');

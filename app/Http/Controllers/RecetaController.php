@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Receta;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Validation;
 
 class RecetaController extends Controller
 {
@@ -14,7 +16,7 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        Receta::all();
+        return response(Receta::all());
     }
 
     /**
@@ -25,7 +27,9 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validation::make($request->all(),[
+            "email"=>"required|email|unique:user",
+        ]);
     }
 
     /**
@@ -34,9 +38,9 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Receta $receta)
     {
-        echo 'La receta es: '.$id;
+        return response(Receta::with('categorias','ingredientes')->find($receta->id));
     }
 
     /**
@@ -57,8 +61,12 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Receta $receta)
     {
-        //
+        Receta::destroy($receta);
+        return response()->json([
+            "mensaje"=>"Se ha borrado correctamente",
+            "receta"=>$receta
+        ],Response::HTTP_BAD_REQUEST);
     }
 }

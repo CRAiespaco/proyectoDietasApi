@@ -52,7 +52,7 @@ function Register(){
 
     return(
         <React.Fragment>
-        <div className="vh-100 d-flex justify-content-center fondoRegistro">
+        <div className="vh-100 d-flex justify-content-center fondoRegistro was-validated">
           <Form className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white">
             <h1 className="tituloRegistro">Registro</h1>
             <Group className="mb-3 mt-3" controlId="formBasicEmail">

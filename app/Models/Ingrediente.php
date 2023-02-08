@@ -12,14 +12,16 @@ class ingrediente extends Model
     protected $fillable = ['nombre','imagen','valorNutricional','peso'];
 
     public function usuario(){
-        return $this->hasMany(Usuario::class);
+        return $this->belongsToMany(Usuario::class);
     }
 
     public function receta(){
-        return $this->hasMany(Receta::class);
+        return $this->belongsToMany(Receta::class)->withPivot('peso');
     }
 
     public function totalNutricion(){
         return $this->belongsTo(TotalNutricion::class);
     }
+
+
 }

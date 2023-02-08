@@ -12,6 +12,7 @@ use App\Http\Controllers\RecetaController;
 Route::get('/categoria',[CategoriaController::class,'index']);
 Route::post('/categoria',[CategoriaController::class,'store']);
 
+Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::class,'attach']);
 
 Route::middleware('auth:sanctum')->group(function (){
 

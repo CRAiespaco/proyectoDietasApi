@@ -49,9 +49,6 @@ class CategoriaController extends Controller
             return \response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $categoria = new Categoria();
-
-            $categoria->arroz
-
             $receta->save();
 
             $respuesta = [

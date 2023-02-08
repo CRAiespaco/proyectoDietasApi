@@ -27,7 +27,10 @@ Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::clas
  * Rutas para categoria.
  */
 Route::get('/categoria',[CategoriaController::class,'index']);
-
+Route::get('/categoria/{categoria}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
+Route::post('/categoria/{categoria}',[CategoriaController::class,'store']);//Guardar una categoria.
+Route::put('/categoria/{categoria}',[CategoriaController::class,'update']);//Actualizar una categoria.
+Route::delete('/categoria/{categoria}',[CategoriaController::class,'destroy']);//Eliminar una categoria.
 
 /**
  * Ruta de error con 404.

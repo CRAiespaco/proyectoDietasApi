@@ -42,7 +42,7 @@ function Login (){
 
     return(
       <React.Fragment>
-      <div className="vh-100 d-flex justify-content-center fondoLogin">
+      <div className="vh-100 d-flex justify-content-center fondoLogin was-validated">
         <Form validated className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white was-validated">
           <h2 className="tituloLogin">Login</h2>
           <Group className="mb-3 mt-3">

@@ -9,14 +9,14 @@ class Receta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','valoracion','pasosASeguir','ingredientes','fechaCreacion','imagen','creado','validacion'];
+    protected $fillable = ['nombre','valoracion','pasosASeguir','fechaCreacion','imagen','creado','validacion'];
 
     public function categorias(){
         return $this->belongsToMany(Categoria::class);
     }
 
     public function ingrediente(){
-        return $this->belongsToMany(Ingrediente::class);
+        return $this->belongsToMany(Ingrediente::class)->withPivot('peso');
     }
 
     public function usuario(){

@@ -96,4 +96,9 @@ class RecetaController extends Controller
             "receta"=>$receta
         ],Response::HTTP_BAD_REQUEST);
     }
+
+    public function attach(Requests $request, Receta $receta, Ingrediente $ingrediente){
+        $receta->ingrediente()->attach($ingrediente);
+        return resolve();
+    }
 }

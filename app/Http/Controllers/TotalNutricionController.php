@@ -13,7 +13,9 @@ class TotalNutricionController extends Controller
      */
     public function index()
     {
-        //
+       /* Validator::make($request->all(),[
+            "tipoObjetivo"=>"enum:()"
+        ]);  //*/
     }
 
     /**

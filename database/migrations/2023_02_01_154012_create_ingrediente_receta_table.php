@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ingrediente_id')->constrained();
             $table->foreignId('receta_id')->constrained();
+            $table->float('peso');
             $table->timestamps();
         });
     }

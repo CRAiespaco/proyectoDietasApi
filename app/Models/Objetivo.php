@@ -9,7 +9,7 @@ class Objetivo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['edad','altura','peso'];
+    protected $fillable = ['edad','altura','peso','tipoObjetivo'];
 
     public function usuario(){
         return $this->belongsTo(Usuario::class);

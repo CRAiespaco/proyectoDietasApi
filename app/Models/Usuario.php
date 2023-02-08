@@ -11,15 +11,15 @@ class Usuario extends Model
 
     protected $fillable = ['nombre','correo','contrasenya','objetivo'];
 
-    public function objetivo(){
-        return $this->hasMany(Objetivo::class);
-    }
-
-    public function receta(){
-        return $this->hasMany(Receta::class);
+    public function recetas(){
+        return $this->belongsToMany(Receta::class);
     }
 
     public function ingrediente(){
-        return $this->hasMany(Ingrediente::class);
+        return $this->belongsToMany(Ingrediente::class);
+    }
+
+    public function objetivo(){
+        return $this->HasOne(Objetivo::class);
     }
 }

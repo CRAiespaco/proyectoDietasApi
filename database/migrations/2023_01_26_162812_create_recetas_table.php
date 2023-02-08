@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->integer('valoracion');
             $table->text('pasosASeguir');
-            $table->foreignId('ingrediente_id')->constrained();
-            $table->foreignId('categoria_id')->constrained();
             $table->string('imagen');
             $table->float('totalNutricional');
             $table->foreignId('usuario_id')->constrained();

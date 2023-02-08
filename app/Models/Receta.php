@@ -9,7 +9,7 @@ class Receta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','valoracion','pasosASeguir','fechaCreacion','imagen','creado','validacion'];
+    protected $fillable = ['nombre','valoracion','pasosASeguir','fechaCreacion','imagen','creado','validacion','usuario_id'];
 
     public function categorias(){
         return $this->belongsToMany(Categoria::class);

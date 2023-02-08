@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Categoria;
 use Illuminate\Http\Request;
 
-class IngredienteController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        Categoria::with('recetas')->get();
     }
 
     /**
@@ -24,7 +25,7 @@ class IngredienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect ('/receta')->withCookie();
     }
 
     /**

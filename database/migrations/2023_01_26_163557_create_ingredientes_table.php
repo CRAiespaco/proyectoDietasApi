@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('ingredientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('Imagen');
-            $table->foreignId('totalNutricional_id')->constrained();
+            $table->string('imagen');
+            $table->float('peso');
             $table->timestamps();
         });
     }

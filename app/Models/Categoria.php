@@ -9,6 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    //TODO:pendiente de revisar todos los tipos de categorias e incluir.
     protected $fillable = ['tipo'];
 
     public function recetas(){

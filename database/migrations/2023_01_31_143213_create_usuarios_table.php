@@ -18,9 +18,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('correo');
             $table->string('contrasenya');
-            $table->foreignId('objetivo_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('receta_id')->constrained();//recetasFavoritas
-            $table->foreignId('ingrediente_id')->constrained();//alergias;
             $table->timestamps();
         });
     }

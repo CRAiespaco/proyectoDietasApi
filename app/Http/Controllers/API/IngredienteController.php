@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\ingrediente;
+use App\Models\TotalNutricion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class IngredienteController extends Controller
 {
@@ -13,7 +17,7 @@ class IngredienteController extends Controller
      */
     public function index()
     {
-        //
+        return response(ingrediente::all());
     }
 
     /**
@@ -24,8 +28,32 @@ class IngredienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validacion = Validator::make($request->all(),[
+            "valoracion"=>"decimal:0,2",
+            "pasosASeguir"=>"required",
+            "ingredientes"=>"required",
+            "imagen"=>"string",
+            "validacion"=>"boolean",
+        ]);
+        if($validacion->fails()){
+            return \response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $ingrediente = new Ingrediente();
+            $ingrediente->nombre=$request['nombre'];
+            $ingrediente->imagen=$request['imagen'];
+            $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
+            $ingrediente->peso=$request['peso'];
+            $ingrediente->save();
+
+            $respuesta = [
+                "mensaje"=>'ingrediente creado correctamente',
+                'ingrediente'=>$ingrediente
+            ];
+
+            return \response()->json($respuesta);
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -33,9 +61,9 @@ class IngredienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ingrediente $ingrediente)
     {
-        //
+        return response(Ingrediente::with('totalNutricion')->find($ingrediente->id));
     }
 
     /**
@@ -54,10 +82,19 @@ class IngredienteController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ingrediente $ingrediente)
     {
-        //
+        Ingrediente::destroy($ingrediente);
+        return response()->json([
+            "mensaje"=>"Se ha borrado correctamente",
+            "ingrediente"=>$ingrediente
+        ],Response::HTTP_BAD_REQUEST);
+    }
+
+    public function attachIngradienteTotalNutricion(Request $request, Ingrediente $ingrediente, TotalNutricion $totalNutricion){
+        $ingrediente->totalNutricion()->attach($totalNutricion);
+        return resolve($ingrediente);
     }
 }

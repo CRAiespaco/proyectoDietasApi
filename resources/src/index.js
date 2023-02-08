@@ -13,6 +13,7 @@ import PageCrear from 'Components/Pages/PageCrear';
 import PageRecetas from 'Components/Pages/PageRecetas';
 import PageIncidencias from 'Components/Pages/PageIncidencias';
 import PageDetallesReceta from 'Components/Pages/PageDetallesReceta';
+import PageError from 'Components/Pages/PageError';
 
 
 const router = createBrowserRouter(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/crear" element={ <PageCrear/> }/>
       <Route path="/recetas" element={ <PageRecetas/> }/>
       <Route path='/detallesReceta' element={ <PageDetallesReceta/> }/>
+      <Route path='*' element={ <PageError/> }/>
     </React.Fragment>
   )
 );

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Categoria;
+use App\Models\Categoria;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -26,6 +27,40 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         return redirect ('/receta')->withCookie();
+
+        $validacion = Validator::make($request->all(),[
+            'arroz'=>'string',
+            'bebidas'=>'string',
+            'carnes'=>'string',
+            'dulces'=>'string',
+            'ensaladas'=>'string',
+            'mariscos'=>'string',
+            'legumbres&cereales'=>'string',
+            'pescados'=>'string',
+            'pizzas'=>'string',
+            'setas'=>'string',
+            'verduras&frutas'=>'string',
+            'sopas&cremas'=>'string',
+            'huevos'=>'string',
+            'pasta'=>'string',
+            'lacteos'=>'string',
+        ]);
+        if($validacion->fails()){
+            return \response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $categoria = new Categoria();
+
+            $categoria->arroz
+
+            $receta->save();
+
+            $respuesta = [
+                "mensaje"=>'Receta creada correctamente',
+                'Receta'=>$receta
+            ];
+
+            return \response()->json($respuesta);
+        }
     }
 
     /**

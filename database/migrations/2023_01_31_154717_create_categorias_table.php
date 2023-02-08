@@ -15,21 +15,21 @@ return new class extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('arroz');
-            $table->string('bebidas');
-            $table->string('carnes');
-            $table->string('dulces');
-            $table->string('ensaladas');
-            $table->string('mariscos');
-            $table->string('legumbres&cereales');
-            $table->string('pescados');
-            $table->string('pizzas');
-            $table->string('setas');
-            $table->string('verduras&frutas');
-            $table->string('sopas&cremas');
-            $table->string('huevos');
-            $table->string('pasta');
-            $table->string('lacteos');
+            $table->string('arroz')->nullable();
+            $table->string('bebidas')->nullable();
+            $table->string('carnes')->nullable();
+            $table->string('dulces')->nullable();
+            $table->string('ensaladas')->nullable();
+            $table->string('mariscos')->nullable();
+            $table->string('legumbres&cereales')->nullable();
+            $table->string('pescados')->nullable();
+            $table->string('pizzas')->nullable();
+            $table->string('setas')->nullable();
+            $table->string('verduras&frutas')->nullable();
+            $table->string('sopas&cremas')->nullable();
+            $table->string('huevos')->nullable();
+            $table->string('pasta')->nullable();
+            $table->string('lacteos')->nullable();
             $table->timestamps();
         });
     }

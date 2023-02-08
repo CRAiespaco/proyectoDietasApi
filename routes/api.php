@@ -8,39 +8,28 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
+/* Route::middleware('auth:sanctum')->group(function (){
+
+}); */
+
+/**
+ * Rutas para recetas.
+ */
+Route::get('/receta',[RecetaController::class,'index']);//Ver todaas las recetas.
+Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico.
+Route::post('/receta/{receta}',[RecetaController::class,'store']);//Guardar una receta.
+Route::put('/receta/{receta}',[RecetaController::class,'update']);//Actualizar una receta.
+Route::delete('/receta/{receta}',[RecetaController::class,'destroy']);//Eliminar una receta.
+Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::class,'attach']);//Añade un ingrediente a una receta.
+
+
+/**
+ * Rutas para categoria.
+ */
 Route::get('/categoria',[CategoriaController::class,'index']);
-Route::post('/categoria',[CategoriaController::class,'store']);
-
-Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::class,'attach']);
-
-Route::middleware('auth:sanctum')->group(function (){
-
-});
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/receta',[RecetaController::class,'index']);
-Route::get('/receta/{receta}',[RecetaController::class,'show']);
-Route::post('/receta',[RecetaController::class,'store']);
-
-Route::put('/receta/{receta}',[RecetaController::class,'update']);
-Route::delete('/receta/{receta}',[RecetaController::class,'destroy']);
 
 
-Route::get('/usuario', function () {
-    return view('Estos son todos los usuarios');
-});
-
-Route::get('/usuario/{id}', function ($id) {
-    return view('usuario con el id: '.$id);
-});
-
-Route::put('/login', function () {
-    return view('login');
-});
-
-Route::put('/register', function () {
-    return view('creacion de usuarios');
-});
+/**
+ * Ruta de error con 404.
+ */
+Route::get('/error',[RecetaController::class,'paginaError']);

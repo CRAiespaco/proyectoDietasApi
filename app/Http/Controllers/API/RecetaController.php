@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Requests;
 use App\Models\ingrediente;
 use App\Models\Receta;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class RecetaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -43,10 +44,10 @@ class RecetaController extends Controller
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
-            $receta->ingredientes=$request['ingredientes'];
+            $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
             $receta->fechaCreacion=$request['fechaCreacion'];
             $receta->imagen=$request['imagen'];
-            $receta->creado=$request['creado'];
+            $this->attachRecetaUsuario($request,$receta,$request['creado']);
             $receta->validacion=$request['validacion'];
 
             $receta->save();
@@ -87,7 +88,7 @@ class RecetaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Receta $receta)
     {
@@ -98,8 +99,17 @@ class RecetaController extends Controller
         ],Response::HTTP_BAD_REQUEST);
     }
 
-    public function attach(Requests $request, Receta $receta, Ingrediente $ingrediente){
+    public function attachRecetaIngrediente(Request $request, Receta $receta, Ingrediente $ingrediente){
         $receta->ingrediente()->attach($ingrediente);
-        return resolve();
+        return resolve($receta);
+    }
+
+    public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
+        $receta->usuario()->attach($usuario);
+        return resolve($usuario);
+    }
+
+    public function paginaError(){
+        return redirect('/not_found',Response::HTTP_NOT_FOUND);
     }
 }

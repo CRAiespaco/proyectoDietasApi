@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function PageError(){
     const zorrita = async()=>{
         let url = fetch("http://localhost:90/api/error")
         .then(respuesta => respuesta.json)
-        .then(respuesta => <p>{respuesta.mensaje}</p>)
+        .then(a => console.log(a));
+        
     }
+    useEffect(()=>{
+        zorrita();
+    },[])
 
     return(
         <React.Fragment>
-            <div>
-                <h1>PTO chema</h1>
-                <p>{zorrita}</p>
+            <div onLoad={zorrita}>
+                HOLAAAAAAAAA
             </div>
         </React.Fragment>
     )

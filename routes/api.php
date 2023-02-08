@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\CategoriaController;
+use App\Http\Controllers\API\RecetaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\RecetaController;
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -9,7 +9,7 @@ class Usuario extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','correo','contrasenya','objetivo'];
+    protected $fillable = ['nombre','correo','contrasenya','recetas'];
 
     public function recetas(){
         return $this->belongsToMany(Receta::class);
@@ -19,7 +19,8 @@ class Usuario extends Model
         return $this->belongsToMany(Ingrediente::class);
     }
 
-    public function objetivo(){
+    //Proxima ac
+    /*public function objetivo(){
         return $this->HasOne(Objetivo::class);
-    }
+    }*/
 }

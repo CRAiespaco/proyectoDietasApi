@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('pasosASeguir');
             $table->string('imagen');
             $table->float('totalNutricional');
-            $table->foreignId('usuario_id')->constrained();
             $table->boolean('validacion');
             $table->dateTime('fechaCreacion');
             $table->timestamps();

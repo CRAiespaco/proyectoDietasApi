@@ -9,6 +9,8 @@ class TotalNutricion extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['proteinas','hidratosDeCarbono','grasas','kcal'];
+
     public function ingrediente(){
         return $this->hasMany(ingrediente::class);
     }

@@ -9,6 +9,8 @@ class ingrediente extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre','imagen','valorNutricional','peso'];
+
     public function usuario(){
         return $this->hasMany(Usuario::class);
     }

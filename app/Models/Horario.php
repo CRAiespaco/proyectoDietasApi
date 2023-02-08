@@ -9,6 +9,8 @@ class Horario extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['fecha'];
+
     public function objetivo(){
         return $this->belongsTo(Objetivo::class);
     }

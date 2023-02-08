@@ -9,6 +9,8 @@ class Intervalo extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['horaInicio','horaFin','nombre','receta'];
+
     public function horario(){
         return $this->belongsTo(Horario::class);
     }

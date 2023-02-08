@@ -9,6 +9,8 @@ class Usuario extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre','correo','contrasenya','objetivo'];
+
     public function objetivo(){
         return $this->hasMany(Objetivo::class);
     }

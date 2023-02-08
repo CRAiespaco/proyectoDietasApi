@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('objetivo', function (Blueprint $table) {
+        Schema::create('ingrediente_usuario', function (Blueprint $table) {
             $table->id();
-            $table->integer('edad');
-            $table->float('altura');
-            $table->float('peso');
-            $table->float('caloriasTotales');
-            $table->enum('tipoObjetivo',['bajar','subir','mantener']);
-            $table->enum('genero',['hombre','mujer']);
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objetivo');
+        Schema::dropIfExists('ingrediente_usuario');
     }
 };

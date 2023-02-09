@@ -75,7 +75,26 @@ class IngredienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validacion=Validator::make((array)$request,[
+            "valoracion"=>"decimal:0,2",
+            "pasosASeguir"=>"required",
+            "ingredientes"=>"required",
+            "imagen"=>"string",
+            "validacion"=>"boolean",
+        ]);
+
+        if($validacion->fails()){
+            return("La receta no se pudo modificar");
+        }else{
+            $ingrediente = new Ingrediente();
+            $ingrediente->nombre=$request['nombre'];
+            $ingrediente->imagen=$request['imagen'];
+            $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
+            $ingrediente->peso=$request['peso'];
+            $ingrediente->save();
+
+            return \response()->json($ingrediente);
+        }
     }
 
     /**

@@ -79,9 +79,33 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Receta $receta)
     {
-        //
+        $validacion=Validator::make((array)$request,[
+            "valoracion"=>"decimal:0,2",
+            "pasosASeguir"=>"required",
+            "ingredientes"=>"required",
+            "imagen"=>"string",
+            "validacion"=>"boolean",
+        ]);
+
+        if($validacion->fails()){
+            return("La receta no se pudo modificar");
+        }else{
+            $receta->nombre=$request['nombre'];
+            $receta->valoracion=$request['valoracion'];
+            $receta->pasosASeguir=$request['pasosASeguir'];
+            $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
+            $receta->fechaCreacion=$request['fechaCreacion'];
+            $receta->imagen=$request['imagen'];
+            $this->attachRecetaUsuario($request,$receta,$request['creado']);
+            $receta->validacion=$request['validacion'];
+
+            $receta->save();
+
+            return \response()->json($receta);
+        }
+
     }
 
     /**

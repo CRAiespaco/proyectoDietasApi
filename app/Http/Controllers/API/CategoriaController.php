@@ -26,24 +26,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect ('/receta')->withCookie();
+
 
         $validacion = Validator::make($request->all(),[
-            'arroz'=>'string',
-            'bebidas'=>'string',
-            'carnes'=>'string',
-            'dulces'=>'string',
-            'ensaladas'=>'string',
-            'mariscos'=>'string',
-            'legumbres&cereales'=>'string',
-            'pescados'=>'string',
-            'pizzas'=>'string',
-            'setas'=>'string',
-            'verduras&frutas'=>'string',
-            'sopas&cremas'=>'string',
-            'huevos'=>'string',
-            'pasta'=>'string',
-            'lacteos'=>'string',
+            "nombre"=>'required|exists:categorias,nombre'
         ]);
         if($validacion->fails()){
             return \response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
@@ -56,6 +42,7 @@ class CategoriaController extends Controller
                 'Receta'=>$receta
             ];
 
+            return redirect ('/receta')->withCookie();
             return \response()->json($respuesta);
         }
     }

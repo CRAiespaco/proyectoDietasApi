@@ -61,7 +61,7 @@ function Header (){
         <React.Fragment>
         <Navbar ref={navegador} collapseOnSelect expand='md' bg="success" variant="dark" fixed='top'>
         <Container fluid>
-            <Navbar.Brand className='linkT'>Logo</Navbar.Brand>
+            <Navbar.Brand className='linkT'><img width={'80'} src={require('./../../images/logo.png')}/></Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>

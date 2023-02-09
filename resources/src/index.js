@@ -4,6 +4,7 @@ import PageHome from 'Components/Pages/PageHome';
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Redirect,
   Route,
   RouterProvider,
 } from "react-router-dom";

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\TotalNutricion;
 use Illuminate\Http\Request;
 
 class TotalNutricionController extends Controller
@@ -15,7 +16,8 @@ class TotalNutricionController extends Controller
     {
        /* Validator::make($request->all(),[
             "tipoObjetivo"=>"enum:()"
-        ]);  //*/
+        ]);  */
+        return response(TotalNutricion::all());
     }
 
     /**

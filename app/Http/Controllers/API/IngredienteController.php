@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\ingrediente;
 use App\Models\TotalNutricion;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,7 +48,7 @@ class IngredienteController extends Controller
 
             $respuesta = [
                 "mensaje"=>'ingrediente creado correctamente',
-                'ingrediente'=>$ingrediente
+                'Ingrediente'=>$ingrediente
             ];
 
             return \response()->json($respuesta);
@@ -108,7 +109,7 @@ class IngredienteController extends Controller
         Ingrediente::destroy($ingrediente);
         return response()->json([
             "mensaje"=>"Se ha borrado correctamente",
-            "ingrediente"=>$ingrediente
+            "Ingrediente"=>$ingrediente
         ],Response::HTTP_BAD_REQUEST);
     }
 

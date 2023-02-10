@@ -37,7 +37,7 @@ class IngredienteController extends Controller
             "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
-            return \response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
@@ -51,7 +51,7 @@ class IngredienteController extends Controller
                 'Ingrediente'=>$ingrediente
             ];
 
-            return \response()->json($respuesta);
+            return response()->json($respuesta);
         }
     }
 

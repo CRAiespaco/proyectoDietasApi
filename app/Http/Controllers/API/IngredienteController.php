@@ -17,7 +17,7 @@ class IngredienteController extends Controller
      */
     public function index()
     {
-        return response(ingrediente::all());
+        return response(Ingrediente::all());
     }
 
     /**

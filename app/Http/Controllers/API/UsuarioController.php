@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class UsuarioController extends Controller
 {
@@ -13,7 +16,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        return response(Usuario::all());
     }
 
     /**
@@ -24,7 +27,30 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validacion = Validator::make($request->all(),[
+            "nombre"=>"string",
+            "Correo"=>"string","required",
+            "contrasenya"=>"string","required",
+            "objetivo"=>"string",
+            "validacion"=>"boolean",
+        ]);
+        /*if($validacion->fails()){
+            return \response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $usuario = new Usuario();
+            $usuario->nombre=$request['nombre'];
+            $usuario->imagen=$request['imagen'];
+            $this->attachIngradienteTotalNutricion($request,$usuario,$request['totalNutricional']);
+            $usuario->peso=$request['peso'];
+            $usuario->save();
+
+            $respuesta = [
+                "mensaje"=>'ingrediente creado correctamente',
+                'usuario'=>$usuario
+            ];
+
+            return \response()->json($respuesta);
+        }*/
     }
 
     /**
@@ -33,9 +59,9 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($usuario)
     {
-        //
+        return response(Usuario::with('recetas','ingredientes')->find($usuario->id));
     }
 
     /**

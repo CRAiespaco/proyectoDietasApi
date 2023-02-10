@@ -84,7 +84,7 @@ class IngredienteController extends Controller
         ]);
 
         if($validacion->fails()){
-            return("La receta no se pudo modificar");
+            return response("La receta no se pudo modificar");
         }else{
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
@@ -93,7 +93,7 @@ class IngredienteController extends Controller
             $ingrediente->peso=$request['peso'];
             $ingrediente->save();
 
-            return \response()->json($ingrediente);
+            return response()->json($ingrediente);
         }
     }
 

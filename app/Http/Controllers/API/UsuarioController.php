@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\ingrediente;
+use App\Models\Receta;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -34,14 +36,15 @@ class UsuarioController extends Controller
             "objetivo"=>"string",
             "validacion"=>"boolean",
         ]);
-        /*if($validacion->fails()){
-            return \response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        if($validacion->fails()){
+            return \response("La usuario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $usuario = new Usuario();
             $usuario->nombre=$request['nombre'];
-            $usuario->imagen=$request['imagen'];
-            $this->attachIngradienteTotalNutricion($request,$usuario,$request['totalNutricional']);
-            $usuario->peso=$request['peso'];
+            $usuario->correo=$request['correo'];
+            $usuario->contrasenya=$request['contrasenya'];
+            $this->attachIngradienteUsuario($request,$usuario,$request['ingradientes']);
+            $this->attachRecetaUsuario($request,$usuario,$request['recetas']);
             $usuario->save();
 
             $respuesta = [
@@ -50,7 +53,7 @@ class UsuarioController extends Controller
             ];
 
             return \response()->json($respuesta);
-        }*/
+        }
     }
 
     /**
@@ -73,17 +76,56 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validacion=Validator::make((array)$request,[
+            "nombre"=>"string",
+            "Correo"=>"string","required",
+            "contrasenya"=>"string","required",
+            "objetivo"=>"string",
+            "validacion"=>"boolean",
+        ]);
+
+        if($validacion->fails()){
+            return response("La usuario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $usuario = new Usuario();
+            $usuario->nombre=$request['nombre'];
+            $usuario->correo=$request['correo'];
+            $usuario->contrasenya=$request['contrasenya'];
+            $this->attachIngradienteUsuario($request,$usuario,$request['ingradientes']);
+            $this->attachRecetaUsuario($request,$usuario,$request['recetas']);
+            $usuario->save();
+
+            $respuesta = [
+                "mensaje"=>'ingrediente creado correctamente',
+                'usuario'=>$usuario
+            ];
+
+            return response()->json($respuesta);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Usuario $usuario)
     {
-        //
+        Usuario::destroy($usuario);
+        return response()->json([
+            "mensaje"=>"Se ha borrado correctamente",
+            "usuario"=>$usuario
+        ],Response::HTTP_BAD_REQUEST);
+    }
+
+    public function attachIngradienteUsuario(Request $request, Ingrediente $ingrediente, Usuario $usuario){
+        $usuario->Ingrediente()->attach($ingrediente);
+        return resolve($usuario);
+    }
+
+    public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
+        $usuario->Receta()->attach($receta);
+        return resolve($usuario);
     }
 }

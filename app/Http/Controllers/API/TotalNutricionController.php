@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\TotalNutricion;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TotalNutricionController extends Controller
 {
@@ -15,7 +18,8 @@ class TotalNutricionController extends Controller
     {
        /* Validator::make($request->all(),[
             "tipoObjetivo"=>"enum:()"
-        ]);  //*/
+        ]);  */
+        return response(TotalNutricion::all());
     }
 
     /**
@@ -26,7 +30,28 @@ class TotalNutricionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validacion=Validator::make($request->all(),[
+           "proteina"=>"decimal",
+           "hidratos"=>"decimal",
+           "grasas"=>"decimal",
+           "Kcal"=>"decimal",
+        ]);
+        if($validacion->fails()){
+            return response("El total nutricional no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $totalNutricion=new TotalNutricion();
+            $totalNutricion->proteina=$request['proteina'];
+            $totalNutricion->hidratos=$request['hidratos'];
+            $totalNutricion->grasas=$request['grasas'];
+            $totalNutricion->Kcal=$request['Kcal'];
+        }
+
+        $respuesta = [
+            "mensaje"=>'ingrediente creado correctamente',
+            'TotalNutricion'=>$totalNutricion
+        ];
+
+        return response()->json($respuesta);
     }
 
     /**
@@ -35,9 +60,9 @@ class TotalNutricionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($totalNutricion)
     {
-        //
+        return  response(TotalNutricion::with()->find($totalNutricion->id));
     }
 
     /**
@@ -49,17 +74,42 @@ class TotalNutricionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validacion=Validator::make($request->all(),[
+            "proteina"=>"decimal",
+            "hidratos"=>"decimal",
+            "grasas"=>"decimal",
+            "Kcal"=>"decimal",
+        ]);
+        if($validacion->fails()){
+            return response("El total nutricional no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+        }else{
+            $totalNutricion=new TotalNutricion();
+            $totalNutricion->proteina=$request['proteina'];
+            $totalNutricion->hidratos=$request['hidratos'];
+            $totalNutricion->grasas=$request['grasas'];
+            $totalNutricion->Kcal=$request['Kcal'];
+        }
+
+        $respuesta = [
+            "mensaje"=>'ingrediente creado correctamente',
+            'TotalNutricion'=>$totalNutricion
+        ];
+
+        return response()->json($respuesta);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($totalNutricion)
     {
-        //
+        TotalNutricion::destroy($totalNutricion);
+        return response()->json([
+            "mensaje"=>"Se ha borrado correctamente",
+            "TotalNutricion"=>$totalNutricion
+        ],Response::HTTP_BAD_REQUEST);
     }
 }

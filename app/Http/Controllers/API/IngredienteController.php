@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\ingrediente;
 use App\Models\TotalNutricion;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,7 @@ class IngredienteController extends Controller
      */
     public function index()
     {
-        return response(ingrediente::all());
+        return response(Ingrediente::all());
     }
 
     /**
@@ -36,7 +37,7 @@ class IngredienteController extends Controller
             "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
-            return \response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
@@ -47,10 +48,10 @@ class IngredienteController extends Controller
 
             $respuesta = [
                 "mensaje"=>'ingrediente creado correctamente',
-                'ingrediente'=>$ingrediente
+                'Ingrediente'=>$ingrediente
             ];
 
-            return \response()->json($respuesta);
+            return response()->json($respuesta);
         }
     }
 
@@ -75,7 +76,26 @@ class IngredienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validacion=Validator::make((array)$request,[
+            "valoracion"=>"decimal:0,2",
+            "pasosASeguir"=>"required",
+            "ingredientes"=>"required",
+            "imagen"=>"string",
+            "validacion"=>"boolean",
+        ]);
+
+        if($validacion->fails()){
+            return response("La receta no se pudo modificar");
+        }else{
+            $ingrediente = new Ingrediente();
+            $ingrediente->nombre=$request['nombre'];
+            $ingrediente->imagen=$request['imagen'];
+            $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
+            $ingrediente->peso=$request['peso'];
+            $ingrediente->save();
+
+            return response()->json($ingrediente);
+        }
     }
 
     /**
@@ -89,7 +109,7 @@ class IngredienteController extends Controller
         Ingrediente::destroy($ingrediente);
         return response()->json([
             "mensaje"=>"Se ha borrado correctamente",
-            "ingrediente"=>$ingrediente
+            "Ingrediente"=>$ingrediente
         ],Response::HTTP_BAD_REQUEST);
     }
 

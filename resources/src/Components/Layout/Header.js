@@ -61,11 +61,11 @@ function Header (){
         <React.Fragment>
         <Navbar ref={navegador} collapseOnSelect expand='md' bg="success" variant="dark" fixed='top'>
         <Container fluid>
-            <Navbar.Brand className='linkT'>Logo</Navbar.Brand>
+            <Navbar.Brand className='linkT'><img width={'80'} src={require('./../../images/logo.png')}/></Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>
-                {listarOpciones()} 
+                {listarOpciones()}
                 <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/login'}>Login</NavLink>
                 <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/register'}>Register</NavLink>
             </Nav>

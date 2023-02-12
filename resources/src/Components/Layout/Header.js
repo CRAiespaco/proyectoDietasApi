@@ -65,7 +65,7 @@ function Header (){
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>
-                {listarOpciones()} 
+                {listarOpciones()}
                 <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/login'}>Login</NavLink>
                 <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/register'}>Register</NavLink>
             </Nav>

@@ -52,6 +52,8 @@ class RecetaController extends Controller
 
             $receta->save();
 
+            //Receta::create($request->all());
+
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',
                 'Receta'=>$receta

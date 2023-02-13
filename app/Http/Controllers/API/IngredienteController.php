@@ -25,7 +25,7 @@ class IngredienteController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -74,7 +74,7 @@ class IngredienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $ingrediente)
     {
         $validacion=Validator::make((array)$request,[
             "valoracion"=>"decimal:0,2",
@@ -117,4 +117,5 @@ class IngredienteController extends Controller
         $ingrediente->totalNutricion()->attach($totalNutricion);
         return resolve($ingrediente);
     }
+
 }

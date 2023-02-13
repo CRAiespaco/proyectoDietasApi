@@ -16,7 +16,7 @@ class ingrediente extends Model
     }
 
     public function receta(){
-        return $this->belongsToMany(Receta::class)->withPivot('peso');
+        return $this->belongsToMany(Receta::class)->withPivot('cantidad');
     }
 
     public function totalNutricion(){

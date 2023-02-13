@@ -15,8 +15,8 @@ class Receta extends Model
         return $this->belongsToMany(Categoria::class);
     }
 
-    public function ingrediente(){
-        return $this->belongsToMany(Ingrediente::class)->withPivot('peso');
+    public function ingredientes(){
+        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
     }
 
     public function usuario(){
@@ -25,5 +25,11 @@ class Receta extends Model
 
     public function intervalo(){
         return $this->belongsTo(Intervalo::class);
+    }
+
+    public function obtenerArrayRecetasPesos(){
+        $arrayIngredientes=$this->ingredientes->withPivot('cantidad');
+
+
     }
 }

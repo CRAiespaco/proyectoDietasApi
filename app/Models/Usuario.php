@@ -12,9 +12,9 @@ class Usuario extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['nombre','email','contrasenya',];
+    protected $fillable = ['nombre','email','password',];
 
-    protected $hidden = ['contrasenya','remember_token'];
+    protected $hidden = ['password','remember_token'];
 
     public function recetas(){
         return $this->belongsToMany(Receta::class);

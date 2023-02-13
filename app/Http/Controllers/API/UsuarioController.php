@@ -8,6 +8,9 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UsuarioController extends Controller
 {
@@ -33,7 +36,6 @@ class UsuarioController extends Controller
             "nombre"=>"string",
             "Correo"=>"string","required",
             "contrasenya"=>"string","required",
-            "objetivo"=>"string",
             "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
@@ -117,6 +119,27 @@ class UsuarioController extends Controller
             "mensaje"=>"Se ha borrado correctamente",
             "usuario"=>$usuario
         ],Response::HTTP_BAD_REQUEST);
+    }
+
+    public function register(Request $request){
+        //Validar los datos
+
+        $usuario = new Usuario();
+        $usuario->nombre = $request['nombre'];
+        $usuario->email = $request['email'];
+        $usuario->password = Hash::make($request['password']);
+
+        $usuario->save();
+
+        Auth::login($usuario);
+
+        return redirect(route('/'));
+    }
+    public function login(Request $request){
+
+    }
+    public function logout(Request $request){
+
     }
 
     public function attachIngradienteUsuario(Request $request, Ingrediente $ingrediente, Usuario $usuario){

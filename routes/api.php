@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\CategoriaController;
 use App\Http\Controllers\API\RecetaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -11,6 +12,19 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:sanctum')->group(function (){
 
 }); */
+
+/**
+ * Rutas de login
+ */
+Route::post('/login',function (){
+    $credenciales = request()->only('email','password');
+   if(Auth::attempt($credenciales,true)){
+       return 'perfecto estas logeado';
+   }else{
+       return 'eres una mierda';
+   }
+});
+
 
 /**
  * Rutas para recetas.

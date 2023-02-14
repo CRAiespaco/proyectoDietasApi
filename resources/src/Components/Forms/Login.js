@@ -40,10 +40,14 @@ function Login (){
       }
     };
 
+    const enviarForm =()=>{
+      
+    }
+
     return(
       <React.Fragment>
       <div className="vh-100 d-flex justify-content-center fondoLogin was-validated">
-        <Form validated className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white was-validated">
+        <Form onSubmit={enviarForm} validated className="contenedor m-auto h-auto p-xxl-5 p-xl-5 p-sm-4 p-4 border border-success-subtle rounded-3 bg-white was-validated">
           <h2 className="tituloLogin">Login</h2>
           <Group className="mb-3 mt-3">
             <Label>Email</Label>
@@ -69,7 +73,7 @@ function Login (){
               type="password"
               placeholder="Introduce tu contraseña"/>
               <FontAwesomeIcon icon={ojo} className="btnVer"  onClick={ocultar}/>
-            <FormControl.Feedback type="invalid">¡Contraseña Inválido!</FormControl.Feedback>
+            <FormControl.Feedback type="invalid">¡Contraseña Inválida!</FormControl.Feedback>
             <FormControl.Feedback type="valid">¡Contraseña Correcta!</FormControl.Feedback>
           </Group>
           <Group className="mb-3">

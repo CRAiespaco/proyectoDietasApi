@@ -1,4 +1,4 @@
-<?php
+        <?php
 
 use App\Http\Controllers\API\UsuarioController;
 use App\Http\Controllers\API\CategoriaController;
@@ -27,6 +27,7 @@ Route::post('/login',function (){
        return 'eres una mierda';
    }
 });
+Route::post('/register',[UsuarioController::class,'register']);
 
 
 /**

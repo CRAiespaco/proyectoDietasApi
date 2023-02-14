@@ -43,12 +43,30 @@ function Register(){
   const evitarPaste = (e)=>{e.preventDefault();}
 
   const [form,setForm] = useState({
+    nombre:"",
     email:"",
-    passwordFirst:"",
+    password:"",
     passwordSecond: "",
   });
 
-  console.log(form.passwordFirst === form.passwordSecond);
+  const enviarForm = ()=>{
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(form);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost/api/register", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
     return(
         <React.Fragment>
@@ -58,7 +76,11 @@ function Register(){
             <Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Label>Usuario</Label>
               <FormControl type="text"
-              placeholder="Introduce un nombre de usuario" />
+              placeholder="Introduce un nombre de usuario"
+              onChange={e=>setForm({...form,nombre:e.target.value})} 
+              required
+
+              />
             </Group>
             <Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Label>Email</Label>
@@ -75,9 +97,9 @@ function Register(){
                ref={pass1}
                type="password"
                placeholder="Introduce tu contraseña"
-               isValid={/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.passwordFirst)}
-               isInvalid={!/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.passwordFirst)}
-               onChange={e=>setForm({...form,passwordFirst:e.target.value})}
+               isValid={/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.password)}
+               isInvalid={!/^(?!.*[{}[\]<>;:&])(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/.test(form.password)}
+               onChange={e=>setForm({...form,password:e.target.value})}
                />
               <FontAwesomeIcon icon={ojo1} className="btnVer"  onClick={ocultar}/>
             </Group>
@@ -100,7 +122,7 @@ function Register(){
               <Check type="checkbox" label="Recordar Dispositivo"/>
             </Group>
             <Group className=" d-flex justify-content-center">
-              <Button variant="success" type="button">Registrarse</Button>
+              <Button variant="success" type="button" onClick={enviarForm}>Registrarse</Button>
             </Group>
             <hr/>
             <p className="text-center or">OR</p>

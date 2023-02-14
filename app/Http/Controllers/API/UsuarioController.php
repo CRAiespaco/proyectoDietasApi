@@ -133,7 +133,7 @@ class UsuarioController extends Controller
 
         Auth::login($usuario);
 
-        return redirect(route('/'));
+        return $usuario;
     }
     public function login(Request $request){
 

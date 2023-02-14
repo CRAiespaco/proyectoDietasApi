@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+
 use App\Models\ingrediente;
 use App\Models\TotalNutricion;
 use Illuminate\Http\Request;

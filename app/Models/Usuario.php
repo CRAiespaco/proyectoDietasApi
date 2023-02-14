@@ -20,7 +20,7 @@ class Usuario extends Authenticatable
         return $this->belongsToMany(Receta::class);
     }
 
-    public function ingrediente(){
+    public function ingredientes(){
         return $this->belongsToMany(Ingrediente::class);
     }
 

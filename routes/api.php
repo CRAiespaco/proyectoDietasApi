@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Rutas de login
  */
-Route::post('/login',[UsuarioController::class,'login']);
-Route::post('/register',[UsuarioController::class,'register']);
+Route::post('/login',[UserController::class,'login']);
+Route::post('/register',[UserController::class,'register']);
 
 
 /**

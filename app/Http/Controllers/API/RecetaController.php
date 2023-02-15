@@ -47,7 +47,7 @@ class RecetaController extends Controller
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
-            
+
             $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
             $receta->imagen=$request['imagen'];
             $this->attachRecetaUsuario($request,$receta,$request['creado']);

@@ -45,7 +45,7 @@ function Header (){
             navegador.current.style.top = "0px"
         }else{
             navegador.current.style.transition = "top .6s ease"
-            navegador.current.style.top = "-60px"
+            navegador.current.style.top = "-100px"
         }
         ubicacionInicial = ubiActual;
     }
@@ -61,7 +61,7 @@ function Header (){
         <React.Fragment>
         <Navbar ref={navegador} collapseOnSelect expand='md' bg="success" variant="dark" fixed='top'>
         <Container fluid>
-            <Navbar.Brand className='linkT'><img className="logo" width={'80'} src={require('./../../images/logo.png')}/></Navbar.Brand>
+            <Navbar.Brand className='linkT'><img className="logo" width={'70'} src={require('./../../images/logo.png')}/></Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>

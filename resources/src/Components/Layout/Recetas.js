@@ -28,24 +28,24 @@ function Recetas(){
         let contenido = {
           imagen: "Hola"
         }
-        return ejemplo.map((a,i)=><Tarjeta titulo={'hola'} imagen={'feo'} totalNutricional={'a'}  key={i}/>);
+        return ejemplo.map((a,i)=><Tarjeta titulo={'Albóndiga con pasta'} imagen={'feo'} totalNutricional={1200}  key={i}/>);
     }
 
 
 
     return(
 <React.Fragment>
-<div className="w-100 wrapper mt-5">
+<div className="w-100 wrapper mt-5" style={{ "backgroundColor": "#b3b3b3"}}>
   <div className="row w-100 my-3 my-lg-4">
     <div className="col-11"><input type="search" className="form-control p-3" placeholder="Buscar una receta aqui ..."/></div>
-    <div className="col-1"><Button className="btn-primary p-3">Buscar</Button></div>
+    <div className="col-1"><Button className="btn-success p-3">Buscar</Button></div>
   </div>
   <ButtonGroup className="btn-group-lg mb-2 mb-lg-4">
-    <Button className="btn-primary">Categorias</Button>
-    <Button className="btn-primary">Valoracion</Button>
-    <Button className="btn-primary" >Filtros</Button>
-    <Button className="btn-primary">Mas</Button>
-    <Button className="btn-primary">Etc</Button>
+    <Button className="btn-success">Categorias</Button>
+    <Button className="btn-success">Valoracion</Button>
+    <Button className="btn-success" >Filtros</Button>
+    <Button className="btn-success">Mas</Button>
+    <Button className="btn-success">Etc</Button>
   </ButtonGroup>
   <div className="recetasListadas">
     {tarjetasEjemplo()}

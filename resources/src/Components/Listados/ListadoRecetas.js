@@ -44,7 +44,7 @@ function Carrusel({titulo,numTarjetas}){
     <React.Fragment>
     <h1 className='tituloCarrusel'>{titulo}</h1>
     <div className=' d-flex justify-content-center mb-4 flex-wrap gap-5' onResize={redimensionar}>
-      {array.map(()=><Tarjeta titulo={'hola'} imagen={'../../images/fondo.jpg'} totalNutricional={'a'}  key={generarUUID()} />)}
+      {array.map(()=><Tarjeta titulo={'Albóndiga con pasta'} imagen={'../../images/fondo.jpg'} totalNutricional={1200}  key={generarUUID()} />)}
     </div>
     </React.Fragment>
   );

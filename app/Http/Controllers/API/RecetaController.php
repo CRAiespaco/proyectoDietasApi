@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\API\Contr;
 use App\Http\Controllers\Requests;
 use App\Models\ingrediente;
 use App\Models\Receta;

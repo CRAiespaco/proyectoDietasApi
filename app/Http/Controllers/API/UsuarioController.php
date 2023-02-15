@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\ingrediente;
 use App\Models\Receta;
 use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -125,8 +125,8 @@ class UsuarioController extends Controller
     public function register(Request $request){
         //Validar los datos
 
-        $usuario = new Usuario();
-        $usuario->nombre = $request['nombre'];
+        $usuario = new User();
+        $usuario->name = $request['name'];
         $usuario->email = $request['email'];
         $usuario->password = Hash::make($request['password']);
 

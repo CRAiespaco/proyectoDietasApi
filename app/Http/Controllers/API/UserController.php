@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\ingrediente;
 use App\Models\Receta;
-use App\Models\Usuario;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return response(Usuario::all());
+        return response(User::all());
     }
 
     /**
@@ -42,7 +42,7 @@ class UsuarioController extends Controller
         if($validacion->fails()){
             return \response("La usuario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
-            $usuario = new Usuario();
+            $usuario = new User();
             $usuario->nombre=$request['nombre'];
             $usuario->correo=$request['correo'];
             $usuario->contrasenya=$request['contrasenya'];
@@ -67,7 +67,7 @@ class UsuarioController extends Controller
      */
     public function show($usuario)
     {
-        return response(Usuario::with('recetas','ingredientes')->find($usuario->id));
+        return response(User::with('recetas','ingredientes')->find($usuario->id));
     }
 
     /**
@@ -90,7 +90,7 @@ class UsuarioController extends Controller
         if($validacion->fails()){
             return response("La usuario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
-            $usuario = new Usuario();
+            $usuario = new User();
             $usuario->nombre=$request['nombre'];
             $usuario->correo=$request['correo'];
             $usuario->contrasenya=$request['contrasenya'];
@@ -113,9 +113,9 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
-        Usuario::destroy($usuario);
+        User::destroy($usuario);
         return response()->json([
             "mensaje"=>"Se ha borrado correctamente",
             "usuario"=>$usuario
@@ -126,7 +126,7 @@ class UsuarioController extends Controller
         //Validar los datos
 
         $usuario = new User();
-        $usuario->name = $request['name'];
+        $usuario->name = $request['nombre'];
         $usuario->email = $request['email'];
         $usuario->password = Hash::make($request['password']);
 
@@ -134,21 +134,28 @@ class UsuarioController extends Controller
 
         Auth::login($usuario);
 
-        return $usuario;
+        return $request;
     }
     public function login(Request $request){
 
+        $credenciales = request()->only('email','password');
+        if(Auth::attempt($credenciales,true)){
+            return request();
+        }else{
+            return response('No se ha podido iniciar sesion');
+        }
     }
+
     public function logout(Request $request){
 
     }
 
-    public function attachIngradienteUsuario(Request $request, Ingrediente $ingrediente, Usuario $usuario){
+    public function attachIngradienteUsuario(Request $request, Ingrediente $ingrediente, User $usuario){
         $usuario->Ingrediente()->attach($ingrediente);
         return resolve($usuario);
     }
 
-    public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
+    public function attachRecetaUsuario(Request $request, Receta $receta, User $usuario){
         $usuario->Receta()->attach($receta);
         return resolve($usuario);
     }

@@ -20,12 +20,12 @@ class Receta extends Model
     }
 
     public function usuario(){
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function intervalo(){
+/*    public function intervalo(){
         return $this->belongsTo(Intervalo::class);
-    }
+    }*/
 
     public function obtenerArrayRecetasPesos(){
         $arrayIngredientes=$this->ingredientes->withPivot('cantidad');

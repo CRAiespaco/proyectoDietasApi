@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('receta_usuario', function (Blueprint $table) {
             $table->id();
             $table->foreignId('receta_id')->constrained();
-            $table->foreignId('usuario_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

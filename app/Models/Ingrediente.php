@@ -12,7 +12,7 @@ class ingrediente extends Model
     protected $fillable = ['nombre','imagen','valorNutricional','peso'];
 
     public function usuario(){
-        return $this->belongsToMany(Usuario::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function receta(){

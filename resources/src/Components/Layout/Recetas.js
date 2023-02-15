@@ -2,26 +2,33 @@ import React from "react";
 import { Form } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Group from 'react-bootstrap/FormGroup';
-import Check from 'react-bootstrap/FormCheck'
-import Label from 'react-bootstrap/FormLabel';
-import InputGroup  from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import 'Components/Layout/recetas.css'
 import Estrellas from "Components/Base/Estrellas";
 import Tarjeta from "Components/Base/Tarjeta";
+import axios from "axios";
 import 'Components/Layout/recetasCustom.css'
 
 function Recetas(){
+
+
+  const recogerRecetas = async()=>{
+    const recetas = await axios.get('http://localhost/api/receta');
+    if(Object.keys(recetas).length){
+      
+    }
+  }
 
     const tarjetasEjemplo = ()=>{
         let ejemplo = []
         for (let i=0;i<48;i++){
             ejemplo.push(i);
         }
-        return ejemplo.map((a,i)=><Tarjeta key={i}/>)
+        let contenido = {
+          imagen: "Hola"
+        }
+        return ejemplo.map((a,i)=><Tarjeta titulo={'hola'} imagen={'feo'} totalNutricional={'a'}  key={i}/>);
     }
 
 

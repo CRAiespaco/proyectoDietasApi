@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\API\Contr;
 use App\Http\Controllers\Requests;
 use App\Models\ingrediente;
 use App\Models\Receta;
@@ -31,25 +30,29 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        $validacion = Validator::make($request->all(),[
-            "valoracion"=>"decimal:0,2",
+        /*$validacion = Validator::make($request->all(),[
+            "valoracion"=>"required",
             "pasosASeguir"=>"required",
             "ingredientes"=>"required",
             "imagen"=>"string",
-            "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
-            return \response("La receta no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
-        }else{
+            return \response()->json([
+                "Error"=>"No se ha podido almacenar",
+                "fallo"=>$validacion,
+                "Objeto"=>$request->all(),
+            ],Response::HTTP_BAD_REQUEST);
+        }else{*/
             $receta = new Receta();
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
+            
             $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
-            $receta->fechaCreacion=$request['fechaCreacion'];
             $receta->imagen=$request['imagen'];
             $this->attachRecetaUsuario($request,$receta,$request['creado']);
             $receta->validacion=$request['validacion'];
+            $receta->fechaCreacion= new \DateTime();
 
             $receta->save();
 
@@ -61,7 +64,7 @@ class RecetaController extends Controller
             ];
 
             return \response()->json($respuesta);
-        }
+        //}
     }
 
     /**

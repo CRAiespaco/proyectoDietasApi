@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStopwatch, faFire } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-function Tarjeta() {
+function Tarjeta({titulo,imagen,totalNutricional}) {
 
   const [like,setLike] = useState(false);
 
@@ -29,9 +29,9 @@ function Tarjeta() {
 
   return (
     <Card style={{ width: '288px' }} className='bodyCard'>
-      <Link to="/detallesReceta"><Card.Img className='imagenTarjeta' variant="top" src={require('../../images/fondo.jpg')} /></Link>
+      <Link to="/detallesReceta"><Card.Img className='imagenTarjeta' variant="top" src={'https://www.65ymas.com/uploads/s1/74/09/75/albondigas-espaguetis.jpeg'} /></Link>
       <Card.Body>
-        <Card.Title>Título de la Receta</Card.Title>
+        <Card.Title>{titulo}</Card.Title>
         <div className=' d-flex '>
           <EstrellasPrueba key={generarUUID()}/>
           <Link className='btn btn-success btn-sm masDetalles' to="/detallesReceta">Más detalles</Link>
@@ -42,7 +42,7 @@ function Tarjeta() {
           <FontAwesomeIcon icon={faStopwatch}/>30min
         </Card.Text>
         <Card.Text className='text-muted d-flex gap-2 align-items-center m-0'>
-          <FontAwesomeIcon icon={faFire}/> 500kcal
+          <FontAwesomeIcon icon={faFire}/> {totalNutricional} kcal
         </Card.Text>
       </div>
       </Card.Body>

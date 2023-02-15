@@ -1,6 +1,6 @@
         <?php
 
-use App\Http\Controllers\API\UsuarioController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoriaController;
 use App\Http\Controllers\API\RecetaController;
 use App\Http\Controllers\API\IngredienteController;
@@ -19,14 +19,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Rutas de login
  */
-Route::post('/login',function (){
-    $credenciales = request()->only('email','password');
-   if(Auth::attempt($credenciales,true)){
-       return 'perfecto estas logeado';
-   }else{
-       return 'eres una mierda';
-   }
-});
+Route::post('/login',[UsuarioController::class,'login']);
 Route::post('/register',[UsuarioController::class,'register']);
 
 
@@ -35,7 +28,7 @@ Route::post('/register',[UsuarioController::class,'register']);
  */
 Route::get('/receta',[RecetaController::class,'index']);//Ver todas las recetas.
 Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico.
-Route::post('/receta/{receta}',[RecetaController::class,'store']);//Guardar una receta.
+Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
 Route::put('/receta/{receta}',[RecetaController::class,'update']);//Actualizar una receta.
 Route::delete('/receta/{receta}',[RecetaController::class,'destroy']);//Eliminar una receta.
 Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::class,'attachRecetaIngrediente']);//Añade un ingrediente a una receta.
@@ -62,13 +55,13 @@ Route::delete('/totalNutricional/{totalNutricional}',[TotalNutricionController::
 /**
  * Rutas para usuarios.
  */
-Route::get('/usuario',[UsuarioController::class,'index']);//Ver todos los usuarios.
-Route::get('/usuario/{usuario}',[UsuarioController::class,'show']);//Ver un usuario con un id en especifico.
-Route::post('/usuario/{usuario}',[UsuarioController::class,'store']);//Guardar un usuario.
-Route::put('/usuario/{usuario}',[UsuarioController::class,'update']);//Actualizar un usuario.
-Route::delete('/usuario/{usuario}',[UsuarioController::class,'destroy']);//Eliminar un usuario.
-Route::post('/usuario/{usuario}/ingrediente/{ingrediente}',[UsuarioController::class,'attachIngradienteUsuario']);//Añade un ingrediente a un usuario.
-Route::post('/usuario/{usuario}/receta/{receta}',[UsuarioController::class,'attachRecetaUsuario']);//Añade un receta a un usuario.
+Route::get('/usuario',[UserController::class,'index']);//Ver todos los usuarios.
+Route::get('/usuario/{usuario}',[UserController::class,'show']);//Ver un usuario con un id en especifico.
+Route::post('/usuario/{usuario}',[UserController::class,'store']);//Guardar un usuario.
+Route::put('/usuario/{usuario}',[UserController::class,'update']);//Actualizar un usuario.
+Route::delete('/usuario/{usuario}',[UserController::class,'destroy']);//Eliminar un usuario.
+Route::post('/usuario/{usuario}/ingrediente/{ingrediente}',[UserController::class,'attachIngradienteUsuario']);//Añade un ingrediente a un usuario.
+Route::post('/usuario/{usuario}/receta/{receta}',[UserController::class,'attachRecetaUsuario']);//Añade un receta a un usuario.
 
 /**
  * Rutas para categoria.

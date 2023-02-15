@@ -34,10 +34,10 @@ class CategoriaController extends Controller
             return response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $categoria = new Categoria();
-            $categoria->tipo=$request['tipo'];
+            $categoria->tipo=$request['nombre'];
             $categoria->save();
 
-            //Categoria::create($request->tipo);
+            //Categoria::create($request->nombre);
 
             $respuesta=[
                 "mensaje"=>'Categoria creada correctamente',

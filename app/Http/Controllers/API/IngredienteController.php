@@ -30,6 +30,9 @@ class IngredienteController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $validacion = Validator::make($request->all(),[
             "valoracion"=>"decimal:0,2",
             "pasosASeguir"=>"required",
@@ -43,6 +46,8 @@ class IngredienteController extends Controller
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
             $ingrediente->imagen=$request['imagen'];
+
+
             $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
             $ingrediente->peso=$request['peso'];
             $ingrediente->save();
@@ -118,5 +123,7 @@ class IngredienteController extends Controller
         $ingrediente->totalNutricion()->attach($totalNutricion);
         return resolve($ingrediente);
     }
+
+
 
 }

@@ -31,7 +31,7 @@ Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta
 Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
 Route::put('/receta/{receta}',[RecetaController::class,'update']);//Actualizar una receta.
 Route::delete('/receta/{receta}',[RecetaController::class,'destroy']);//Eliminar una receta.
-Route::post('/receta/{receta}/ingrediente/{ingrediente}',[RecetaController::class,'attachRecetaIngrediente']);//Añade un ingrediente a una receta.
+Route::post('/receta/{receta}/ingrediente/',[RecetaController::class,'attachRecetaIngrediente']);//Añade un ingrediente a una receta.
 
 /**
  * Rutas para ingredientes.

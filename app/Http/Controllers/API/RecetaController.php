@@ -48,6 +48,9 @@ class RecetaController extends Controller
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
 
+            foreach($request['ingredientes'] as $ingrediente){
+
+            }
             $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
             $receta->imagen=$request['imagen'];
             $this->attachRecetaUsuario($request,$receta,$request['creado']);
@@ -129,8 +132,8 @@ class RecetaController extends Controller
         ],Response::HTTP_BAD_REQUEST);
     }
 
-    public function attachRecetaIngrediente(Request $request, Receta $receta, Ingrediente $ingrediente){
-        $receta->ingrediente()->attach($ingrediente);
+    public function attachRecetaIngrediente(Ingrediente $ingrediente, Receta $receta){
+        $receta->ingredientes()->attach($ingrediente->id());
         return resolve($receta);
     }
 
@@ -141,5 +144,19 @@ class RecetaController extends Controller
 
     public function paginaError(){
         return redirect('/not_found',Response::HTTP_NOT_FOUND);
+    }
+
+    public function anyadirIngredientes(array $ingredientes, Receta $receta){
+        foreach ($ingredientes as $ingrediente){
+            $ingredienteComprobar = new Ingrediente();
+            $ingredienteComprobar->nombre = $ingrediente->nombre;
+            $ingredienteComprobar->imagen = $ingrediente->imagen;
+            if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
+                $this->attachRecetaIngrediente($ingredienteComprobar, $receta);
+            }else{
+                $ingredienteComprobar->save();
+                $this->attachRecetaIngrediente($ingredienteComprobar, $receta);
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@
 ## Comandos para iniciar proyecto Laravel
 
 - Le pregunstais a Miguel Ángel como instalar el docker.
-- Para iniciar el proyecto reac cd /resources npm install y despues npm start. 
+- Para iniciar el proyecto react cd /resources npm install y despues npm start. 
 
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).

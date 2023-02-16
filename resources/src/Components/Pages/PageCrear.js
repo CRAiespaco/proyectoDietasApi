@@ -1,13 +1,13 @@
 import Footer from "Components/Layout/Footer";
 import Header from "Components/Layout/Header";
 import React from "react";
-import Crear from "Components/Forms/Crear";
+import CrearReceta from "Components/Forms/CrearReceta";
 
 function PageCrear(){
     return(
         <React.Fragment>
             <Header/>
-            <Crear/>
+            <CrearReceta/>
             <Footer/>
         </React.Fragment>
     );

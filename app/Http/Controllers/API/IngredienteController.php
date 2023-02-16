@@ -31,8 +31,6 @@ class IngredienteController extends Controller
     public function store(Request $request)
     {
 
-
-
         $validacion = Validator::make($request->all(),[
             "valoracion"=>"decimal:0,2",
             "pasosASeguir"=>"required",

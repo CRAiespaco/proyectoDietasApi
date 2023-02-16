@@ -82,31 +82,41 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Receta $receta)
+    public function update(Request $request)
     {
-        $validacion=Validator::make((array)$request,[
-            "valoracion"=>"decimal:0,2",
-            "pasosASeguir"=>"required",
-            "ingredientes"=>"required",
+        $reglas = [
+            'nombre' => 'string|max:255',
+            "valoracion"=>"numeric",
+            "pasosASeguir"=>"string",
+            "ingredientes"=>"string",
             "imagen"=>"string",
-            "validacion"=>"boolean",
-        ]);
+        ];
 
-        if($validacion->fails()){
-            return("La receta no se pudo modificar");
+        $receta = Receta::find($request['id']);
+
+        if($receta){
+            $validacion=Validator::make((array)$request,$reglas);
+
+            if($validacion->passes()){
+                $receta->nombre=$request['nombre'] ?? $receta->nombre;
+                $receta->valoracion= $request['valoracion'] ?? $receta->valoracion;
+                $receta->pasosASeguir= $request['pasosASeguir'] ?? $receta->pasosASeguir;
+                $receta->imagen=$request['imagen'] ?? $receta->imagen;
+                $receta->validacion=$request['validacion'] ?? $receta->validacion;
+                $receta->fechaCreacion= $receta->fechaCreacion;
+                $receta->save();
+
+                return \response()->json([
+                    "mensaje"=>"La receta se ha actualizado correctamente",
+                    "receta"=>$receta
+                ],Response::HTTP_ACCEPTED);
+            }else{
+                return \response('Los datos introducidos son incorrectos',Response::HTTP_BAD_REQUEST);
+            }
         }else{
-            $receta->nombre=$request['nombre'];
-            $receta->valoracion=$request['valoracion'];
-            $receta->pasosASeguir=$request['pasosASeguir'];
-            $this->anyadirIngredientes($request['ingredientes'],$receta);
-            $receta->fechaCreacion=$request['fechaCreacion'];
-            $receta->imagen=$request['imagen'];
-            $receta->validacion=$request['validacion'];
-
-            $receta->save();
-
-            return \response()->json($receta);
+            return \response('La receta que intentas actualizar no existe',Response::HTTP_BAD_REQUEST);
         }
+
 
     }
 
@@ -116,13 +126,16 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Receta $receta)
+    public function destroy(Request $request)
     {
-        Receta::destroy($receta);
-        return response()->json([
-            "mensaje"=>"Se ha borrado correctamente",
-            "receta"=>$receta
-        ],Response::HTTP_BAD_REQUEST);
+        $receta = Receta::find($request['id']);
+        if($receta){
+            Receta::destroy($request['id']);
+            return \response()->json([
+                "mensaje"=>"La receta ha sido eliminada correctamente",
+                "receta"=>$receta
+            ],Response::HTTP_ACCEPTED);
+        }
     }
 
     public function attachRecetaIngrediente(Ingrediente $ingrediente, Receta $receta){

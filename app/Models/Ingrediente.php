@@ -25,11 +25,11 @@ class Ingrediente extends Model
         return $this->belongsTo(TotalNutricion::class);
     }
 
-    public static function comprobarIngrediente(Ingrediente $ingrediente): bool
+    public static function comprobarIngrediente(Ingrediente $ingrediente): mixed
     {
-        $prueba = Ingrediente::Where('nombre',$ingrediente->nombre)->get();
+        $prueba = Ingrediente::Where('nombre',$ingrediente->nombre)->first();
             if($prueba){
-                return true;
+                return $prueba;
             }else{
                 return false;
             }

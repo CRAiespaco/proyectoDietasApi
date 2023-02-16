@@ -147,11 +147,11 @@ class RecetaController extends Controller
             ]);
             if(!$validacion->fails()){
                 $ingredienteComprobar = new Ingrediente();
-                
+
                 $ingredienteComprobar->nombre = $ingrediente['nombre'];
                 $ingredienteComprobar->imagen = $ingrediente['imagen'];
-                if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
-                    $this->attachRecetaIngrediente($ingredienteComprobar,$receta);
+                if($ingredienteanyadir = Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
+                    $this->attachRecetaIngrediente($ingredienteanyadir,$receta);
                 }else{
                     $ingredienteComprobar->save();
                     $this->attachRecetaIngrediente($ingredienteComprobar,$receta);

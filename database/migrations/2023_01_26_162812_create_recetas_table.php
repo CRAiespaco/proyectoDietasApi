@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('valoracion');
             $table->text('pasosASeguir');
             $table->string('imagen');
-            $table->float('totalNutricional');
+            $table->float('totalNutricional')->default(100.0)->nullable();
             $table->boolean('validacion');
             $table->dateTime('fechaCreacion');
             $table->timestamps();

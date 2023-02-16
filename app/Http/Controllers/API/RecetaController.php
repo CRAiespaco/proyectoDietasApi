@@ -47,17 +47,12 @@ class RecetaController extends Controller
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
-
-            foreach($request['ingredientes'] as $ingrediente){
-
-            }
-            $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
             $receta->imagen=$request['imagen'];
-            $this->attachRecetaUsuario($request,$receta,$request['creado']);
             $receta->validacion=$request['validacion'];
             $receta->fechaCreacion= new \DateTime();
-
             $receta->save();
+
+            $this->anyadirIngredientes($request['ingredientes'],$receta);
 
             //Receta::create($request->all());
 
@@ -133,13 +128,13 @@ class RecetaController extends Controller
     }
 
     public function attachRecetaIngrediente(Ingrediente $ingrediente, Receta $receta){
-        $receta->ingredientes()->attach($ingrediente->id());
-        return resolve($receta);
+        $receta->ingredientes()->attach($ingrediente);
+        return \response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
     }
 
     public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
         $receta->usuario()->attach($usuario);
-        return resolve($usuario);
+        return resolve('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
     }
 
     public function paginaError(){
@@ -147,15 +142,24 @@ class RecetaController extends Controller
     }
 
     public function anyadirIngredientes(array $ingredientes, Receta $receta){
-        foreach ($ingredientes as $ingrediente){
-            $ingredienteComprobar = new Ingrediente();
-            $ingredienteComprobar->nombre = $ingrediente->nombre;
-            $ingredienteComprobar->imagen = $ingrediente->imagen;
-            if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
-                $this->attachRecetaIngrediente($ingredienteComprobar, $receta);
+        foreach($ingredientes as $ingredienteArray => $ingrediente){
+            $validacion = Validator::make($ingrediente, [
+                'nombre' => 'required|string|max:255',
+                'imagen' => 'required|string|max:255'
+            ]);
+            if(!$validacion->fails()){
+                $ingredienteComprobar = new Ingrediente();
+
+                $ingredienteComprobar->nombre = $ingrediente['nombre'];
+                $ingredienteComprobar->imagen = $ingrediente['imagen'];
+                if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
+                    $this->attachRecetaIngrediente($ingredienteComprobar,$receta);
+                }else{
+                    $ingredienteComprobar->save();
+                    $this->attachRecetaIngrediente($ingredienteComprobar,$receta);
+                }
             }else{
-                $ingredienteComprobar->save();
-                $this->attachRecetaIngrediente($ingredienteComprobar, $receta);
+                return response('Los datos de los ingredientes son incorrectos',Response::HTTP_BAD_REQUEST);
             }
         }
     }

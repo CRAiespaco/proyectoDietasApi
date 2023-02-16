@@ -40,7 +40,11 @@ function CrearReceta(){
                 </Fila>
                 <Fila>
                     <Label>Ingredientes que tenga la receta.</Label>
-                    <FormControl type="search"/>
+                    <FormControl type="text"/>
+                </Fila>
+                <Fila>
+                    <Label>Peso ingrediente.</Label>
+                    <FormControl type="number"/>
                 </Fila>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto">Enviar</Button>

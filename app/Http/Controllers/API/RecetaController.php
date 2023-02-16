@@ -30,7 +30,8 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        /*$validacion = Validator::make($request->all(),[
+        $validacion = Validator::make($request->all(),[
+            "nombre"=>"required",
             "valoracion"=>"required",
             "pasosASeguir"=>"required",
             "ingredientes"=>"required",
@@ -42,7 +43,7 @@ class RecetaController extends Controller
                 "fallo"=>$validacion,
                 "Objeto"=>$request->all(),
             ],Response::HTTP_BAD_REQUEST);
-        }else{*/
+        }else{
             $receta = new Receta();
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
@@ -54,15 +55,13 @@ class RecetaController extends Controller
 
             $this->anyadirIngredientes($request['ingredientes'],$receta);
 
-            //Receta::create($request->all());
-
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',
                 'Receta'=>$receta
             ];
 
             return \response()->json($respuesta);
-        //}
+        }
     }
 
     /**
@@ -99,10 +98,9 @@ class RecetaController extends Controller
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
             $receta->pasosASeguir=$request['pasosASeguir'];
-            $this->attachRecetaIngrediente($request,$receta,$request['ingrediente']);
+            $this->anyadirIngredientes($request['ingredientes'],$receta);
             $receta->fechaCreacion=$request['fechaCreacion'];
             $receta->imagen=$request['imagen'];
-            $this->attachRecetaUsuario($request,$receta,$request['creado']);
             $receta->validacion=$request['validacion'];
 
             $receta->save();
@@ -134,7 +132,7 @@ class RecetaController extends Controller
 
     public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
         $receta->usuario()->attach($usuario);
-        return resolve('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
+        return response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
     }
 
     public function paginaError(){
@@ -149,7 +147,7 @@ class RecetaController extends Controller
             ]);
             if(!$validacion->fails()){
                 $ingredienteComprobar = new Ingrediente();
-
+                
                 $ingredienteComprobar->nombre = $ingrediente['nombre'];
                 $ingredienteComprobar->imagen = $ingrediente['imagen'];
                 if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {

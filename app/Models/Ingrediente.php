@@ -27,13 +27,12 @@ class Ingrediente extends Model
 
     public static function comprobarIngrediente(Ingrediente $ingrediente): bool
     {
-        $valido = true;
-        try{
-            Ingrediente::Where('nombre',$ingrediente->nombre)->findOrFail();
-        }catch (\Throwable $e){
-            $valido = false;
-        }
-        return $valido;
+        $prueba = Ingrediente::Where('nombre',$ingrediente->nombre)->get();
+            if($prueba){
+                return true;
+            }else{
+                return false;
+            }
     }
 
 }

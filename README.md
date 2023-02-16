@@ -9,7 +9,8 @@
 
 ## Comandos para iniciar proyecto Laravel
 
-Le pregunstais a miguel
+Le pregunstais a miguel.
+para iniciar el proyecto reac cd /resources npm install y despues npm start. 
 Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).

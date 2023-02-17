@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -13,24 +13,24 @@ import 'Components/Layout/recetasCustom.css'
 function Recetas(){
 
 
-  const recogerRecetas = async()=>{
-    const recetas = await axios.get('http://localhost/api/receta');
-    if(Object.keys(recetas).length){
-      
-    }
+  const [datos,setDatos] = useState(null);
+
+
+  const cargarRecetas = async()=>{
+    const recetas = await axios.get('http://localhost:8090/api/receta');
+    setDatos(recetas.data);
   }
 
-    const tarjetasEjemplo = ()=>{
-        let ejemplo = []
-        for (let i=0;i<48;i++){
-            ejemplo.push(i);
-        }
-        let contenido = {
-          imagen: "Hola"
-        }
-        return ejemplo.map((a,i)=><Tarjeta titulo={'Albóndiga con pasta'} imagen={'feo'} totalNutricional={1200}  key={i}/>);
+  const cargarTarjetas = ()=>{
+    if(datos!==null){
+      return (datos.map((tarjeta,i)=><Tarjeta key={i} titulo={tarjeta.titulo} imagen={tarjeta.imagen}/>))
     }
 
+  }
+
+  useEffect(()=>{
+    cargarRecetas();
+  },[])
 
 
     return(
@@ -46,7 +46,7 @@ function Recetas(){
     <Button className="btn-success" >Ingredientes</Button>
   </ButtonGroup>
   <div className="recetasListadas">
-    {tarjetasEjemplo()}
+    {cargarTarjetas()}
   </div>
 </div>
 </React.Fragment>

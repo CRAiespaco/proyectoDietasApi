@@ -57,7 +57,8 @@ class RecetaController extends Controller
 
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',
-                'Receta'=>$receta
+                'Receta'=>$receta,
+                "bien"=>true
             ];
 
             return \response()->json($respuesta);

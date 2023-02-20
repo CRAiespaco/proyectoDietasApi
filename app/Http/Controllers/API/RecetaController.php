@@ -147,7 +147,7 @@ class RecetaController extends Controller
             ]);
             if(!$validacion->fails()){
                 $ingredienteComprobar = new Ingrediente();
-                
+
                 $ingredienteComprobar->nombre = $ingrediente['nombre'];
                 $ingredienteComprobar->imagen = $ingrediente['imagen'];
                 if(Ingrediente::comprobarIngrediente($ingredienteComprobar)) {

@@ -56,9 +56,9 @@ class ObjetivoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingrediente $objetivo)
+    public function show(Objetivo $objetivo)
     {
-        return response(Ingrediente::with('totalNutricion')->find($objetivo->id));
+        return response(Objetivo::with('totalNutricion')->find($objetivo->id));
     }
 
     /**
@@ -71,11 +71,9 @@ class ObjetivoController extends Controller
     public function update(Request $request, $objetivo)
     {
         $validacion=Validator::make((array)$request,[
-            "valoracion"=>"decimal:0,2",
-            "pasosASeguir"=>"required",
-            "ingredientes"=>"required",
-            "imagen"=>"string",
-            "validacion"=>"boolean",
+            "edad"=>"int",
+            "altura"=>"decimal:0,2",
+            "peso"=>"decimal:0,2",
         ]);
 
         if($validacion->fails()){
@@ -85,7 +83,7 @@ class ObjetivoController extends Controller
             $objetivo->edad=$request['edad'];
             $objetivo->altura=$request['altura'];
             $objetivo->peso=$request['peso'];
-            $this->attachIngradienteTotalNutricion($request,$objetivo,$request['totalNutricional']);
+            /*$this->attachIngradienteTotalNutricion($request,$objetivo,$request['totalNutricional']);*/
             $objetivo->save();
 
             return response()->json($objetivo);
@@ -98,9 +96,9 @@ class ObjetivoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function destroy(Ingrediente $objetivo)
+    public function destroy(Objetivo $objetivo)
     {
-        Ingrediente::destroy($objetivo);
+        Objetivo::destroy($objetivo);
         return response()->json([
             "mensaje"=>"Se ha borrado correctamente",
             "Ingrediente"=>$objetivo

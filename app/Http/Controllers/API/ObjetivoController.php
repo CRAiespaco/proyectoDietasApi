@@ -36,8 +36,7 @@ class ObjetivoController extends Controller
             $objetivo->edad=$request['edad'];
             $objetivo->altura=$request['altura'];
             $objetivo->peso=$request['peso'];
-
-            $this->attachIngradienteTotalNutricion($request,$objetivo,$request['totalNutricional']);
+            $objetivo->tipoObjetivo=$request['tipoObjetivo'];//Mirar como se hace bien
             $objetivo->save();
 
             $respuesta = [
@@ -83,7 +82,7 @@ class ObjetivoController extends Controller
             $objetivo->edad=$request['edad'];
             $objetivo->altura=$request['altura'];
             $objetivo->peso=$request['peso'];
-            /*$this->attachIngradienteTotalNutricion($request,$objetivo,$request['totalNutricional']);*/
+            $objetivo->tipoObjetivo=$request['tipoObjetivo'];
             $objetivo->save();
 
             return response()->json($objetivo);

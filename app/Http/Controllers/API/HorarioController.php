@@ -32,7 +32,7 @@ class HorarioController extends Controller
             return response("La Horario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $horario = new Horario();
-            $horario->horaInicio=$request['horaInicio'];
+            $horario->fecha=$request['fecha'];
             $horario->save();
 
             $respuesta = [
@@ -73,7 +73,7 @@ class HorarioController extends Controller
             return response("La receta no se pudo modificar");
         }else{
             $horario = new Horario();
-            $horario->horaInicio=$request['horaInicio'];
+            $horario->fecha=$request['fecha'];
             $horario->save();
 
             return response()->json($horario);

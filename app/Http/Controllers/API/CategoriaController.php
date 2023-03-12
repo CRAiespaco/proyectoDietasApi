@@ -80,7 +80,7 @@ class CategoriaController extends Controller
             $categoria->save();
 
             $respuesta = [
-                "mensaje"=>'Receta creada correctamente',
+                "mensaje"=>'Categoria creada correctamente',
                 'Categoria'=>$categoria
             ];
 

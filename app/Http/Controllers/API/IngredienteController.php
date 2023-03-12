@@ -39,7 +39,7 @@ class IngredienteController extends Controller
             "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
-            return response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("El ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
@@ -51,7 +51,7 @@ class IngredienteController extends Controller
             $ingrediente->save();
 
             $respuesta = [
-                "mensaje"=>'ingrediente creado correctamente',
+                "mensaje"=>'Ingrediente creado correctamente',
                 'Ingrediente'=>$ingrediente
             ];
 
@@ -89,7 +89,7 @@ class IngredienteController extends Controller
         ]);
 
         if($validacion->fails()){
-            return response("La receta no se pudo modificar");
+            return response("El ingrediente no se pudo modificar");
         }else{
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];

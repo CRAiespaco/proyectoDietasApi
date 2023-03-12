@@ -51,7 +51,7 @@ class UserController extends Controller
             $usuario->save();
 
             $respuesta = [
-                "mensaje"=>'ingrediente creado correctamente',
+                "mensaje"=>'Usuario creado correctamente',
                 'usuario'=>$usuario
             ];
 

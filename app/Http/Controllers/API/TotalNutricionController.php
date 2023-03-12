@@ -47,7 +47,7 @@ class TotalNutricionController extends Controller
         }
 
         $respuesta = [
-            "mensaje"=>'ingrediente creado correctamente',
+            "mensaje"=>'Total nutricional creado correctamente',
             'TotalNutricion'=>$totalNutricion
         ];
 
@@ -91,7 +91,7 @@ class TotalNutricionController extends Controller
         }
 
         $respuesta = [
-            "mensaje"=>'ingrediente creado correctamente',
+            "mensaje"=>'Total nutricional modificado correctamente',
             'TotalNutricion'=>$totalNutricion
         ];
 

@@ -29,7 +29,7 @@ class HorarioController extends Controller
             "fecha"=>"Date",
         ]);
         if($validacion->fails()){
-            return response("La Horario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("El horario no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $horario = new Horario();
             $horario->fecha=$request['fecha'];
@@ -70,7 +70,7 @@ class HorarioController extends Controller
         ]);
 
         if($validacion->fails()){
-            return response("La receta no se pudo modificar");
+            return response("El horario no se pudo modificar");
         }else{
             $horario = new Horario();
             $horario->fecha=$request['fecha'];

@@ -32,7 +32,7 @@ class IntervaloController extends Controller
             "nombre"=>"string",
         ]);
         if($validacion->fails()){
-            return response("La Intervalo no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("El Intervalo no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $intervalo = new Intervalo();
             $intervalo->horaInicio=$request['horaInicio'];
@@ -79,7 +79,7 @@ class IntervaloController extends Controller
         ]);
 
         if($validacion->fails()){
-            return response("La receta no se pudo modificar");
+            return response("El intervalo no se pudo modificar");
         }else{
             $intervalo = new Intervalo();
             $intervalo->horaInicio=$request['horaInicio'];

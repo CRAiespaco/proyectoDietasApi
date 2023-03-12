@@ -30,7 +30,7 @@ class ObjetivoController extends Controller
             "peso"=>"decimal:0,2",
         ]);
         if($validacion->fails()){
-            return response("La ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("El objetivo no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $objetivo = new Objetivo();
             $objetivo->edad=$request['edad'];
@@ -40,7 +40,7 @@ class ObjetivoController extends Controller
             $objetivo->save();
 
             $respuesta = [
-                "mensaje"=>'ingrediente creado correctamente',
+                "mensaje"=>'Objetivo creado correctamente',
                 'Ingrediente'=>$objetivo
             ];
 
@@ -76,7 +76,7 @@ class ObjetivoController extends Controller
         ]);
 
         if($validacion->fails()){
-            return response("La receta no se pudo modificar");
+            return response("El objetivo no se pudo modificar");
         }else{
             $objetivo = new Objetivo();
             $objetivo->edad=$request['edad'];

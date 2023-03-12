@@ -39,7 +39,7 @@ class RecetaController extends Controller
         ]);
         if($validacion->fails()){
             return \response()->json([
-                "Error"=>"No se ha podido almacenar",
+                "Error"=>"La receta no se ha podido almacenar",
                 "fallo"=>$validacion,
                 "Objeto"=>$request->all(),
             ],Response::HTTP_BAD_REQUEST);

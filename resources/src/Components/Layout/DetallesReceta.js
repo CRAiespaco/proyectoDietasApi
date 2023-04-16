@@ -1,45 +1,57 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import 'Components/Layout/detalles.css';
 import 'Components/Layout/customDetalles.css'
 import EstrellasPrueba from "Components/Base/EstrellasPrueba";
 import Carrusel from "Components/Listados/ListadoRecetas";
 import { generarUUID } from "Functions/Funciones";
-
+import { useParams } from "react-router-dom";
+import { recetasProvedor } from "context/RecetasProvider";
+import { upperFirstLetter } from "Functions/Funciones";
+import axios from "axios";
+import Ingredientes from "Components/Base/Ingredientes";
 function DetallesReceta(){
+  const { id } = useParams();
+  const { recetas } = useContext(recetasProvedor);
+  const [receta,setReceta] = useState({});
+
+  const cargarReceta = async()=>{
+    let recetaEncontrada = recetas.find(receta => receta.id ==  parseInt(id));
+
+    console.log(recetaEncontrada);
+
+    if(recetaEncontrada===undefined){
+      let recetaBase = await axios.get(`http://localhost/api/receta/${id}`);
+      setReceta(recetaBase.data);
+    }else{
+      setReceta(recetaEncontrada);
+    }
+  }
+
+  useEffect(()=>{
+    cargarReceta();
+  },[id])
+
+
+
+console.log(receta);
+
     return(
         <React.Fragment>
-<h2 className="textoCentrado mt-3">Titulo de la receta  </h2>
+<div style={{ marginTop:'120px' }}>
+<h2 className="textoCentrado mt-3">{receta.nombre}</h2>
 <div className="container mt-4">
   <div className="row">
     <div className="col-lg-8 text11-content">
-      <img src={require('images/fondo.jpg')} className="img-fluid radius-image" alt="" />
+      <img src={receta.imagen} className="img-fluid radius-image" alt="" />
       <h2 className="title mt-3">Ingredientes</h2>
       <blockquote className="quote my-sm-3 my-3 p-3">
         <ol>
-            <li>Patatas <span>100g</span></li>
-            <li>Patatas <span>100g</span></li>
-            <li>Patatas <span>100g</span></li>
-            <li>Patatas <span>100g</span></li>
+          <Ingredientes ingredientes={receta.ingredientes} /> 
         </ol>
        <h5>Valor Nutricional <span className="negrita">1500kcal</span></h5>
       </blockquote>
       <h2>Instrucciones.</h2>
-      <p className="mb-3">
-        Fusce faucibus ante vitae justo efficitur elementum. Donec et ipsum
-        faucibus arcu ipsum elementum, luctus justo. ac purus semper. Fusce
-        faucibus ante vitae justo efficitur sed et elementum. Donec ipsum
-        faucibus arcu elementum, luctus justo. ac purus semper. Fusce faucibus
-        ante vitae justo efficitur elementum. Donec ipsum faucibus arcu...</p>
-      <p className="mb-4">
-        Lorem faucibus fusce ante vitae justo efficitur elementum. Donec ipsum
-        faucibus arcu elementum, luctus justo. ac purus semper. Fusce faucibus
-        ante vitae justo efficitur elementum. Donec ipsum faucibus. Donec ipsum
-        faucibus arcu elementum..</p>
-      <p className="mb-3">
-        Lorem faucibus fusce ante vitae justo efficitur elementum. Donec ipsum
-        faucibus arcu elementum, luctus justo. ac purus semper. Fusce faucibus
-        ante vitae justo efficitur elementum. Donec ipsum faucibus. Donec ipsum
-        faucibus arcu elementum..</p>
+      <p className="mb-3">{receta.pasosASeguir}</p>
       <div className="item mb-5">
         <Carrusel titulo={'Tal vez te interesa.'} numTarjetas={2}/>
       </div>
@@ -150,7 +162,7 @@ function DetallesReceta(){
     </div>
   </div>
 </div>
-
+</div>
         </React.Fragment>
     )
 }

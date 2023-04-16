@@ -19,7 +19,7 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        return response(Receta::all());
+        return response(Receta::with('categorias','ingredientes')->get());
     }
 
     /**
@@ -137,6 +137,12 @@ class RecetaController extends Controller
                 "receta"=>$receta
             ],Response::HTTP_ACCEPTED);
         }
+    }
+
+    public function buscarPorPalabraClave(Request $request){
+        $palabraClave = $request->input('titulo');
+        $recetas = Receta::where('nombre','like','%'.$palabraClave.'%')->get();
+        return \response()->json($recetas);
     }
 
     public function attachRecetaIngrediente(Ingrediente $ingrediente, Receta $receta){

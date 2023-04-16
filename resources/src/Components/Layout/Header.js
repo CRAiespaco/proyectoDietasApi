@@ -13,7 +13,7 @@ function Header (){
         },
         {
             titulo:"Recetas",
-            path:"/recetas"
+            path:"/buscador"
         },
         /* {
             titulo:"Personalizados",

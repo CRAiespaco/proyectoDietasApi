@@ -27,7 +27,8 @@ Route::post('/register',[UserController::class,'register']);
  * Rutas para recetas.
  */
 Route::get('/receta',[RecetaController::class,'index']);//Ver todas las recetas.
-Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico.
+Route::get('/receta/buscador',[RecetaController::class,'buscarPorPalabraClave']);//Busca una receta por el nombre del titulo.
+Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico
 Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
 Route::put('/receta',[RecetaController::class,'update']);//Actualizar una receta.
 Route::delete('/receta',[RecetaController::class,'destroy']);//Eliminar una receta.

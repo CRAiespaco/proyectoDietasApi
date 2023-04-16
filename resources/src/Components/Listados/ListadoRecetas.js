@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import Tarjeta from 'Components/Base/Tarjeta';
 import 'Components/Listados/ListadoRecetas.css'
 import axios from 'axios';
+import { recetasProvedor } from 'context/RecetasProvider';
 
 function Carrusel({titulo,numTarjetas}){
 
   const [width, setWidth] = useState(window.innerWidth);
   const [num,setNum] = useState(numTarjetas);
+  const { setRecetas } = useContext(recetasProvedor);
 
 
   
@@ -18,8 +20,6 @@ function Carrusel({titulo,numTarjetas}){
     return () => {window.removeEventListener("resize", handleResize);}
     
   }, []);
-
-  const redimensionar = (e) =>{console.log(e)}
 
     useEffect(() => {
       if (width <= 1250) {
@@ -34,15 +34,16 @@ function Carrusel({titulo,numTarjetas}){
 
 
   const cargarRecetas = async()=>{
-    const recetas = await axios.get('http://localhost:8090/api/receta');
+    const recetas = await axios.get('http://localhost/api/receta');
     setDatos(recetas.data);
+    setRecetas(recetas.data);
   }
 
   const cargarTarjetas = ()=>{
     if(datos!==null){
       return (datos.map((tarjeta,indice)=>{
         if(indice<=num){
-          return<Tarjeta key={indice} titulo={tarjeta.nombre} imagen={tarjeta.imagen}/>
+          return<Tarjeta key={indice} datos={tarjeta}/>
         }
     }))
     }
@@ -58,7 +59,7 @@ function Carrusel({titulo,numTarjetas}){
   return (
     <React.Fragment>
     <h1 className='tituloCarrusel'>{titulo}</h1>
-    <div className=' d-flex justify-content-center mb-4 flex-wrap gap-5' onResize={redimensionar}>
+    <div className=' d-flex justify-content-center mb-4 flex-wrap gap-5'>
       {cargarTarjetas()}
     </div>
     </React.Fragment>

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStopwatch, faFire } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-function Tarjeta({titulo,imagen}) {
+function Tarjeta({datos}) {
 
   const [like,setLike] = useState(false);
 
@@ -29,12 +29,12 @@ function Tarjeta({titulo,imagen}) {
 
   return (
     <Card style={{ width: '288px' }} className='bodyCard'>
-      <Link to="/detallesReceta"><Card.Img className='imagenTarjeta' variant="top" src={imagen} /></Link>
+      <Link to="/detallesReceta"><Card.Img className='imagenTarjeta' variant="top" src={datos.imagen} /></Link>
       <Card.Body>
-        <Card.Title>{titulo}</Card.Title>
+        <Card.Title>{datos.nombre}</Card.Title>
         <div className=' d-flex '>
           <EstrellasPrueba key={generarUUID()}/>
-          <Link className='btn btn-success btn-sm masDetalles' to="/detallesReceta">Más detalles</Link>
+          <Link className='btn btn-success btn-sm masDetalles' to={`/detallesReceta/${datos.id}`}>Más detalles</Link>
         </div>
         <FontAwesomeIcon icon={faHeart} className='heartCard' onClick={favorito} />
       <div className='d-flex justify-content-around mt-2'>

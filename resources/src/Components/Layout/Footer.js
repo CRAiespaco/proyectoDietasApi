@@ -1,6 +1,5 @@
 import React from 'react';
 import './Footer.css';
-import TarjetaFooter from 'Components/Base/TarjetaFooter.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faLocationDot , faPhone, faGlobe } from '@fortawesome/free-solid-svg-icons';

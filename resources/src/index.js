@@ -15,6 +15,7 @@ import PageRecetas from 'Components/Pages/PageRecetas';
 import PageIncidencias from 'Components/Pages/PageIncidencias';
 import PageDetallesReceta from 'Components/Pages/PageDetallesReceta';
 import PageError from 'Components/Pages/PageError';
+import RecetasProvider from 'context/RecetasProvider';
 
 
 const router = createBrowserRouter(
@@ -25,8 +26,8 @@ const router = createBrowserRouter(
       <Route path="/register" element={ <PageRegister/> }/>
       <Route path='/incidencias' element={<PageIncidencias/>}/>
       <Route path="/crear" element={ <PageCrear/> }/>
-      <Route path="/recetas" element={ <PageRecetas/> }/>
-      <Route path='/detallesReceta' element={ <PageDetallesReceta/> }/>
+      <Route path="/buscador" element={ <PageRecetas/> }/>
+      <Route path='/detallesReceta/:id' element={ <PageDetallesReceta/> }/>
       <Route path='*' element={ <PageError/> }/>
     </React.Fragment>
   )
@@ -34,6 +35,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <RecetasProvider>
     <RouterProvider router={router} />
+    </RecetasProvider>
   </React.StrictMode>
 );

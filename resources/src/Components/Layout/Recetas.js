@@ -17,13 +17,14 @@ function Recetas(){
 
 
   const cargarRecetas = async()=>{
-    const recetas = await axios.get('http://localhost:8090/api/receta');
+    const recetas = await axios.get('http://localhost/api/receta');
     setDatos(recetas.data);
   }
 
   const cargarTarjetas = ()=>{
     if(datos!==null){
-      return (datos.map((tarjeta,i)=><Tarjeta key={i} titulo={tarjeta.titulo} imagen={tarjeta.imagen}/>))
+      console.log(datos);
+      return (datos.map((tarjeta,i)=><Tarjeta key={i} datos={tarjeta}/>))
     }
 
   }

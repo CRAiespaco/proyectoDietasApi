@@ -13,4 +13,8 @@ const generarUUID = () => {
   return uuid;
 };
 
-export { generarUUID };
+const upperFirstLetter = (texto)=>{
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+export { generarUUID, upperFirstLetter };

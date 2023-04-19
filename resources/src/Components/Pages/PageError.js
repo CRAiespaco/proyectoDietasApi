@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 
 function PageError(){
     const zorrita = async()=>{
-        let url = fetch("http://localhost:90/api/error")
+        let url = fetch("http://localhost/api/error")
         .then(respuesta => respuesta.json)
         .then(a => console.log(a));
     }

@@ -2,12 +2,13 @@ import Footer from "Components/Layout/Footer";
 import Header from "Components/Layout/Header";
 import Principal from "Components/Layout/Principal";
 import Carrusel from "Components/Listados/ListadoRecetas";
-import Banner from "Components/Base/Banner";
+import Placeholder from 'react-bootstrap/Placeholder';
 import React from "react";
 import Paginacion from "Components/Base/Paginacion";
 import { Card } from "react-bootstrap";
 import Tarjeta from "Components/Base/Tarjeta";
 import { Link } from "react-router-dom";
+import EstrellasPrueba from "Components/Base/EstrellasPrueba";
 function PageHome(){
 
 
@@ -34,6 +35,7 @@ function PageHome(){
                 {/* <Card className="text-white bg-success my-5 py-4 text-center w-50 mx-auto">
                 <Card.Body><p className="text-white m-0 textoBanner">   This call to action card is a great place to showcase some important information or display a clever tagline!</p></Card.Body>
             </Card> */}
+
                 <Carrusel titulo={"Últimas Recetas"} numTarjetas={4}/>
                 <div className="row gx-4 gx-lg-5 align-items-center py-5 justify-content-center">
                     <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center text-center mb-3">

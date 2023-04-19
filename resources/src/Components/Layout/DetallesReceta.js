@@ -15,9 +15,7 @@ function DetallesReceta(){
   const [receta,setReceta] = useState({});
 
   const cargarReceta = async()=>{
-    let recetaEncontrada = recetas.find(receta => receta.id ==  parseInt(id));
-
-    console.log(recetaEncontrada);
+    let recetaEncontrada = recetas.find(receta => receta.id == parseInt(id));
 
     if(recetaEncontrada===undefined){
       let recetaBase = await axios.get(`http://localhost/api/receta/${id}`);
@@ -29,11 +27,8 @@ function DetallesReceta(){
 
   useEffect(()=>{
     cargarReceta();
+    window.scrollTo(0,0);
   },[id])
-
-
-
-console.log(receta);
 
     return(
         <React.Fragment>
@@ -53,7 +48,7 @@ console.log(receta);
       <h2>Instrucciones.</h2>
       <p className="mb-3">{receta.pasosASeguir}</p>
       <div className="item mb-5">
-        <Carrusel titulo={'Tal vez te interesa.'} numTarjetas={2}/>
+        <Carrusel titulo={'Tal vez te interesa.'} numTarjetas={1}/>
       </div>
     </div>
     <div className="sidebar-side col-lg-4 pl-lg-5 mt-lg-0 mt-5 ">
@@ -84,13 +79,6 @@ console.log(receta);
               <div className="post-info">Feb 13, 2021</div>
             </div>
           </article>
-          <article className="post">
-            <img src={require('images/fondo.jpg')} alt="" />
-            <div className="text">
-              <a href="blog-single.html">Amkmm Ut enim ad minim</a>
-              <div className="post-info">Feb 14, 2021</div>
-            </div>
-          </article>
         </div>
         {/* Category Widget */}
         <div className="sidebar-widget sidebar-blog-category">
@@ -104,7 +92,6 @@ console.log(receta);
             <li><a href="#link">Guides<label>3</label></a></li>
           </ul>
         </div>
-
         {/*Los Widgets */}
         <div className="sidebar-widget about-widget">
           <div className="sidebar-title">
@@ -115,17 +102,6 @@ console.log(receta);
             <div className="right-ab-block bg-grey">
               <EstrellasPrueba key={generarUUID()}/>
             </div>
-          </div>
-        </div>
-        {/* ads Widget */}
-        <div className="sidebar-widget">
-          <div className="sidebar-title">
-            <h4>Ads</h4>
-          </div>
-          <div className="ads-img-ab">
-            <a href="blog.html">
-              <img src="assets/images/ads.jpg" className="img-fluid" alt="" />
-            </a>
           </div>
         </div>
         {/* social media Widget*/}
@@ -157,6 +133,17 @@ console.log(receta);
             <i className="fab fa-vimeo-v" />
             Viemo
           </a>
+        </div>
+        {/* ads Widget */}
+        <div className="sidebar-widget">
+          <div className="sidebar-title">
+            <h4>Ads</h4>
+          </div>
+          <div className="ads-img-ab">
+            <a href="blog.html">
+              <img src="assets/images/ads.jpg" className="img-fluid" alt="" />
+            </a>
+          </div>
         </div>
       </aside>
     </div>

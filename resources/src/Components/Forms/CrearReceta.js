@@ -60,10 +60,14 @@ function CrearReceta(){
            )
     }
 
+    const handleInput = (event)=>{
+        let valor = event.target.value
+        if(valor === "") valor = 1;
+        setNumFilas(parseInt(valor))
+    }
+
     const enviarForm =async ()=>{
         const respuesta = await axios.post("http://localhost:8090/api/receta",form);
-        console.log(respuesta.data);
-        
     }
 
 
@@ -99,7 +103,7 @@ function CrearReceta(){
                 <Fila>
                     <Group>
                         <Label>Numero de Ingredientes que tenga la receta.</Label>
-                        <FormControl type="number" min={1} onInput={e=>setNumFilas(parseInt(e.target.value))}/>
+                        <FormControl type="number" min={1} onInput={handleInput}/>
                     </Group>
                 </Fila>
                 {filasDinamicas()}

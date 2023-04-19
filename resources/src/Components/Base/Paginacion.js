@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import Tarjeta from './Tarjeta';
-import 'Components/Base/banner.css';
 
 const Paginacion = ({ itemsPerPage, totalItems }) => {
   const [currentPage, setCurrentPage] = useState(1);

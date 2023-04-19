@@ -4,6 +4,7 @@ import 'Components/Listados/ListadoRecetas.css'
 import axios from 'axios';
 import { recetasProvedor } from 'context/RecetasProvider';
 import { generarUUID } from 'Functions/Funciones';
+import LoadingTarjeta from 'Components/Base/LoadingTarjeta';
 
 function Carrusel({titulo,numTarjetas}){
 
@@ -33,22 +34,10 @@ function Carrusel({titulo,numTarjetas}){
     
   const [datos,setDatos] = useState(null);
 
-
   const cargarRecetas = async()=>{
     const recetas = await axios.get('http://localhost/api/receta');
     setDatos(recetas.data);
     setRecetas(recetas.data);
-  }
-
-  const cargarTarjetas = ()=>{
-    if(datos!==null){
-      return (datos.map((tarjeta,indice)=>{
-        if(indice<=num){
-          return<Tarjeta key={indice} datos={tarjeta}/>
-        }
-    }))
-    }
-
   }
 
   useEffect(()=>{
@@ -59,7 +48,8 @@ function Carrusel({titulo,numTarjetas}){
     <React.Fragment>
     <h1 className='tituloCarrusel'>{titulo}</h1>
     <div className=' d-flex justify-content-center mb-4 flex-wrap gap-5'>
-      { datos !== null ? datos.slice(0,num+1).map(receta => <Tarjeta key={generarUUID()} datos={receta} />) : <div>Cargando....</div>}
+      { datos !== null ? datos.slice(0,num+1).map(receta => <Tarjeta key={generarUUID()} datos={receta} />) : 
+      [...Array(num+1)].map(()=> <LoadingTarjeta key={generarUUID()} />) }
     </div>
     </React.Fragment>
   );

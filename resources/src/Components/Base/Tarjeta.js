@@ -29,13 +29,13 @@ function Tarjeta({datos}) {
 
   return (
     <Card style={{ width: '288px' }} className='bodyCard'>
-      <Link to="/detallesReceta"><Card.Img className='imagenTarjeta' variant="top" src={datos.imagen} /></Link>
+      <Link to={`/detallesReceta/${datos.id}`}><Card.Img className='imagenTarjeta' variant="top" src={datos.imagen} /></Link>
       <Card.Body>
         <Card.Title>{datos.nombre}</Card.Title>
         <div className=' d-flex '>
           <EstrellasPrueba key={generarUUID()}/>
           <Link className='btn btn-success btn-sm masDetalles' to={`/detallesReceta/${datos.id}`}>Más detalles</Link>
-        </div>
+        </div> 
         <FontAwesomeIcon icon={faHeart} className='heartCard' onClick={favorito} />
       <div className='d-flex justify-content-around mt-2'>
         <Card.Text className='text-muted d-flex gap-2 align-items-center m-0'>

@@ -3,6 +3,7 @@ import Tarjeta from 'Components/Base/Tarjeta';
 import 'Components/Listados/ListadoRecetas.css'
 import axios from 'axios';
 import { recetasProvedor } from 'context/RecetasProvider';
+import { generarUUID } from 'Functions/Funciones';
 
 function Carrusel({titulo,numTarjetas}){
 
@@ -54,13 +55,11 @@ function Carrusel({titulo,numTarjetas}){
     cargarRecetas();
   },[])
 
-  
-
   return (
     <React.Fragment>
     <h1 className='tituloCarrusel'>{titulo}</h1>
     <div className=' d-flex justify-content-center mb-4 flex-wrap gap-5'>
-      {cargarTarjetas()}
+      { datos !== null ? datos.slice(0,num+1).map(receta => <Tarjeta key={generarUUID()} datos={receta} />) : <div>Cargando....</div>}
     </div>
     </React.Fragment>
   );

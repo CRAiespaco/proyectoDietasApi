@@ -37,9 +37,9 @@ Route::post('/receta/{receta}/ingrediente/',[RecetaController::class,'attachRece
 /**
  * Rutas para ingredientes.
  */
-Route::get('/ingrediente',[IngredienteController::class,'index']);//Ver todas los ingrediente.
+Route::get('/ingredientes',[IngredienteController::class,'index']);//Ver todas los ingrediente.
 Route::get('/ingrediente/{ingrediente}',[IngredienteController::class,'show']);//Ver un ingrediente con un id en especifico.
-Route::post('/ingrediente/{ingrediente}',[IngredienteController::class,'store']);//Guardar un ingrediente.
+Route::post('/ingrediente',[IngredienteController::class,'store']);//Guardar un ingrediente.
 Route::put('/ingrediente/{ingrediente}',[IngredienteController::class,'update']);//Actualizar un ingrediente.
 Route::delete('/ingrediente/{ingrediente}',[IngredienteController::class,'destroy']);//Eliminar un ingrediente.
 Route::post('/receta/{receta}/totalNutricional/{totalNutricional}',[IngredienteController::class,'attachIngradienteTotalNutricion']);//Añade un totalNutricional a un ingrediente.

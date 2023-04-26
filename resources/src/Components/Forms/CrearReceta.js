@@ -9,6 +9,7 @@ import Fila from 'react-bootstrap/Row';
 import Columna from 'react-bootstrap/Col';
 import { generarUUID } from "Functions/Funciones";
 import axios from "axios";
+import { BASE_URL } from "constant/constantes";
 
 
 function CrearReceta(){
@@ -38,6 +39,21 @@ function CrearReceta(){
         let total = Array(numFilas).fill(0);
         setFilasTotal(total);
     },[numFilas]);
+
+    const [ingredientes,setIngredientes] = useState({});
+
+    const conseguirIngredientes = ()=>{
+        return fetch(`${BASE_URL}/ingrediente`)
+        .then(respuesta => respuesta.json())
+        .then(datos => setIngredientes(datos))
+    }
+
+    useEffect(()=>{
+        conseguirIngredientes();
+    },[])
+    useEffect(()=>{
+        console.log(ingredientes);
+    },[ingredientes])
 
 
     const filasDinamicas = ()=>{

@@ -6,9 +6,9 @@ import Carrusel from "Components/Listados/ListadoRecetas";
 import { generarUUID } from "Functions/Funciones";
 import { useParams } from "react-router-dom";
 import { recetasProvedor } from "context/RecetasProvider";
-import { upperFirstLetter } from "Functions/Funciones";
 import axios from "axios";
 import Ingredientes from "Components/Base/Ingredientes";
+import { BASE_URL } from "constant/constantes";
 function DetallesReceta(){
   const { id } = useParams();
   const { recetas } = useContext(recetasProvedor);
@@ -18,7 +18,7 @@ function DetallesReceta(){
     let recetaEncontrada = recetas.find(receta => receta.id == parseInt(id));
 
     if(recetaEncontrada===undefined){
-      let recetaBase = await axios.get(`http://localhost/api/receta/${id}`);
+      let recetaBase = await axios.get(`${BASE_URL}/receta/${id}`);
       setReceta(recetaBase.data);
     }else{
       setReceta(recetaEncontrada);
@@ -43,7 +43,7 @@ function DetallesReceta(){
         <ol>
           <Ingredientes ingredientes={receta.ingredientes} /> 
         </ol>
-       <h5>Valor Nutricional <span className="negrita">1500kcal</span></h5>
+       <h5>Valor Nutricional<span className="negrita">1500kcal</span></h5>
       </blockquote>
       <h2>Instrucciones.</h2>
       <p className="mb-3">{receta.pasosASeguir}</p>

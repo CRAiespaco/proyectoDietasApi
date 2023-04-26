@@ -5,8 +5,9 @@ function Ingredientes({ingredientes}){
 
     useEffect(()=>{
 
-    },[ingredientes])
-    return(
+    },[ingredientes]);
+
+return(
     <React.Fragment>
     {
     ingredientes === undefined ? <div></div> :

@@ -8,7 +8,7 @@ function LoadingTarjeta(){
         <Card.Img variant="top" src={require('images/placeholder.png')}  />
         <Card.Body>
         <Placeholder as={Card.Title} animation="glow">
-            <Placeholder xs={9} />{'  '}
+            <Placeholder xs={9} />{'   '}
             <Placeholder xs={2} />
         </Placeholder>
         <Placeholder xs={5}  size="lg" />{' '}

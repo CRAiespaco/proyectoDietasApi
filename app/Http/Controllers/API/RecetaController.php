@@ -150,6 +150,7 @@ class RecetaController extends Controller
         return \response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
     }
 
+
     public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
         $receta->usuario()->attach($usuario);
         return response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
@@ -167,7 +168,6 @@ class RecetaController extends Controller
             ]);
             if(!$validacion->fails()){
                 $ingredienteComprobar = new Ingrediente();
-
                 $ingredienteComprobar->nombre = $ingrediente['nombre'];
                 $ingredienteComprobar->imagen = $ingrediente['imagen'];
                 if($ingredienteanyadir = Ingrediente::comprobarIngrediente($ingredienteComprobar)) {

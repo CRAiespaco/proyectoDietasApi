@@ -94,7 +94,7 @@ class IngredienteController extends Controller
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
             $ingrediente->imagen=$request['imagen'];
-            $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
+            $this->attachIngradienteTotalNutricion($ingrediente,$request['totalNutricional']);
             $ingrediente->peso=$request['peso'];
             $ingrediente->save();
 
@@ -117,7 +117,7 @@ class IngredienteController extends Controller
         ],Response::HTTP_BAD_REQUEST);
     }
 
-    public function attachIngradienteTotalNutricion(Request $request, Ingrediente $ingrediente, TotalNutricion $totalNutricion){
+    public function attachIngradienteTotalNutricion(Ingrediente $ingrediente, TotalNutricion $totalNutricion){
         $ingrediente->totalNutricion()->attach($totalNutricion);
         return resolve($ingrediente);
     }

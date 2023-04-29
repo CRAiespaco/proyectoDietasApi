@@ -1,0 +1,16 @@
+.ingrediente{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.peso{
+    width: 90px;
+}
+.imagenIngrediente{
+    width: 90px;
+    object-fit: contain;
+    aspect-ratio: 16 / 9;
+}

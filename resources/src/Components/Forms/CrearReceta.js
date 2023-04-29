@@ -10,12 +10,14 @@ import Columna from 'react-bootstrap/Col';
 import { generarUUID, traerDatos } from "Functions/Funciones";
 import axios from "axios";
 import { BASE_URL } from "constant/constantes";
+import ListadoIngredientes from "Components/Listados/ListadoIngredientes";
 
 
 function CrearReceta(){
 
     const [numFilas, setNumFilas] = useState(0);
     const [ingredientes,setIngredientes] = useState([]);
+    const [ingredientesFiltrados,setIngredientesFiltrados] = useState([]);
 
     const [form,setForm] = useState({
         nombre:"",
@@ -44,46 +46,15 @@ function CrearReceta(){
     },[])
 
 
-    
-
-
-
-
-    const FilasDinamicas = ({filas, ingredientes})=>{
-        const [filasTotal, setFilasTotal] = useState([]);
-
-        useEffect(()=>{
-            let total = Array(filas).fill(null);
-            setFilasTotal(total);
-        },[numFilas]);
-
-        useEffect(()=>{
-            console.log(ingredientes);
-        },[ingredientes])
-
- 
-        return(
-            filasTotal &&
-            ingredientes.map(({nombre, imagen}) =>
-            <Fila key={generarUUID()} className="mt-3">
-                <Group as={Columna} className="gap-3" >
-                    <h2>{nombre}</h2>
-                    <img width='100' src={imagen} alt='Imagen de un ingrediente' />
-                </Group>
-                <Group as={Columna} className="gap-3">
-                    <Label>URL imagen del ingrediente</Label>
-                    <FormControl type="text"
-                     placeholder="Pon la url"
-                     />
-                </Group>
-            </Fila>)
-           )
-    }
 
     const handleInput = (event)=>{
-        let valor = event.target.value
-        if(valor === "") valor = 1;
-        setNumFilas(parseInt(valor))
+        let valor = event.target.value.toLowerCase();
+        if(valor !== ""){
+            let valorFiltrado = ingredientes.filter( ingrediente => ingrediente.nombre.toLowerCase().includes(valor) );
+            setIngredientesFiltrados(valorFiltrado);
+        }else{
+            setIngredientesFiltrados([]);
+        }
     }
 
     const enviarForm =async ()=>{
@@ -122,11 +93,11 @@ function CrearReceta(){
                 </Fila>
                 <Fila>
                     <Group>
-                        <Label>Numero de Ingredientes que tenga la receta.</Label>
-                        <FormControl type="number" min={1} onInput={handleInput}/>
+                        <Label>Ingredientes.</Label>
+                        <FormControl placeholder="patatas, fresas..." min={1} onInput={handleInput}/>
                     </Group>
                 </Fila>
-                <FilasDinamicas ingredientes={ingredientes} filas={numFilas}/>
+                { ingredientes.length!==0 && <ListadoIngredientes ingredientes={ingredientesFiltrados} filas={numFilas}/>}
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>

@@ -92,12 +92,12 @@ function CrearReceta(){
                     </Group>
                 </Fila>
                 <Fila>
-                    <Group>
+                   {ingredientes.length!==0 && <Group>
                         <Label>Ingredientes.</Label>
                         <FormControl placeholder="patatas, fresas..." min={1} onInput={handleInput}/>
-                    </Group>
+                    </Group>}
                 </Fila>
-                { ingredientes.length!==0 && <ListadoIngredientes ingredientes={ingredientesFiltrados} filas={numFilas}/>}
+                 <ListadoIngredientes ingredientes={ingredientesFiltrados} filas={numFilas}/>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>

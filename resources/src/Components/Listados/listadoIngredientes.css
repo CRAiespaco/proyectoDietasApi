@@ -6,8 +6,8 @@
     text-align: center;
 }
 
-.peso{
-    width: 90px;
+input.peso{
+    width: 80px;
 }
 .imagenIngrediente{
     width: 90px;

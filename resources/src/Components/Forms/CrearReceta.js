@@ -7,7 +7,7 @@ import Group from 'react-bootstrap/FormGroup';
 import Button from "react-bootstrap/Button";
 import Fila from 'react-bootstrap/Row';
 import Columna from 'react-bootstrap/Col';
-import { generarUUID } from "Functions/Funciones";
+import { generarUUID, traerDatos } from "Functions/Funciones";
 import axios from "axios";
 import { BASE_URL } from "constant/constantes";
 
@@ -15,8 +15,7 @@ import { BASE_URL } from "constant/constantes";
 function CrearReceta(){
 
     const [numFilas, setNumFilas] = useState(0);
-      
-    const [filasTotal, setFilasTotal] = useState([]);
+    const [ingredientes,setIngredientes] = useState([]);
 
     const [form,setForm] = useState({
         nombre:"",
@@ -35,35 +34,41 @@ function CrearReceta(){
     ]
     })
 
-    useEffect(()=>{
-        let total = Array(numFilas).fill(0);
-        setFilasTotal(total);
-    },[numFilas]);
-
-    const [ingredientes,setIngredientes] = useState({});
-
-    const conseguirIngredientes = ()=>{
-        return fetch(`${BASE_URL}/ingrediente`)
-        .then(respuesta => respuesta.json())
-        .then(datos => setIngredientes(datos))
+    const conseguirIngredientes = async()=>{
+        const datos = await traerDatos(`${BASE_URL}/ingredientes`);
+         setIngredientes(datos);
     }
 
     useEffect(()=>{
         conseguirIngredientes();
     },[])
-    useEffect(()=>{
-        console.log(ingredientes);
-    },[ingredientes])
 
 
-    const filasDinamicas = ()=>{
-        return(filasTotal.length ? 
-            filasTotal.map(() =>
+    
+
+
+
+
+    const FilasDinamicas = ({filas, ingredientes})=>{
+        const [filasTotal, setFilasTotal] = useState([]);
+
+        useEffect(()=>{
+            let total = Array(filas).fill(null);
+            setFilasTotal(total);
+        },[numFilas]);
+
+        useEffect(()=>{
+            console.log(ingredientes);
+        },[ingredientes])
+
+ 
+        return(
+            filasTotal &&
+            ingredientes.map(({nombre, imagen}) =>
             <Fila key={generarUUID()} className="mt-3">
                 <Group as={Columna} className="gap-3" >
-                    <Label>Nombre del Ingrediente</Label>
-                    <FormControl type="text" placeholder="Pon el nombre de tu Ingrediente"
-                    />
+                    <h2>{nombre}</h2>
+                    <img width='100' src={imagen} alt='Imagen de un ingrediente' />
                 </Group>
                 <Group as={Columna} className="gap-3">
                     <Label>URL imagen del ingrediente</Label>
@@ -71,8 +76,7 @@ function CrearReceta(){
                      placeholder="Pon la url"
                      />
                 </Group>
-            </Fila>):
-           <Fila className="mt-3"><p className="text-center fs-5">No hay ningun Ingrediente</p></Fila>
+            </Fila>)
            )
     }
 
@@ -122,7 +126,7 @@ function CrearReceta(){
                         <FormControl type="number" min={1} onInput={handleInput}/>
                     </Group>
                 </Fila>
-                {filasDinamicas()}
+                <FilasDinamicas ingredientes={ingredientes} filas={numFilas}/>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>

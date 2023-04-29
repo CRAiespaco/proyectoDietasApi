@@ -17,4 +17,10 @@ const upperFirstLetter = (texto)=>{
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
-export { generarUUID, upperFirstLetter };
+const traerDatos = async(url)=>{
+  const respuesta = await fetch(url);
+  const datos = respuesta.json();
+  return datos;
+}
+
+export { generarUUID, upperFirstLetter, traerDatos };

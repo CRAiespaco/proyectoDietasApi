@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './crear.css'
 import {Form} from 'react-router-dom';
 import Label from 'react-bootstrap/FormLabel';
@@ -10,14 +10,15 @@ import Columna from 'react-bootstrap/Col';
 import { generarUUID, traerDatos } from "Functions/Funciones";
 import axios from "axios";
 import { BASE_URL } from "constant/constantes";
-import ListadoIngredientes from "Components/Listados/ListadoIngredientes";
+import Ingrediente from "Components/Base/Ingrediente";
+import { recetasProvedor } from "context/RecetasProvider";
 
 
 function CrearReceta(){
 
-    const [numFilas, setNumFilas] = useState(0);
     const [ingredientes,setIngredientes] = useState([]);
     const [ingredientesFiltrados,setIngredientesFiltrados] = useState([]);
+    const { ingredientesIncluidos } = useContext(recetasProvedor);
 
     const [form,setForm] = useState({
         nombre:"",
@@ -94,10 +95,11 @@ function CrearReceta(){
                 <Fila>
                    {ingredientes.length!==0 && <Group>
                         <Label>Ingredientes.</Label>
+                        {ingredientesIncluidos.map(()=> <div>ALGO</div> ) }
                         <FormControl placeholder="patatas, fresas..." min={1} onInput={handleInput}/>
                     </Group>}
                 </Fila>
-                 <ListadoIngredientes ingredientes={ingredientesFiltrados} filas={numFilas}/>
+               { ingredientesFiltrados.map((ingrediente) => <Ingrediente key={generarUUID()} ingrediente={ingrediente} />)}
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>

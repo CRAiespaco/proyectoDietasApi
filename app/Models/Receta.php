@@ -30,6 +30,5 @@ class Receta extends Model
     public function obtenerArrayRecetasPesos(){
         $arrayIngredientes=$this->ingredientes->withPivot('cantidad');
 
-
     }
 }

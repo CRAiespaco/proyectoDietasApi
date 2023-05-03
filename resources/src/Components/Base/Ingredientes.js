@@ -11,7 +11,7 @@ return(
     <React.Fragment>
     {
     ingredientes === undefined ? <div></div> :
-    ingredientes.map(ingrediente => <li>{upperFirstLetter(ingrediente.nombre)} <span>{ingrediente.pivot.cantidad}g</span></li>)
+    ingredientes.map((ingrediente,i) => <li key={i}>{upperFirstLetter(ingrediente.nombre)} <span>{ingrediente.pivot.cantidad}g</span></li>)
     }
     </React.Fragment>
     )

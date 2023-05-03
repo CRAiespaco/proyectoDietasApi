@@ -12,13 +12,20 @@ function Ingrediente({ingrediente}){
     const { setIngredientesIncluidos } = useContext(recetasProvedor);
 
     const anyadirIngrediente = ()=>{
-        setIngredientesIncluidos()
-        cantidadRef.current
+        let nuevoIngrediente = {
+            nombre: ingrediente.nombre,
+            imagen:ingrediente.imagen,
+            cantidad:cantidadRef.current.value,
+        }
+        console.log(nuevoIngrediente);
+        setIngredientesIncluidos(
+            (ingredienteAnterior)=>{
+                let copiaIngrediente = [...ingredienteAnterior];
+                copiaIngrediente = [...copiaIngrediente,nuevoIngrediente];
+                return copiaIngrediente;
+            })
     }
-
-    useEffect(()=>{
-       
-    },[])
+    
 
     const handleChange = (event)=>{
         let valor = event.target.value;

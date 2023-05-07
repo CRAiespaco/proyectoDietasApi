@@ -1682,7 +1682,7 @@ class TestResponse implements ArrayAccess
      * Proxy isset() checks to the underlying base response.
      *
      * @param  string  $key
-     * @return bool
+     * @return mixed
      */
     public function __isset($key)
     {

@@ -54,6 +54,7 @@ trait AssertsStatusCodes
     /**
      * Assert that the response has a 301 "Moved Permanently" status code.
      *
+     * @param  int  $status
      * @return $this
      */
     public function assertMovedPermanently()
@@ -64,6 +65,7 @@ trait AssertsStatusCodes
     /**
      * Assert that the response has a 302 "Found" status code.
      *
+     * @param  int  $status
      * @return $this
      */
     public function assertFound()
@@ -139,16 +141,6 @@ trait AssertsStatusCodes
     public function assertConflict()
     {
         return $this->assertStatus(409);
-    }
-
-    /**
-     * Assert that the response has a 415 "Unsupported Media Type" status code.
-     *
-     * @return $this
-     */
-    public function assertUnsupportedMediaType()
-    {
-        return $this->assertStatus(415);
     }
 
     /**

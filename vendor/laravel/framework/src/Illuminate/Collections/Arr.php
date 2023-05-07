@@ -410,7 +410,9 @@ class Arr
      */
     public static function isAssoc(array $array)
     {
-        return ! array_is_list($array);
+        $keys = array_keys($array);
+
+        return array_keys($keys) !== $keys;
     }
 
     /**
@@ -423,7 +425,7 @@ class Arr
      */
     public static function isList($array)
     {
-        return array_is_list($array);
+        return ! self::isAssoc($array);
     }
 
     /**
@@ -757,7 +759,7 @@ class Arr
             }
         }
 
-        if (! array_is_list($array)) {
+        if (static::isAssoc($array)) {
             $descending
                     ? krsort($array, $options)
                     : ksort($array, $options);
@@ -836,7 +838,9 @@ class Arr
      */
     public static function whereNotNull($array)
     {
-        return static::where($array, fn ($value) => ! is_null($value));
+        return static::where($array, function ($value) {
+            return ! is_null($value);
+        });
     }
 
     /**

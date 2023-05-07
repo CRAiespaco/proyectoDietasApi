@@ -302,11 +302,11 @@ class Validator implements ValidatorContract
      * @param  array  $data
      * @param  array  $rules
      * @param  array  $messages
-     * @param  array  $attributes
+     * @param  array  $customAttributes
      * @return void
      */
     public function __construct(Translator $translator, array $data, array $rules,
-                                array $messages = [], array $attributes = [])
+                                array $messages = [], array $customAttributes = [])
     {
         $this->dotPlaceholder = Str::random();
 
@@ -314,7 +314,7 @@ class Validator implements ValidatorContract
         $this->translator = $translator;
         $this->customMessages = $messages;
         $this->data = $this->parseData($data);
-        $this->customAttributes = $attributes;
+        $this->customAttributes = $customAttributes;
 
         $this->setRules($rules);
     }
@@ -1087,18 +1087,6 @@ class Validator implements ValidatorContract
     }
 
     /**
-     * Set the value of a given attribute.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setValue($attribute, $value)
-    {
-        Arr::set($this->data, $attribute, $value);
-    }
-
-    /**
      * Get the validation rules.
      *
      * @return array
@@ -1370,12 +1358,12 @@ class Validator implements ValidatorContract
     /**
      * Add custom attributes to the validator.
      *
-     * @param  array  $attributes
+     * @param  array  $customAttributes
      * @return $this
      */
-    public function addCustomAttributes(array $attributes)
+    public function addCustomAttributes(array $customAttributes)
     {
-        $this->customAttributes = array_merge($this->customAttributes, $attributes);
+        $this->customAttributes = array_merge($this->customAttributes, $customAttributes);
 
         return $this;
     }

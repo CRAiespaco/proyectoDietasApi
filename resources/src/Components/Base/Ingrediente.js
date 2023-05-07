@@ -10,17 +10,16 @@ import { recetasProvedor } from "context/RecetasProvider";
 function Ingrediente({ingrediente}){
     const cantidadRef = useRef(0);
     const { setIngredientesIncluidos } = useContext(recetasProvedor);
-
+    
     const anyadirIngrediente = ()=>{
         let nuevoIngrediente = {
             nombre: ingrediente.nombre,
             imagen:ingrediente.imagen,
             cantidad:cantidadRef.current.value,
         }
-        console.log(nuevoIngrediente);
         setIngredientesIncluidos(
             (ingredienteAnterior)=>{
-                let copiaIngrediente = [...ingredienteAnterior];
+                const copiaIngrediente = [...ingredienteAnterior];
                 copiaIngrediente = [...copiaIngrediente,nuevoIngrediente];
                 return copiaIngrediente;
             })

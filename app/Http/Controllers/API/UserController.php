@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserController extends Controller
@@ -134,19 +135,30 @@ class UserController extends Controller
 
         Auth::login($usuario);
 
-        return $request;
-    }
-    public function login(Request $request){
+        $token = $usuario->createToken('Token de acceso')->accessToken;
 
+        return \response()->json([
+            "token"=>$token,
+            "usuario"=>$usuario,
+        ]);
+    }
+
+
+    public function login(Request $request){
         $credenciales = request()->only('email','password');
-        if(Auth::attempt($credenciales,true)){
-            return request();
+        if($token = JWTAuth::attempt($credenciales)){
+            return response()->json(compact('token'));
         }else{
-            return response('No se ha podido iniciar sesion');
+            return response('No se ha podido iniciar sesion', 401);
         }
     }
 
+
     public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
     }
 

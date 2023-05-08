@@ -135,10 +135,8 @@ class UserController extends Controller
         //Autenticar el usuario.
         Auth::login($usuario);
 
-        $token = JWTAuth::fromUser($usuario, ['secret' => 'tu_clave_secreta']);
-
-
-
+        //Nombre del token.
+        $token = $usuario->createToken('auth:api')->plainTextToken;
 
         return \response()->json([
             'mensaje'=>'Registro hecho correctamente',

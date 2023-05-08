@@ -130,14 +130,18 @@ class UserController extends Controller
         $usuario->name = $request['nombre'];
         $usuario->email = $request['email'];
         $usuario->password = Hash::make($request['password']);
-
         $usuario->save();
 
+        //Autenticar el usuario.
         Auth::login($usuario);
 
-        $token = $usuario->createToken('Token de acceso')->accessToken;
+        $token = JWTAuth::fromUser($usuario, ['secret' => 'tu_clave_secreta']);
+
+
+
 
         return \response()->json([
+            'mensaje'=>'Registro hecho correctamente',
             "token"=>$token,
             "usuario"=>$usuario,
         ]);
@@ -145,9 +149,15 @@ class UserController extends Controller
 
 
     public function login(Request $request){
-        $credenciales = request()->only('email','password');
-        if($token = JWTAuth::attempt($credenciales)){
-            return response()->json(compact('token'));
+        $credenciales = $request->only('email','password');
+        if(Auth::attempt($credenciales)){
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
+            return \response()->json([
+                'mensaje'=>'Login exitoso',
+                'user'=>$user,
+                'token'=>$token
+            ]);
         }else{
             return response('No se ha podido iniciar sesion', 401);
         }

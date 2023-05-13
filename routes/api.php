@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
+Route::group(['middleware'=>'auth:api'], function(){
+    //Aqui todas las rutas que tengan que ver con autenticacion.
+});
 
 /**
  * Rutas para recetas.
@@ -49,7 +52,7 @@ Route::post('/receta/{receta}/totalNutricional/{totalNutricional}',[IngredienteC
  */
 Route::get('/totalNutricional',[TotalNutricionController::class,'index']);//Ver todos los totalNutricional.
 Route::get('/totalNutricional/{totalNutricional}',[TotalNutricionController::class,'show']);//Ver un totalNutricional con un id en especifico.
-Route::post('/totalNutricional/{totalNutricional}',[TotalNutricionController::class,'store']);//Guardar un totalNutricional.
+Route::post('/totalNutricional/',[TotalNutricionController::class,'store']);//Guardar un totalNutricional.
 Route::put('/totalNutricional/{totalNutricional}',[TotalNutricionController::class,'update']);//Actualizar un totalNutricional.
 Route::delete('/totalNutricional/{totalNutricional}',[TotalNutricionController::class,'destroy']);//Eliminar un totalNutricional.
 

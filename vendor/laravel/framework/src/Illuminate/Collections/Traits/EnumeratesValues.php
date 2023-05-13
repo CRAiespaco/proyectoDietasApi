@@ -114,10 +114,11 @@ trait EnumeratesValues
     /**
      * Wrap the given value in a collection if applicable.
      *
+     * @template TWrapKey of array-key
      * @template TWrapValue
      *
-     * @param  iterable<array-key, TWrapValue>|TWrapValue  $value
-     * @return static<array-key, TWrapValue>
+     * @param  iterable<TWrapKey, TWrapValue>  $value
+     * @return static<TWrapKey, TWrapValue>
      */
     public static function wrap($value)
     {
@@ -296,11 +297,9 @@ trait EnumeratesValues
     /**
      * Get a single key's value from the first matching item in the collection.
      *
-     * @template TValueDefault
-     *
      * @param  string  $key
-     * @param  TValueDefault|(\Closure(): TValueDefault)  $default
-     * @return TValue|TValueDefault
+     * @param  mixed  $default
+     * @return mixed
      */
     public function value($key, $default = null)
     {
@@ -696,10 +695,8 @@ trait EnumeratesValues
     /**
      * Pass the collection into a new class.
      *
-     * @template TPipeIntoValue
-     *
-     * @param  class-string<TPipeIntoValue>  $class
-     * @return TPipeIntoValue
+     * @param  class-string  $class
+     * @return mixed
      */
     public function pipeInto($class)
     {
@@ -766,21 +763,6 @@ trait EnumeratesValues
         }
 
         return $result;
-    }
-
-    /**
-     * Reduce an associative collection to a single value.
-     *
-     * @template TReduceWithKeysInitial
-     * @template TReduceWithKeysReturnType
-     *
-     * @param  callable(TReduceWithKeysInitial|TReduceWithKeysReturnType, TValue, TKey): TReduceWithKeysReturnType  $callback
-     * @param  TReduceWithKeysInitial  $initial
-     * @return TReduceWithKeysReturnType
-     */
-    public function reduceWithKeys(callable $callback, $initial = null)
-    {
-        return $this->reduce($callback, $initial);
     }
 
     /**

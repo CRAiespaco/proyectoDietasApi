@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserController extends Controller
@@ -129,24 +130,43 @@ class UserController extends Controller
         $usuario->name = $request['nombre'];
         $usuario->email = $request['email'];
         $usuario->password = Hash::make($request['password']);
-
         $usuario->save();
 
+        //Autenticar el usuario.
         Auth::login($usuario);
 
-        return $request;
-    }
-    public function login(Request $request){
+        //Nombre del token.
+        $token = $usuario->createToken('auth:api')->plainTextToken;
 
-        $credenciales = request()->only('email','password');
-        if(Auth::attempt($credenciales,true)){
-            return request();
+        return \response()->json([
+            'mensaje'=>'Registro hecho correctamente',
+            "token"=>$token,
+            "usuario"=>$usuario,
+        ]);
+    }
+
+
+    public function login(Request $request){
+        $credenciales = $request->only('email','password');
+        if(Auth::attempt($credenciales)){
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
+            return \response()->json([
+                'mensaje'=>'Login exitoso',
+                'user'=>$user,
+                'token'=>$token
+            ]);
         }else{
-            return response('No se ha podido iniciar sesion');
+            return response('No se ha podido iniciar sesion', 401);
         }
     }
 
+
     public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
     }
 

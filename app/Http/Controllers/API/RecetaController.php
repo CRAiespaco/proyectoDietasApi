@@ -58,7 +58,6 @@ class RecetaController extends Controller
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',
                 'Receta'=>$receta,
-                "bien"=>true
             ];
 
             return \response()->json($respuesta);
@@ -170,6 +169,7 @@ class RecetaController extends Controller
                 $ingredienteComprobar = new Ingrediente();
                 $ingredienteComprobar->nombre = $ingrediente['nombre'];
                 $ingredienteComprobar->imagen = $ingrediente['imagen'];
+                $ingredienteComprobar->cantidad = $ingrediente['cantidad'];
                 if($ingredienteanyadir = Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
                     $this->attachRecetaIngrediente($ingredienteanyadir,$receta);
                 }else{

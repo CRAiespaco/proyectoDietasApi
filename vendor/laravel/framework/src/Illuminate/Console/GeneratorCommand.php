@@ -92,7 +92,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         'require',
         'require_once',
         'return',
-        'self',
         'static',
         'switch',
         'throw',

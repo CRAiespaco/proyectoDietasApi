@@ -12,6 +12,7 @@ import axios from "axios";
 import { BASE_URL } from "constant/constantes";
 import Ingrediente from "Components/Base/Ingrediente";
 import { recetasProvedor } from "context/RecetasProvider";
+import IngredienteAnyadido from "Components/Base/Ingredienteanyadido";
 
 
 function CrearReceta(){
@@ -19,23 +20,15 @@ function CrearReceta(){
     const [ingredientes,setIngredientes] = useState([]);
     const [ingredientesFiltrados,setIngredientesFiltrados] = useState([]);
     const { ingredientesIncluidos } = useContext(recetasProvedor);
-
-    const [form,setForm] = useState({
+    const formInitial = {
         nombre:"",
         valoracion:0,
         pasosASeguir:"",
         imagen:"",
         validacion:false,
-        ingredientes:[{
-            nombre:"patatas",
-            imagen:"https://static1.abc.es/media/bienestar/2022/01/12/patatas-beneficio-koDF--620x349@abc.jpg"
-        },
-        {
-            nombre:"cebolla roja",
-            imagen:"https://www.gastronomiavasca.net/uploads/image/file/3338/w700_cebolla_roja.jpg"
-        }
-    ]
-    })
+        ingredientes: [],
+    }
+    const [form,setForm] = useState(formInitial)
 
     const conseguirIngredientes = async()=>{
         const datos = await traerDatos(`${BASE_URL}/ingredientes`);
@@ -59,7 +52,16 @@ function CrearReceta(){
     }
 
     const enviarForm =async ()=>{
-        const respuesta = await axios.post("http://localhost:8090/api/receta",form);
+        
+        let copiaForm = {...form,ingredientes:ingredientesIncluidos};
+        setForm(copiaForm);
+        try{
+            const respuesta = await axios.post("http://localhost:8000/api/receta",copiaForm);
+            console.log(respuesta);
+        }catch(error){
+            console.log(`Error: ${error}`);
+        }
+        
     }
 
 
@@ -94,8 +96,8 @@ function CrearReceta(){
                 </Fila>
                 <Fila>
                    {ingredientes.length!==0 && <Group>
-                        <Label>Ingredientes.</Label>
-                        {ingredientesIncluidos.map(()=> <div>ALGO</div> ) }
+                        <Label>Ingredientes.</Label> <br/>
+                {ingredientesIncluidos.length !== 0 && ingredientesIncluidos.map((datos,i)=> <IngredienteAnyadido key={i} ingrediente={datos}/>)}
                         <FormControl placeholder="patatas, fresas..." min={1} onInput={handleInput}/>
                     </Group>}
                 </Fila>

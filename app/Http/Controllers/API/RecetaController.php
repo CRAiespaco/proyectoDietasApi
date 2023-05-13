@@ -181,4 +181,23 @@ class RecetaController extends Controller
             }
         }
     }
+
+    // idea de la función para sumar el peso de los ingredientes a la recetas
+    // function calcularPesoIngredientes($listaIngredientes){
+    //     $pesoTotal=0;
+
+    // foreach ($listaIngredientes as $ingrediente => $peso){ 
+    //     if (array_key_exists($ingrediente)){
+    //       $pesoTotal += $peso;
+    //     } else{
+    //       throw new Exception('El ingrediente "' . $ingrediente . '" no está en la lista de ingredientes');
+    //     }
+    //   }
+    
+    //   if ($pesoTotal == 0) {
+    //     throw new Exception('No se pudo calcular el peso total de la receta');
+    //   }
+    
+    //   return $pesoIngredientes;
+    // }
 }

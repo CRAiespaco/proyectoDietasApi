@@ -7,7 +7,7 @@ function Estrellas({valoracion=3.5}={}){
 
     porcentaje = Math.round(porcentaje);
 
-    const anchoEstrellas = ()=>{return { with:porcentaje+"%"}}
+    const anchoEstrellas = ()=> ({ with:porcentaje+"%" })
     
     return(
     <div className="stars-gray">

@@ -15,24 +15,29 @@ function Header (){
             titulo:"Recetas",
             path:"/buscador"
         },
-        /* {
+        {
             titulo:"Personalizados",
             path:"/crear"
-        }, */
-        /* {
+        },
+        {
             titulo:"Incidencias",
             path:"/incidencias"
-        }, */
+        },
         {
             titulo:"Crea tu propia receta",
             path:"/crear"
         },
+
+        {
+            titulo:"Panel de Control",
+            path:"/panel"
+        }
     ]
     let activeStyle = {
         color: "#FFF",
       };
 
-    const listarOpciones = ()=>{
+    const ListarOpciones = ()=>{
         return opciones.map((option)=> <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={option.path}>{option.titulo}</NavLink>);
     }
 
@@ -61,12 +66,13 @@ function Header (){
         <React.Fragment>
         <Navbar ref={navegador} collapseOnSelect expand='md' bg="success" variant="dark" fixed='top'>
         <Container fluid>
-            <Navbar.Brand className='linkT'><img className="logo" width={'70'} src={require('./../../images/logo.png')}/></Navbar.Brand>
+            <Navbar.Brand className='linkT'><img className="logo" style={{ transform:'rotate(0)',marginLeft:'100px' }} width={340} src={require('./../../images/logo10.png')}/></Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>
-                {listarOpciones()}
-                <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/login'}>Login</NavLink>
+                <ListarOpciones/>
+                <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT'
+                to={'/login'}>Login</NavLink>
                 <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/register'}>Register</NavLink>
             </Nav>
            </Navbar.Collapse>

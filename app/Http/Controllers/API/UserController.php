@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserController extends Controller
@@ -150,7 +149,8 @@ class UserController extends Controller
         $credenciales = $request->only('email','password');
         if(Auth::attempt($credenciales)){
             $user = Auth::user();
-            $token = JWTAuth::fromUser($user);
+            $usuario = User::where('email',$request['email'])->first();
+            $token = $usuario->createToken('auth:api')->plainTextToken;
             return \response()->json([
                 'mensaje'=>'Login exitoso',
                 'user'=>$user,

@@ -27,10 +27,9 @@ function Header (){
             titulo:"Crea tu propia receta",
             path:"/crear"
         },
-
         {
             titulo:"Panel de Control",
-            path:"/panel"
+            path:"/panel/recetas"
         }
     ]
     let activeStyle = {

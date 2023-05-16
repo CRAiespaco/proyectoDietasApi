@@ -6,13 +6,12 @@ import { Link } from "react-router-dom";
 import { Container, Row, Nav, Badge } from "react-bootstrap";
 import React from "react";
 
-function PagePanel(){
+function PagePanel({children}){
     return(
         <React.Fragment>
             <Header/>
 <Container fluid style={{marginTop:'90px'}}>
-  <Row className="flex-nowrap">
-
+  <Row>
     <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
       <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
           <span className="fs-5 d-none d-sm-inline">Panel de Control</span>
@@ -22,7 +21,7 @@ function PagePanel(){
           id="menu"
         >
           <Nav.Item className="w-100">
-            <Link to='/#' className="nav-link px-0 d-flex align-items-center gap-2">
+            <Link to='/panel/recetas' className="nav-link px-0 d-flex align-items-center gap-2">
             <FontAwesomeIcon size="xl" inverse icon={faUtensils}/>
             <Badge bg="secondary" className="ms-1 d-none d-sm-inline fs-6">Recetas</Badge>
             </Link>
@@ -47,7 +46,7 @@ function PagePanel(){
         </Nav>
       </div>
     </div>
-    <div className="col py-3">Content area...</div>
+    {children}
   </Row>
 </Container>
 

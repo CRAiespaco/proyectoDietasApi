@@ -32,11 +32,8 @@ class IngredienteController extends Controller
     {
 
         $validacion = Validator::make($request->all(),[
-            "valoracion"=>"decimal:0,2",
-            "pasosASeguir"=>"required",
-            "ingredientes"=>"required",
+            "nombre"=>"required|string",
             "imagen"=>"string",
-            "validacion"=>"boolean",
         ]);
         if($validacion->fails()){
             return response("El ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
@@ -81,11 +78,8 @@ class IngredienteController extends Controller
     public function update(Request $request, $ingrediente)
     {
         $validacion=Validator::make((array)$request,[
-            "valoracion"=>"decimal:0,2",
-            "pasosASeguir"=>"required",
-            "ingredientes"=>"required",
+            "nombre"=>"required|string",
             "imagen"=>"string",
-            "validacion"=>"boolean",
         ]);
 
         if($validacion->fails()){
@@ -121,7 +115,5 @@ class IngredienteController extends Controller
         $ingrediente->totalNutricion()->attach($totalNutricion);
         return resolve($ingrediente);
     }
-
-
 
 }

@@ -112,3 +112,4 @@ class IntervaloController extends Controller
         return resolve($intervalo);
     }
 }
+

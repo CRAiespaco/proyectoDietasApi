@@ -31,9 +31,9 @@ class RecetaController extends Controller
     public function store(Request $request)
     {
         $validacion = Validator::make($request->all(),[
-            "nombre"=>"required",
+            "nombre"=>"required|string",
             "valoracion"=>"required",
-            "pasosASeguir"=>"required",
+            "pasosASeguir"=>"required|string",
             "ingredientes"=>"required",
             "imagen"=>"string",
         ]);
@@ -186,18 +186,18 @@ class RecetaController extends Controller
     // function calcularPesoIngredientes($listaIngredientes){
     //     $pesoTotal=0;
 
-    // foreach ($listaIngredientes as $ingrediente => $peso){ 
+    // foreach ($listaIngredientes as $ingrediente => $peso){
     //     if (array_key_exists($ingrediente)){
     //       $pesoTotal += $peso;
     //     } else{
     //       throw new Exception('El ingrediente "' . $ingrediente . '" no está en la lista de ingredientes');
     //     }
     //   }
-    
+
     //   if ($pesoTotal == 0) {
     //     throw new Exception('No se pudo calcular el peso total de la receta');
     //   }
-    
+
     //   return $pesoIngredientes;
     // }
 }

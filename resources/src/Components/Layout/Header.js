@@ -24,12 +24,20 @@ function Header (){
             path:"/incidencias"
         },
         {
-            titulo:"Crea tu propia receta",
+            titulo:"Creador",
             path:"/crear"
         },
         {
-            titulo:"Panel de Control",
+            titulo:"Control Panel",
             path:"/panel/recetas"
+        },
+        {
+            titulo:'login',
+            path:'/login'
+        },
+        {
+            titulo:'register',
+            path:'/register'
         }
     ]
     let activeStyle = {
@@ -70,9 +78,6 @@ function Header (){
             <Navbar.Collapse>
             <Nav>
                 <ListarOpciones/>
-                <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT'
-                to={'/login'}>Login</NavLink>
-                <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-link linkT' to={'/register'}>Register</NavLink>
             </Nav>
            </Navbar.Collapse>
         </Container>

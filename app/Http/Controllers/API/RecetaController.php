@@ -51,6 +51,10 @@ class RecetaController extends Controller
             $receta->imagen=$request['imagen'];
             $receta->validacion=$request['validacion'];
             $receta->fechaCreacion= new \DateTime();
+            foreach ($request['ingredientes'] as $ingrediente){
+                $receta->ingredientes()->attach($ingrediente['id'],['cantidad'=>$ingrediente['cantidad']]);
+            }
+
             $receta->save();
 
             $this->anyadirIngredientes($request['ingredientes'],$receta);
@@ -88,7 +92,7 @@ class RecetaController extends Controller
             'nombre' => 'string|max:255',
             "valoracion"=>"numeric",
             "pasosASeguir"=>"string",
-            "ingredientes"=>"string",
+            "ingredientes"=>"",
             "imagen"=>"string",
         ];
 

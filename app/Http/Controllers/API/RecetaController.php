@@ -195,9 +195,39 @@ class RecetaController extends Controller
     //   }
 
     //   if ($pesoTotal == 0) {
-    //     throw new Exception('No se pudo calcular el peso total de la receta');
+        // return \response()->json([
+        //     "Error"=>"No se pudo calcular el peso total de la receta",
+        //     "fallo"=>$validacion,
+        //     "Objeto"=>$request->all(),
+        // ],Response::HTTP_BAD_REQUEST);
     //   }
 
     //   return $pesoIngredientes;
+    // }
+
+    // idea de la función para recoger y guardar el peso de un ingrediente en la base de datos.
+    // //$reques son los datos que recibe del formulario
+    // function guardarDatosFormulario($request) {
+    //     // Validamos los datos del formulario
+    //     $validator = Validator::make($request->all(), [
+    //       'nombre' => 'required|string',
+    //       'peso' => 'required|number',
+    //     ]);
+        
+    //     if ($validator->fails()) {
+    //         return \response()->json([
+    //             "Error"=>"El ingrediente no se ha podido almacenar",
+    //             "fallo"=>$validacion,
+    //             "Objeto"=>$request->all(),
+    //         ],Response::HTTP_BAD_REQUEST);
+    //     }
+        
+    //     $ingrediente = new Ingrediente();        
+    //     $ingrediente->nombre = $reques['nombre'];
+    //     $ingrediente->peso = $request['peso'];
+        
+    //     // Guardamos el modelo en la base de datos
+    //     $ingrediente->save();
+    //     return $ingrediente;
     // }
 }

@@ -55,9 +55,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($categoria)
+    public function show($id)
     {
-        return response(Categoria::all()->find($categoria->id));
+        return response(Categoria::all()->find($id));
     }
 
     /**

@@ -71,8 +71,8 @@ Route::post('/usuario/{usuario}/receta/{receta}',[UserController::class,'attachR
 /**
  * Rutas para categoria.
  */
-Route::get('/categoria',[CategoriaController::class,'index']);
-Route::get('/categoria/{categoria}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
+Route::get('/categorias',[CategoriaController::class,'index']);
+Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
 Route::post('/categoria/{categoria}',[CategoriaController::class,'store']);//Guardar una categoria.
 Route::put('/categoria/{categoria}',[CategoriaController::class,'update']);//Actualizar una categoria.
 Route::delete('/categoria/{categoria}',[CategoriaController::class,'destroy']);//Eliminar una categoria.

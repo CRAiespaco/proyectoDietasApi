@@ -60,9 +60,17 @@ class RecetaController extends Controller
             //Recuperar instancia de la base de datos
             $recetaGuardada = Receta::find($receta->id);
 
+            //Asociamos la cantidad a la receta.
             foreach ($request['ingredientes'] as $ingrediente){
                 $recetaGuardada->ingredientes()->attach($ingrediente['id'],['cantidad'=>$ingrediente['cantidad']]);
             }
+
+            //Asociamos las categorias a la receta.
+            foreach ($request['categorias'] as $categoria){
+                $recetaGuardada->categorias()->attach($categoria['id']);
+            }
+
+            $recetaGuardada->save();
 
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',

@@ -61,12 +61,13 @@ function CrearReceta(){
         let copiaForm = {...form,ingredientes:ingredientesIncluidos};
         setForm(copiaForm);
         try{
-            const respuesta = await axios.post("http://localhost:8000/api/receta",copiaForm);
-            mensajeConfirmacion(respuesta.data.mensaje);
+            console.log(copiaForm);
+            //const respuesta = await axios.post("http://localhost:8000/api/receta",copiaForm);
+            /* mensajeConfirmacion(respuesta.data.mensaje);
             const id = respuesta.data.receta.id;
             setTimeout( ()=> {
                 navigate(`/detallesReceta/${id}`);
-            },1800);
+            },1800); */
         }catch(error){
             console.log(error);
         }

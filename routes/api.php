@@ -34,7 +34,7 @@ Route::get('/receta/buscador',[RecetaController::class,'buscarPorPalabraClave'])
 Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico
 Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
 Route::put('/receta',[RecetaController::class,'update']);//Actualizar una receta.
-Route::delete('/receta',[RecetaController::class,'destroy']);//Eliminar una receta.
+Route::delete('/receta/{id}',[RecetaController::class,'destroy']);//Eliminar una receta.
 Route::post('/receta/{receta}/ingrediente/',[RecetaController::class,'attachRecetaIngrediente']);//Añade un ingrediente a una receta.
 
 /**
@@ -75,8 +75,3 @@ Route::get('/categoria/{categoria}',[CategoriaController::class,'show']);//Ver u
 Route::post('/categoria/{categoria}',[CategoriaController::class,'store']);//Guardar una categoria.
 Route::put('/categoria/{categoria}',[CategoriaController::class,'update']);//Actualizar una categoria.
 Route::delete('/categoria/{categoria}',[CategoriaController::class,'destroy']);//Eliminar una categoria.
-
-/**
- * Ruta de error con 404.
- */
-Route::get('/error',[RecetaController::class,'paginaError']);

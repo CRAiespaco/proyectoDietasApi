@@ -51,17 +51,18 @@ class RecetaController extends Controller
             $receta->imagen=$request['imagen'];
             $receta->validacion=$request['validacion'];
             $receta->fechaCreacion= new \DateTime();
-            foreach ($request['ingredientes'] as $ingrediente){
-                $receta->ingredientes()->attach($ingrediente['id'],['cantidad'=>$ingrediente['cantidad']]);
-            }
-
             $receta->save();
 
-            $this->anyadirIngredientes($request['ingredientes'],$receta);
+            //Recuperar instancia de la base de datos
+            $recetaGuardada = Receta::find($receta->id);
+
+            foreach ($request['ingredientes'] as $ingrediente){
+                $recetaGuardada->ingredientes()->attach($ingrediente['id'],['cantidad'=>$ingrediente['cantidad']]);
+            }
 
             $respuesta = [
                 "mensaje"=>'Receta creada correctamente',
-                'Receta'=>$receta,
+                'receta'=>$receta,
             ];
 
             return \response()->json($respuesta);
@@ -159,79 +160,4 @@ class RecetaController extends Controller
         return response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
     }
 
-    public function paginaError(){
-        return redirect('/not_found',Response::HTTP_NOT_FOUND);
-    }
-
-    public function anyadirIngredientes(array $ingredientes, Receta $receta){
-        foreach($ingredientes as $ingredienteArray => $ingrediente){
-            $validacion = Validator::make($ingrediente, [
-                'nombre' => 'required|string|max:255',
-                'imagen' => 'required|string|max:255'
-            ]);
-            if(!$validacion->fails()){
-                $ingredienteComprobar = new Ingrediente();
-                $ingredienteComprobar->nombre = $ingrediente['nombre'];
-                $ingredienteComprobar->imagen = $ingrediente['imagen'];
-                $ingredienteComprobar->cantidad = $ingrediente['cantidad'];
-                if($ingredienteanyadir = Ingrediente::comprobarIngrediente($ingredienteComprobar)) {
-                    $this->attachRecetaIngrediente($ingredienteanyadir,$receta);
-                }else{
-                    $ingredienteComprobar->save();
-                    $this->attachRecetaIngrediente($ingredienteComprobar,$receta);
-                }
-            }else{
-                return response('Los datos de los ingredientes son incorrectos',Response::HTTP_BAD_REQUEST);
-            }
-        }
-    }
-
-    // idea de la función para sumar el peso de los ingredientes a la recetas
-    // function calcularPesoIngredientes($listaIngredientes){
-    //     $pesoTotal=0;
-
-    // foreach ($listaIngredientes as $ingrediente => $peso){
-    //     if (array_key_exists($ingrediente)){
-    //       $pesoTotal += $peso;
-    //     } else{
-    //       throw new Exception('El ingrediente "' . $ingrediente . '" no está en la lista de ingredientes');
-    //     }
-    //   }
-
-    //   if ($pesoTotal == 0) {
-        // return \response()->json([
-        //     "Error"=>"No se pudo calcular el peso total de la receta",
-        //     "fallo"=>$validacion,
-        //     "Objeto"=>$request->all(),
-        // ],Response::HTTP_BAD_REQUEST);
-    //   }
-
-    //   return $pesoIngredientes;
-    // }
-
-    // idea de la función para recoger y guardar el peso de un ingrediente en la base de datos.
-    // //$reques son los datos que recibe del formulario
-    // function guardarDatosFormulario($request) {
-    //     // Validamos los datos del formulario
-    //     $validator = Validator::make($request->all(), [
-    //       'nombre' => 'required|string',
-    //       'peso' => 'required|number',
-    //     ]);
-        
-    //     if ($validator->fails()) {
-    //         return \response()->json([
-    //             "Error"=>"El ingrediente no se ha podido almacenar",
-    //             "fallo"=>$validacion,
-    //             "Objeto"=>$request->all(),
-    //         ],Response::HTTP_BAD_REQUEST);
-    //     }
-        
-    //     $ingrediente = new Ingrediente();        
-    //     $ingrediente->nombre = $reques['nombre'];
-    //     $ingrediente->peso = $request['peso'];
-        
-    //     // Guardamos el modelo en la base de datos
-    //     $ingrediente->save();
-    //     return $ingrediente;
-    // }
 }

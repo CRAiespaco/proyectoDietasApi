@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import './crear.css'
-import {Form} from 'react-router-dom';
+import {Form, useNavigate} from 'react-router-dom';
 import Label from 'react-bootstrap/FormLabel';
 import FormControl from "react-bootstrap/FormControl";
 import Group from 'react-bootstrap/FormGroup';
@@ -13,6 +13,9 @@ import { BASE_URL } from "constant/constantes";
 import Ingrediente from "Components/Base/Ingrediente";
 import { recetasProvedor } from "context/RecetasProvider";
 import IngredienteAnyadido from "Components/Base/Ingredienteanyadido";
+import Snackbar from '@mui/material/Snackbar';
+import Alerta from "Components/Base/Alerta";
+import { useAlert } from "hooks/useAlert";
 
 
 function CrearReceta(){
@@ -28,7 +31,9 @@ function CrearReceta(){
         validacion:false,
         ingredientes: [],
     }
-    const [form,setForm] = useState(formInitial)
+    const [form,setForm] = useState(formInitial);
+    const { alert, handleErrorClose, mensajeConfirmacion } = useAlert();
+    const navigate = useNavigate();
 
     const conseguirIngredientes = async()=>{
         const datos = await traerDatos(`${BASE_URL}/ingredientes`);
@@ -57,9 +62,13 @@ function CrearReceta(){
         setForm(copiaForm);
         try{
             const respuesta = await axios.post("http://localhost:8000/api/receta",copiaForm);
-            console.log(respuesta);
+            mensajeConfirmacion(respuesta.data.mensaje);
+            const id = respuesta.data.receta.id;
+            setTimeout( ()=> {
+                navigate(`/detallesReceta/${id}`);
+            },1800);
         }catch(error){
-            console.log(`Error: ${error}`);
+            console.log(error);
         }
         
     }
@@ -95,18 +104,23 @@ function CrearReceta(){
                     </Group>
                 </Fila>
                 <Fila>
-                   {ingredientes.length!==0 && <Group>
+                   {ingredientes.length !==0 && <Group>
                         <Label>Ingredientes.</Label> <br/>
                 {ingredientesIncluidos.length !== 0 && ingredientesIncluidos.map((datos,i)=> <IngredienteAnyadido key={i} ingrediente={datos}/>)}
                         <FormControl placeholder="patatas, fresas..." min={1} onInput={handleInput}/>
                     </Group>}
                 </Fila>
-               { ingredientesFiltrados.map((ingrediente) => <Ingrediente key={generarUUID()} ingrediente={ingrediente} />)}
+               { ingredientesFiltrados.map((ingrediente) => <Ingrediente key={ingrediente.id} ingrediente={ingrediente} />)}
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
                     <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>
             </Form>
             </div>
+            <Snackbar open={alert.open} autoHideDuration={2000} onClose={handleErrorClose} anchorOrigin={{ vertical:'bottom', horizontal: 'center', }}>
+            <Alerta onClose={handleErrorClose} severity={alert.type} sx={{ width: '100%' }}>
+                {alert.message}
+            </Alerta>
+        </Snackbar>
         </React.Fragment>
     )
 }

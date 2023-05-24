@@ -15,14 +15,11 @@ function Ingrediente({ingrediente}){
         let nuevoIngrediente = {
             nombre: ingrediente.nombre,
             imagen:ingrediente.imagen,
-            cantidad:cantidadRef.current.value,
+            id:ingrediente.id,
+            cantidad: Number(cantidadRef.current.value),
         }
-        setIngredientesIncluidos(
-            (ingredienteAnterior)=>{
-                const copiaIngrediente = [...ingredienteAnterior];
-                copiaIngrediente = [...copiaIngrediente,nuevoIngrediente];
-                return copiaIngrediente;
-            })
+
+        setIngredientesIncluidos(prev => [...prev, nuevoIngrediente]);
     }
     
 

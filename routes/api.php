@@ -29,13 +29,14 @@ Route::group(['middleware'=>'auth:api'], function(){
 /**
  * Rutas para recetas.
  */
-Route::get('/receta',[RecetaController::class,'index']); //Ver todas las recetas.
+Route::get('/recetas',[RecetaController::class,'index']); //Ver todas las recetas
+Route::get('/recetas/publicas',[RecetaController::class,'getRecetasPublic']); //Ver todas las recetas
 Route::get('/receta/buscador',[RecetaController::class,'buscarPorPalabraClave']);//Busca una receta por el nombre del titulo.
-Route::get('/receta/{receta}',[RecetaController::class,'show']);//Ver una receta con un id en especifico
+Route::get('/receta/{id}',[RecetaController::class,'show']);//Ver una receta con un id en especifico.
 Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
+Route::post('/receta/{id}/validacion/{opcion}',[RecetaController::class,'validarReceta']);//Actuliza una receta para validarla.
 Route::put('/receta',[RecetaController::class,'update']);//Actualizar una receta.
 Route::delete('/receta/{id}',[RecetaController::class,'destroy']);//Eliminar una receta.
-Route::post('/receta/{receta}/ingrediente/',[RecetaController::class,'attachRecetaIngrediente']);//Añade un ingrediente a una receta.
 
 /**
  * Rutas para ingredientes.

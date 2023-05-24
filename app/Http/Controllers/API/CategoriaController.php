@@ -102,4 +102,5 @@ class CategoriaController extends Controller
             "Categoria"=>$categoria
         ],Response::HTTP_BAD_REQUEST);
     }
+
 }

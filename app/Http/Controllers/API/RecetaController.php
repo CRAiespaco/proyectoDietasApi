@@ -21,6 +21,10 @@ class RecetaController extends Controller
     {
         return response(Receta::with('categorias','ingredientes')->get());
     }
+    public function getRecetasPublic(){
+        return response(Receta::where('validacion',true)->get());
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -75,9 +79,9 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Receta $receta)
+    public function show(int $id)
     {
-        return response(Receta::with('categorias','ingredientes')->find($receta->id));
+        return response(Receta::with('categorias','ingredientes')->find($id));
     }
 
     /**
@@ -149,15 +153,22 @@ class RecetaController extends Controller
         return \response()->json($recetas);
     }
 
-    public function attachRecetaIngrediente(Ingrediente $ingrediente, Receta $receta){
-        $receta->ingredientes()->attach($ingrediente);
-        return \response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
-    }
-
 
     public function attachRecetaUsuario(Request $request, Receta $receta, Usuario $usuario){
         $receta->usuario()->attach($usuario);
         return response('Se ha relacionado correctamente',Response::HTTP_ACCEPTED);
+    }
+
+    public function validarReceta ($id,$validacion){
+        $boolvalidacion = filter_var($validacion,FILTER_VALIDATE_BOOLEAN);
+        $receta = Receta::find($id);
+        $receta->validacion = $boolvalidacion;
+        $receta->save();
+
+        return response()->json([
+            "mensaje"=>"Receta activada correctamente",
+            "receta"=>$receta,
+        ],Response::HTTP_ACCEPTED);
     }
 
 }

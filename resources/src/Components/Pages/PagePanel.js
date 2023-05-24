@@ -28,7 +28,7 @@ function PagePanel({children}){
           </Nav.Item>
           <Nav.Item className="w-100">
             <Link
-              to='/'
+              to='/panel/ingredientes'
               className="nav-link px-0 align-middle d-flex align-items-center gap-2"
             >
               <FontAwesomeIcon size="xl" inverse icon={faWheatAwn}/>

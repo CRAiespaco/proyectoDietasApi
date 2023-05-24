@@ -107,27 +107,27 @@ function PagePanelIngredientes(){
                 </thead>
                 <tbody>
                     {
-                        ingredientes.length !== 0 ?
-                        ingredientes.map(receta => (
-                            <>
-                            <tr key={receta.id}>
-                                <td>{receta.id}</td>
-                                <td>{receta.nombre}</td>
-                                <td><Image width={60} src={receta.imagen} /></td>
+                    ingredientes.length !== 0 ?
+                    ingredientes.map(ingrediente => (
+                        <>
+                            <tr key={ingrediente.id}>
+                                <td>{ingrediente.id}</td>
+                                <td>{ingrediente.nombre}</td>
+                                <td><Image width={60} src={ingrediente.imagen} /></td>
                                 <td><Opciones abrir={()=> {
                                     setOpen(true);
-                                    setIdActual(receta.id);
+                                    setIdActual(ingrediente.id);
                                 }} elimar={()=>{
                                     setElimar(true);
-                                    setIdActual(receta.id);
-                                }} id={receta.id}/></td>
+                                    setIdActual(ingrediente.id);
+                                }} id={ingrediente.id}/></td>
                                 <td><Form.Check type='checkbox' label='aprobar'/></td>
                             </tr>
-                            </>
-                        )) :
+                        </>
+                    )) :
                         <tr>
-                        <td colSpan={5} style={{textAlign:'center'}}>Sin Resultados</td>
-                    </tr>
+                            <td colSpan={5} style={{textAlign:'center'}}>Sin Resultados</td>
+                        </tr>
                     }
                 </tbody>
                     <ModalEditar show={open} onHide={handleClose}/>

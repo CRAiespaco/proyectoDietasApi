@@ -42,11 +42,21 @@ Route::delete('/receta/{id}',[RecetaController::class,'destroy']);//Eliminar una
  * Rutas para ingredientes.
  */
 Route::get('/ingredientes',[IngredienteController::class,'index']);//Ver todas los ingrediente.
-Route::get('/ingrediente/{ingrediente}',[IngredienteController::class,'show']);//Ver un ingrediente con un id en especifico.
+Route::get('/ingrediente/{id}',[IngredienteController::class,'show']);//Ver un ingrediente con un id en especifico.
 Route::post('/ingrediente',[IngredienteController::class,'store']);//Guardar un ingrediente.
-Route::put('/ingrediente/{ingrediente}',[IngredienteController::class,'update']);//Actualizar un ingrediente.
-Route::delete('/ingrediente/{ingrediente}',[IngredienteController::class,'destroy']);//Eliminar un ingrediente.
+Route::put('/ingrediente/{id}',[IngredienteController::class,'update']);//Actualizar un ingrediente con el id.
+Route::delete('/ingrediente/{id}',[IngredienteController::class,'destroy']);//Eliminar un ingrediente.
 Route::post('/receta/{receta}/totalNutricional/{totalNutricional}',[IngredienteController::class,'attachIngradienteTotalNutricion']);//Añade un totalNutricional a un ingrediente.
+
+/**
+ * Rutas para categoria.
+ */
+Route::get('/categorias',[CategoriaController::class,'index']);
+Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
+Route::post('/categoria',[CategoriaController::class,'store']);//Guardar una categoria.
+Route::put('/categoria/{id}',[CategoriaController::class,'update']);//Actualizar una categoria a traves de una id.
+Route::delete('/categoria/{id}',[CategoriaController::class,'destroy']);//Eliminar una categoria.
+
 
 /**
  * Rutas para totalNutricional.
@@ -60,7 +70,7 @@ Route::delete('/totalNutricional/{totalNutricional}',[TotalNutricionController::
 /**
  * Rutas para usuarios.
  */
-Route::get('/usuario',[UserController::class,'index']);//Ver todos los usuarios.
+Route::get('/usuarios',[UserController::class,'index']);//Ver todos los usuarios.
 Route::get('/usuario/{usuario}',[UserController::class,'show']);//Ver un usuario con un id en especifico.
 Route::post('/usuario/{usuario}',[UserController::class,'store']);//Guardar un usuario.
 Route::put('/usuario/{usuario}',[UserController::class,'update']);//Actualizar un usuario.
@@ -68,11 +78,3 @@ Route::delete('/usuario/{usuario}',[UserController::class,'destroy']);//Eliminar
 Route::post('/usuario/{usuario}/ingrediente/{ingrediente}',[UserController::class,'attachIngradienteUsuario']);//Añade un ingrediente a un usuario.
 Route::post('/usuario/{usuario}/receta/{receta}',[UserController::class,'attachRecetaUsuario']);//Añade un receta a un usuario.
 
-/**
- * Rutas para categoria.
- */
-Route::get('/categorias',[CategoriaController::class,'index']);
-Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
-Route::post('/categoria/{categoria}',[CategoriaController::class,'store']);//Guardar una categoria.
-Route::put('/categoria/{categoria}',[CategoriaController::class,'update']);//Actualizar una categoria.
-Route::delete('/categoria/{categoria}',[CategoriaController::class,'destroy']);//Eliminar una categoria.

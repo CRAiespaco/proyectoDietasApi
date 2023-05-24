@@ -21,6 +21,7 @@ class RecetaController extends Controller
     {
         return response(Receta::with('categorias','ingredientes')->get());
     }
+
     public function getRecetasPublic(){
         return response(Receta::where('validacion',true)->get());
     }
@@ -48,6 +49,7 @@ class RecetaController extends Controller
                 "Objeto"=>$request->all(),
             ],Response::HTTP_BAD_REQUEST);
         }else{
+
             $receta = new Receta();
             $receta->nombre=$request['nombre'];
             $receta->valoracion=$request['valoracion'];
@@ -139,17 +141,17 @@ class RecetaController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *TODO: Ver el delete no funciona por las claves ajenas.
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $receta = Receta::find($request['id']);
+        $receta = Receta::find($id);
         if($receta){
-            Receta::destroy($request['id']);
+            $receta->delete();
             return \response()->json([
-                "mensaje"=>"La receta ha sido eliminada correctamente",
+                "mensaje"=>"La receta se ha eliminado correctamente",
                 "receta"=>$receta
             ],Response::HTTP_ACCEPTED);
         }

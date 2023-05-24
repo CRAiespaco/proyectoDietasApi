@@ -63,9 +63,9 @@ class IngredienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingrediente $ingrediente)
+    public function show(int $id)
     {
-        return response(Ingrediente::with('totalNutricion')->find($ingrediente->id));
+        return response(Ingrediente::with('totalNutricion')->find($id));
     }
 
     /**
@@ -75,25 +75,31 @@ class IngredienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $ingrediente)
+    public function update(int $id,Request $request)
     {
-        $validacion=Validator::make((array)$request,[
-            "nombre"=>"required|string",
-            "imagen"=>"string",
-        ]);
+        $ingrediente = Ingrediente::find($id);
+        if($ingrediente){
+            $validacion=Validator::make((array)$request,[
+                "nombre"=>"required|string",
+                "imagen"=>"string",
+            ]);
 
-        if($validacion->fails()){
-            return response("El ingrediente no se pudo modificar");
+            if($validacion->fails()){
+                return response("El ingrediente no se pudo modificar");
+            }else{
+                $ingrediente = new Ingrediente();
+                $ingrediente->nombre=$request['nombre'];
+                $ingrediente->imagen=$request['imagen'];
+                $this->attachIngradienteTotalNutricion($ingrediente,$request['totalNutricional']);
+                $ingrediente->peso=$request['peso'];
+                $ingrediente->save();
+
+                return response()->json($ingrediente);
+            }
         }else{
-            $ingrediente = new Ingrediente();
-            $ingrediente->nombre=$request['nombre'];
-            $ingrediente->imagen=$request['imagen'];
-            $this->attachIngradienteTotalNutricion($ingrediente,$request['totalNutricional']);
-            $ingrediente->peso=$request['peso'];
-            $ingrediente->save();
-
-            return response()->json($ingrediente);
+            return response()->json('El ingrediente no existe',Response::HTTP_BAD_REQUEST);
         }
+
     }
 
     /**
@@ -102,13 +108,19 @@ class IngredienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function destroy(Ingrediente $ingrediente)
+    public function destroy(int $id)
     {
-        Ingrediente::destroy($ingrediente);
-        return response()->json([
-            "mensaje"=>"Se ha borrado correctamente",
-            "Ingrediente"=>$ingrediente
-        ],Response::HTTP_BAD_REQUEST);
+        $ingrediente = Ingrediente::find($id);
+        if($ingrediente){
+            $ingrediente->delete();
+            return response()->json([
+                "mensaje"=>"Se ha borrado correctamente",
+                "Ingrediente"=>$ingrediente
+            ],Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json('El ingrediente no existe',Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     public function attachIngradienteTotalNutricion(Ingrediente $ingrediente, TotalNutricion $totalNutricion){

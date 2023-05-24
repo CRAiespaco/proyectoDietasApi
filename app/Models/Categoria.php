@@ -9,7 +9,8 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    /*protected $fillable = ['tipo'];*/
+    protected $fillable = ['nombre'];
+
     public function recetas(){
         return $this->belongToMany(Receta::class);
     }

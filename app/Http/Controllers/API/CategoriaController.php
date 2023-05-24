@@ -14,7 +14,7 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return response(Categoria::all());
     }
@@ -31,21 +31,16 @@ class CategoriaController extends Controller
             "tipo"=>'required'
         ]);
         if($validacion->fails()){
-            return response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
+            return response("La categoría no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $categoria = new Categoria();
             $categoria->tipo=$request['nombre'];
             $categoria->save();
 
-            //Categoria::create($request->nombre);
-
-            $respuesta=[
-                "mensaje"=>'Categoria creada correctamente',
-                'Categoria'=>$categoria
-            ];
-
-            return redirect ('/receta')->withCookie();
-            return response()->json($respuesta);
+            return response()->json([
+                "mensaje"=>'Categoría creada correctamente',
+                'categoria'=>$categoria
+            ]);
         }
     }
 
@@ -63,28 +58,18 @@ class CategoriaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $categoria)
+    public function update(int $id, Request $request)
     {
-        $validacion = Validator::make($request->all(),[
-            "tipo"=>'required'
-        ]);
-        if($validacion->fails()){
-            return response("La categoria no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
-        }else{
-            $categoria = new Categoria();
-            $categoria->tipo=$request['tipo'];
+        $categoria = Categoria::find($id);
+        if($categoria) {
+            $categoria->nombre = $request['nombre'];
             $categoria->save();
-
-            $respuesta = [
-                "mensaje"=>'Categoria creada correctamente',
-                'Categoria'=>$categoria
-            ];
-
-            return response()->json($respuesta);
+            return response($categoria,Response::HTTP_ACCEPTED);
+        }else{
+            return response('La categoría no existe',Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -94,13 +79,18 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($categoria)
+    public function destroy(int $id)
     {
-        Categoria::destroy($categoria);
-        return response()->json([
-            "mensaje"=>"Se ha borrado correctamente",
-            "Categoria"=>$categoria
-        ],Response::HTTP_BAD_REQUEST);
+        $categoria = Categoria::find($id);
+        if($categoria){
+            $categoria->delete();
+            return response()->json([
+                "mensaje"=>"Se ha borrado correctamente",
+                "Categoria"=>$categoria
+            ],Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json('La categoría no existe',Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

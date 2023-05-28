@@ -101,7 +101,7 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(int $id,Request $request)
     {
         $reglas = [
             'nombre' => 'string|max:255',
@@ -111,7 +111,7 @@ class RecetaController extends Controller
             "imagen"=>"string",
         ];
 
-        $receta = Receta::find($request['id']);
+        $receta = Receta::find($id);
 
         if($receta){
             $validacion=Validator::make((array)$request,$reglas);
@@ -122,7 +122,6 @@ class RecetaController extends Controller
                 $receta->pasosASeguir= $request['pasosASeguir'] ?? $receta->pasosASeguir;
                 $receta->imagen=$request['imagen'] ?? $receta->imagen;
                 $receta->validacion=$request['validacion'] ?? $receta->validacion;
-                $receta->fechaCreacion= $receta->fechaCreacion;
                 $receta->save();
 
                 return \response()->json([

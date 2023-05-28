@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Auth;
     return $request->user();
 });*/
 
-/* Route::middleware('auth:sanctum')->group(function (){
 
-}); */
 
 /**
  * Rutas de login
@@ -26,6 +24,7 @@ Route::group(['middleware'=>'auth:api'], function(){
     //Aqui todas las rutas que tengan que ver con autenticacion.
 });
 
+//TODO: Validacion de datos en todos los controladores.
 /**
  * Rutas para recetas.
  */
@@ -35,13 +34,15 @@ Route::get('/receta/buscador',[RecetaController::class,'buscarPorPalabraClave'])
 Route::get('/receta/{id}',[RecetaController::class,'show']);//Ver una receta con un id en especifico.
 Route::post('/receta',[RecetaController::class,'store']);//Guardar una receta.
 Route::post('/receta/{id}/validacion/{opcion}',[RecetaController::class,'validarReceta']);//Actuliza una receta para validarla.
-Route::put('/receta',[RecetaController::class,'update']);//Actualizar una receta.
+Route::put('/receta/{id}',[RecetaController::class,'update']);//Actualizar una receta.
+//No se elimina correctamente
 Route::delete('/receta/{id}',[RecetaController::class,'destroy']);//Eliminar una receta.
 
 /**
  * Rutas para ingredientes.
  */
 Route::get('/ingredientes',[IngredienteController::class,'index']);//Ver todas los ingrediente.
+//TODO: No funciona con la relacion de total Nutricion darle una vuelta.
 Route::get('/ingrediente/{id}',[IngredienteController::class,'show']);//Ver un ingrediente con un id en especifico.
 Route::post('/ingrediente',[IngredienteController::class,'store']);//Guardar un ingrediente.
 Route::put('/ingrediente/{id}',[IngredienteController::class,'update']);//Actualizar un ingrediente con el id.
@@ -57,6 +58,8 @@ Route::post('/categoria',[CategoriaController::class,'store']);//Guardar una cat
 Route::put('/categoria/{id}',[CategoriaController::class,'update']);//Actualizar una categoria a traves de una id.
 Route::delete('/categoria/{id}',[CategoriaController::class,'destroy']);//Eliminar una categoria.
 
+
+//SEGUNDA PARTE...
 
 /**
  * Rutas para totalNutricional.
@@ -78,3 +81,4 @@ Route::delete('/usuario/{usuario}',[UserController::class,'destroy']);//Eliminar
 Route::post('/usuario/{usuario}/ingrediente/{ingrediente}',[UserController::class,'attachIngradienteUsuario']);//Añade un ingrediente a un usuario.
 Route::post('/usuario/{usuario}/receta/{receta}',[UserController::class,'attachRecetaUsuario']);//Añade un receta a un usuario.
 
+//TODO:seeder de ingredientes

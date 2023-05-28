@@ -1,20 +1,23 @@
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { useRecetas } from 'hooks/useRecetas';
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
+import { useState } from 'react';
+import { Button, Col, Container, Form, Image, Modal, Row, Table } from 'react-bootstrap';
 
 function ModalEliminar({show, onHide,id}){
+    const [ver,setVer] = useState(false);
     const eliminar = async() => {
-        try{
-            const respuesta = await axios.delete(`${BASE_URL}/receta/${id}`);
-            console.log(respuesta);
-        }catch(error){
-            console.log(error);
-        }
+        await axios.delete(`${BASE_URL}/ingrediente/${id}`);
+        setVer(false);
     }
+    const handleClose = () => setVer(false);
+
+    useEffect(() => {
+        if(show) setVer(true);
+    }, [id]);
+
     return(
         <>
-        <Modal centered show={show} onHide={onHide}>
+        <Modal centered show={ver} onHide={handleClose}>
             <Modal.Header className='d-flex justify-content-center align-items-center'>
                 <Modal.Title>¿Seguro quieres eliminar la receta?</Modal.Title>
             </Modal.Header>

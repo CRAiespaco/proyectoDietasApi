@@ -148,11 +148,16 @@ class RecetaController extends Controller
     {
         $receta = Receta::find($id);
         if($receta){
+            $receta->ingredientes()->detach(); // Desvincula los ingredientes asociados a la receta
             $receta->delete();
             return \response()->json([
                 "mensaje"=>"La receta se ha eliminado correctamente",
                 "receta"=>$receta
             ],Response::HTTP_ACCEPTED);
+        }else{
+            return response()->json([
+                "mensaje" => "La receta no existe"
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 

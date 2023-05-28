@@ -17,6 +17,6 @@ export function useIngredientes(){
             cargarIngredientes();
         }
       },[])
-      return { ingredientes } 
+      return { ingredientes, cargarIngredientes } 
 }
 

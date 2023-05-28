@@ -118,7 +118,7 @@ function ModalEditar({show, onHide, id}){
                                         />
                                     </Form.Group>
                                 </Row>
-                                <FormIngredientes />
+                                <FormIngredientes ingredientesIncluidos={recetaID.ingredientes}/>
                             </Col>
                         </Row>              
                 </Modal.Body>

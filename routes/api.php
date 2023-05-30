@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
-Route::group(['middleware'=>'auth:api'], function(){
+Route::group(['middleware'=>'role:user'], function(){
+    Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
     //Aqui todas las rutas que tengan que ver con autenticacion.
 });
 
@@ -53,7 +54,7 @@ Route::post('/receta/{receta}/totalNutricional/{totalNutricional}',[IngredienteC
  * Rutas para categoria.
  */
 Route::get('/categorias',[CategoriaController::class,'index']);
-Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
+
 Route::post('/categoria',[CategoriaController::class,'store']);//Guardar una categoria.
 Route::put('/categoria/{id}',[CategoriaController::class,'update']);//Actualizar una categoria a traves de una id.
 Route::delete('/categoria/{id}',[CategoriaController::class,'destroy']);//Eliminar una categoria.

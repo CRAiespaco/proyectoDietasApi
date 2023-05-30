@@ -148,13 +148,13 @@ class RecetaController extends Controller
     public function destroy($id)
     {
         $receta = Receta::find($id);
-        if($receta){
+        
             $receta->delete();
             return \response()->json([
                 "mensaje"=>"La receta se ha eliminado correctamente",
                 "receta"=>$receta
-            ],Response::HTTP_ACCEPTED);
-        }
+            ],Response::HTTP_BAD_REQUEST);
+        
     }
 
     public function buscarPorPalabraClave(Request $request){

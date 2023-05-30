@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ingrediente_intervalo', function (Blueprint $table) {
+        Schema::create('intervalos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ingrediente_id')->constrained();
-            $table->foreignId('intervalo_id')->constrained();
-
+            $table->timestamp('horaInicio')->nullable();
+            $table->timestamp('horaFin')->nullable();
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingrediente_intervalo');
+        Schema::dropIfExists('intervalos');
     }
 };

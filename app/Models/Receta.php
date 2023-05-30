@@ -16,7 +16,7 @@ class Receta extends Model
     }
 
     public function ingredientes(){
-        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
+        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad')->onDelete('cascade');
     }
 
     public function usuario(){

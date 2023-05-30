@@ -11,13 +11,13 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function up()
     {
-        Schema::create('ingrediente_receta', function (Blueprint $table) {
+        Schema::create('intervalo_receta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('intervalo_id')->constrained();
             $table->foreignId('receta_id')->constrained();
-
             $table->timestamps();
         });
     }

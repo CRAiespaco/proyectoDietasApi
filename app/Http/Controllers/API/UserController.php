@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
@@ -133,6 +134,9 @@ class UserController extends Controller
 
         //Autenticar el usuario.
         Auth::login($usuario);
+        $role = Role::findByName('user');
+        $usuario->assignRole($role);
+
 
         //Nombre del token.
         $token = $usuario->createToken('auth:api')->plainTextToken;
@@ -151,11 +155,15 @@ class UserController extends Controller
             $user = Auth::user();
             $usuario = User::where('email',$request['email'])->first();
             $token = $usuario->createToken('auth:api')->plainTextToken;
-            return \response()->json([
-                'mensaje'=>'Login exitoso',
-                'user'=>$user,
-                'token'=>$token
-            ]);
+            if($user->hasRole('user')){
+                return \response()->json([
+                    'mensaje'=>'Login exitoso',
+                    'user'=>$user,
+                    'token'=>$token
+                ]);
+            }else {
+                return \response('No tienes permiso para iniciar sesion.',401);
+            }
         }else{
             return response('No se ha podido iniciar sesion', 401);
         }

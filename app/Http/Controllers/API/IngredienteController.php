@@ -33,7 +33,7 @@ class IngredienteController extends Controller
 
         $validacion = Validator::make($request->all(),[
             "nombre"=>"required|string",
-            "imagen"=>"string",
+            "imagen"=>"string"
         ]);
         if($validacion->fails()){
             return response("El ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
@@ -43,13 +43,13 @@ class IngredienteController extends Controller
             $ingrediente->imagen=$request['imagen'];
 
 
-            $this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
-            $ingrediente->peso=$request['peso'];
+            /*$this->attachIngradienteTotalNutricion($request,$ingrediente,$request['totalNutricional']);
+            $ingrediente->peso=$request['peso'];*/
             $ingrediente->save();
 
             $respuesta = [
                 "mensaje"=>'Ingrediente creado correctamente',
-                'Ingrediente'=>$ingrediente
+                'ingrediente'=>$ingrediente
             ];
 
             return response()->json($respuesta);
@@ -65,7 +65,8 @@ class IngredienteController extends Controller
      */
     public function show(int $id)
     {
-        return response(Ingrediente::with('totalNutricion')->find($id));
+        return response(Ingrediente::find($id));
+        /*return response(Ingrediente::with('totalNutricion')->find($id));*/
     }
 
     /**
@@ -79,22 +80,24 @@ class IngredienteController extends Controller
     {
         $ingrediente = Ingrediente::find($id);
         if($ingrediente){
-            $validacion=Validator::make((array)$request,[
+            $validacion = Validator::make($request->all(),[
                 "nombre"=>"required|string",
-                "imagen"=>"string",
+                "imagen"=>"string"
             ]);
 
             if($validacion->fails()){
-                return response("El ingrediente no se pudo modificar");
+                return response("El ingrediente no se pudo modificar",Response::HTTP_BAD_REQUEST);
             }else{
-                $ingrediente = new Ingrediente();
-                $ingrediente->nombre=$request['nombre'];
-                $ingrediente->imagen=$request['imagen'];
-                $this->attachIngradienteTotalNutricion($ingrediente,$request['totalNutricional']);
-                $ingrediente->peso=$request['peso'];
+                $ingrediente->nombre=$request['nombre'] ?? $ingrediente->nombre;
+                $ingrediente->imagen=$request['imagen'] ?? $ingrediente->imagen;
+                //$this->attachIngradienteTotalNutricion($ingrediente,$request['totalNutricional']);
+                //$ingrediente->peso=$request['peso'];
                 $ingrediente->save();
 
-                return response()->json($ingrediente);
+                return response()->json([
+                    "mensaje"=>"Ingrediente actualizado correctamente",
+                    "ingrediente"=>$ingrediente
+                ]);
             }
         }else{
             return response()->json('El ingrediente no existe',Response::HTTP_BAD_REQUEST);
@@ -115,7 +118,7 @@ class IngredienteController extends Controller
             $ingrediente->delete();
             return response()->json([
                 "mensaje"=>"Se ha borrado correctamente",
-                "Ingrediente"=>$ingrediente
+                "ingrediente"=>$ingrediente
             ],Response::HTTP_BAD_REQUEST);
         }else{
             return response()->json('El ingrediente no existe',Response::HTTP_BAD_REQUEST);

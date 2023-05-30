@@ -28,13 +28,13 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $validacion = Validator::make($request->all(),[
-            "tipo"=>'required'
+            "nombre"=>'required'
         ]);
         if($validacion->fails()){
             return response("La categoría no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
             $categoria = new Categoria();
-            $categoria->tipo=$request['nombre'];
+            $categoria->nombre=$request['nombre'];
             $categoria->save();
 
             return response()->json([
@@ -67,7 +67,10 @@ class CategoriaController extends Controller
         if($categoria) {
             $categoria->nombre = $request['nombre'];
             $categoria->save();
-            return response($categoria,Response::HTTP_ACCEPTED);
+            return response()->json([
+                "mensaje"=>"Categoria actualizada correctamente",
+                "categoria"=>$categoria
+            ]);
         }else{
             return response('La categoría no existe',Response::HTTP_BAD_REQUEST);
         }
@@ -86,8 +89,8 @@ class CategoriaController extends Controller
             $categoria->delete();
             return response()->json([
                 "mensaje"=>"Se ha borrado correctamente",
-                "Categoria"=>$categoria
-            ],Response::HTTP_BAD_REQUEST);
+                "categoria"=>$categoria
+            ]);
         }else{
             return response()->json('La categoría no existe',Response::HTTP_BAD_REQUEST);
         }

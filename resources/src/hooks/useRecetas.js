@@ -8,7 +8,7 @@ export function useRecetas(){
     const { recetas, setRecetas } = useContext(recetasProvedor);
 
     const cargarRecetas = async()=>{
-        const recetas = await axios.get(`${BASE_URL}/receta`);
+        const recetas = await axios.get(`${BASE_URL}/recetas`);
         setRecetas(recetas.data);
       }
 
@@ -17,6 +17,6 @@ export function useRecetas(){
           cargarRecetas();
         }
       },[])
-      return { recetas } 
+      return { recetas, cargarRecetas } 
 }
 

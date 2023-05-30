@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ingrediente_receta', function (Blueprint $table) {
+        Schema::create('horario_intervalo', function (Blueprint $table) {
             $table->id();
             $table->foreignId('horario_id')->constrained();
             $table->foreignId('intervalo_id')->constrained();

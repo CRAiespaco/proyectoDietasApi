@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
-Route::group(['middleware'=>'role:user'], function(){
+Route::group(['middleware'=>['auth:api','role:user']], function(){
     Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
     //Aqui todas las rutas que tengan que ver con autenticacion.
 });

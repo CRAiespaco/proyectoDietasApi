@@ -153,8 +153,7 @@ class UserController extends Controller
         $credenciales = $request->only('email','password');
         if(Auth::attempt($credenciales)){
             $user = Auth::user();
-            $usuario = User::where('email',$request['email'])->first();
-            $token = $usuario->createToken('auth:api')->plainTextToken;
+            $token = $user->createToken('auth:api')->plainTextToken;
             if($user->hasRole('user')){
                 return \response()->json([
                     'mensaje'=>'Login exitoso',

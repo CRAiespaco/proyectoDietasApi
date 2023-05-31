@@ -17,7 +17,7 @@ function Header (){
         },
         {
             titulo:"Personalizados",
-            path:"/crear"
+            path:"/personalizado"
         },
         {
             titulo:"Incidencias",

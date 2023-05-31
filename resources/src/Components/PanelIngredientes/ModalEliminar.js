@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Image, Modal, Row, Table } from 'react-bootstrap';
 
 function ModalEliminar({show, onHide,id}){

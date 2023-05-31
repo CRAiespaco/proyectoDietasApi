@@ -19,6 +19,7 @@ import RecetasProvider from 'context/RecetasProvider';
 import PagePanel from 'Components/Pages/PagePanel';
 import PagePanelRecetas from 'Components/Pages/Dashboard/PagePanelRecetas';
 import PagePanelIngredientes from 'Components/Pages/Dashboard/PagePanelIngredientes';
+import PageCrearObjetivo from 'Components/Pages/PageCrearObjetivo';
 
 
 const router = createBrowserRouter(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={ <PageLogin/> }/>
       <Route path="/register" element={ <PageRegister/> }/>
       <Route path='/incidencias' element={<PageIncidencias/>}/>
+      <Route path='/personalizado' element={<PageCrearObjetivo/>}/>
       <Route path="/crear" element={ <PageCrear/> }/>
       <Route path="/buscador" element={ <PageRecetas/> }/>
       <Route path='/detallesReceta/:id' element={ <PageDetallesReceta/> }/>

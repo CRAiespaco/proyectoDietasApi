@@ -147,12 +147,14 @@ class RecetaController extends Controller
     public function destroy($id)
     {
         $receta = Receta::find($id);
+
         if($receta){
             $receta->ingredientes()->detach(); // Desvincula los ingredientes asociados a la receta
             $receta->delete();
             return \response()->json([
                 "mensaje"=>"La receta se ha eliminado correctamente",
                 "receta"=>$receta
+
             ],Response::HTTP_ACCEPTED);
         }else{
             return response()->json([

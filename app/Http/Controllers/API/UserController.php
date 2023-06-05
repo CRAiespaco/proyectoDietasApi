@@ -137,7 +137,6 @@ class UserController extends Controller
         $role = Role::findByName('user');
         $usuario->assignRole($role);
 
-
         //Nombre del token.
         $token = $usuario->createToken('auth:api')->plainTextToken;
 

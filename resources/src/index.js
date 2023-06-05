@@ -20,6 +20,7 @@ import PagePanel from 'Components/Pages/PagePanel';
 import PagePanelRecetas from 'Components/Pages/Dashboard/PagePanelRecetas';
 import PagePanelIngredientes from 'Components/Pages/Dashboard/PagePanelIngredientes';
 import PageCrearObjetivo from 'Components/Pages/PageCrearObjetivo';
+import PagePanelCategorias from 'Components/Pages/Dashboard/PagePanelCategorias';
 
 
 const router = createBrowserRouter(
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
       <Route path='/panel' element={<PagePanel/>} />
       <Route path='/panel/recetas' element={<PagePanelRecetas/>} />
       <Route path='/panel/ingredientes' element={<PagePanelIngredientes/>} />
+      <Route path='/panel/categorias' element={<PagePanelCategorias/>} />
       <Route path='*' element={ <PageError/> }/>
     </React.Fragment>
   )

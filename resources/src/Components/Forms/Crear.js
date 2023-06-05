@@ -136,15 +136,26 @@ function Crear(){
                 </Fila>
                 <Fila>
                     <Group as={Columna} className="mt-3">
-                        <Label>Ganar peso o perder peso</Label>
+                        <Label>Ganar peso o perder peso: </Label>
                         <Check type="radio" defaultChecked name="peso" value="perder" label="Perder Peso" />
+                        <Check type="radio" name="peso" value="mantener" label="Mantener Peso" />
                         <Check type="radio" name="peso" value="ganar" label="Ganar Peso" />
                     </Group>
                     <Group as={Columna} className="mt-3">
-                        <Label>Tipo de recetas</Label>
-                        <Check type="radio" defaultChecked name="tiempo" value="perder" label="radical" />
-                        <Check type="radio" name="tiempo" value="ganar" label="moderado (recomendado)" />
+                        <Label>Tipo de recetas: </Label>
+                        <Check type="radio" name="tiempo" value="perder" label="radical" />
+                        <Check type="radio" defaultChecked name="tiempo" value="ganar" label="moderado (recomendado)" />
                         <Check type="radio" name="tiempo" value="ganar" label="lento" />
+                    </Group>
+                </Fila>
+                <Fila>
+                    <Group>
+                    <Label className="mb-0">Ejercicio Semanal: </Label>
+                        <Check type="radio" defaultChecked name="ejercicio" value={1.2} label="Nada de ejercicio" />
+                        <Check type="radio" name="ejercicio" value={1.4} label="1-3d/semanal" />
+                        <Check type="radio" name="ejercicio" value={1.6} label="3-5d/semanal" />
+                        <Check type="radio" name="ejercicio" value={1.8} label="6-7d/semanal" />
+                        <Check type="radio" name="ejercicio" value={2} label="doble sesiones" />
                     </Group>
                 </Fila>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">

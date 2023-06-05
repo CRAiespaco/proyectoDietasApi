@@ -5,6 +5,7 @@ use App\Http\Controllers\API\CategoriaController;
 use App\Http\Controllers\API\RecetaController;
 use App\Http\Controllers\API\IngredienteController;
 use App\Http\Controllers\API\TotalNutricionController;
+use App\Http\Controllers\API\ObjetivoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,10 +21,12 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
-Route::group(['middleware'=>['auth:api','role:user']], function(){
+Route::group(['middleware'=>['role:user']], function(){
     Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
     //Aqui todas las rutas que tengan que ver con autenticacion.
 });
+
+Route::get('/pollo',[IngredienteController::class,'polloUrl']);
 
 //TODO: Validacion de datos en todos los controladores.
 /**

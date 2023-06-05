@@ -25,7 +25,10 @@ class RecetaController extends Controller
     public function getRecetasPublic(){
         return response(Receta::where('validacion',true)->get());
     }
+    //Receta --> join ingrediente --> gruoup by id_Receta sum kcal
+    public function getRecetasByKcal(int $kcal){
 
+    }
 
     /**
      * Store a newly created resource in storage.

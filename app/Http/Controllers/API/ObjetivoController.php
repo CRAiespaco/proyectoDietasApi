@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Objetivo;
+use http\Env\Request;
 
 class ObjetivoController extends Controller
 {
@@ -103,5 +104,51 @@ class ObjetivoController extends Controller
             "Ingrediente"=>$objetivo
         ],Response::HTTP_BAD_REQUEST);
     }
+
+
+    public function sacarGramos(Request $request){
+        $peso = $request['peso'];
+        $tipoObjetivo = $request['tipoObjetivo'];
+        $ejercicio = $request['ejercicio'];
+        $progresion = $request['progresion'];
+        $kcalDiaria = $peso * 22 * $ejercicio;
+        $numPorcentaje =  ObjetivoController::porcentajeProgresion($tipoObjetivo,$progresion);
+        $porcentaje =  ($kcalDiaria /100)  * $numPorcentaje;
+        $kcalTotal = 0;
+        if($tipoObjetivo == 'subir') $kcalTotal = $kcalDiaria + $porcentaje;
+        else if($tipoObjetivo == 'bajar') $kcalTotal = $kcalDiaria - $porcentaje;
+        return $kcalTotal;
+    }
+
+    public static function porcentajeProgresion($tipoObjetivo,$progresion){
+        $resultado = 0;
+        if($tipoObjetivo == 'subir'){
+            switch ($progresion){
+                case 'lento':
+                    $resultado = 10;
+                    break;
+                case 'medio':
+                    $resultado = 15;
+                    break;
+                case 'rapido':
+                    $resultado = 20;
+                    break;
+            }
+        }else if($tipoObjetivo == 'bajar'){
+            switch ($progresion){
+                case 'lento':
+                    $resultado = 10;
+                    break;
+                case 'medio':
+                    $resultado = 20;
+                    break;
+                case 'rapido':
+                    $resultado = 30;
+                    break;
+            }
+        }
+        return $resultado;
+    }
+
 
 }

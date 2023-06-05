@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect ,useContext } from 'react';
 import '../../../App.css';
 import PagePanel from '../PagePanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,24 +8,37 @@ import { useIngredientes } from 'hooks/useIngredientes';
 import ModalEditar from 'Components/PanelIngredientes/ModalEditar';
 import ModalEliminar from 'Components/PanelIngredientes/ModalEliminar';
 import ModalAnyadir from 'Components/PanelIngredientes/ModalAnyadir';
+import axios from 'axios';
+import { BASE_URL } from 'constant/constantes';
 
-function PagePanelIngredientes(){
+function PagePanelCategorias(){
 
     const [open, setOpen] = useState(false);
     const [elimar,setElimar] = useState(false);
     const [anyadir,setAnyadir] = useState(false);
+    const [categorias, setCategorias] = useState([]);
 
     const handleAnyadir = () => setAnyadir(true);
     const handleCloseAnyadir = () => setAnyadir(false);
 
     const [idActual,setIdActual] = useState(null);
-    const { ingredientes } = useIngredientes();
+
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleEliminar = () => setElimar(true);
     const handleCloseEliminar = () => setElimar(false);
+
+    const cargarCategorias = async() => {
+        const categorias = await axios.get(`${BASE_URL}/categorias`);
+        const { data } = categorias;
+        setCategorias(data);
+    }
+
+    useEffect(() =>{
+        cargarCategorias();
+    },[])
 
     function Opciones({abrir,elimar}){
         return(
@@ -41,40 +54,34 @@ function PagePanelIngredientes(){
         </div>)
     }
 
-    //Modal para editar PagePanelRecetas
-
-
-
     
     return(
     <React.Fragment>
         <PagePanel>
             <Container as={Col} className='d-flex flex-column justify-content-center align-items-center'>
-            <Button onClick={handleAnyadir}>Añadir Ingredientes</Button>
+            <Button onClick={handleAnyadir}>Añadir Categoria</Button>
             <Table striped borderless hover style={{ maxWidth:'1000px' }}>
                 <thead>
                     <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Imagen</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                    ingredientes.length !== 0 ?
-                    ingredientes.map(ingrediente => (
-                        <tr key={ingrediente.id}>
-                            <td>{ingrediente.id}</td>
-                            <td>{ingrediente.nombre}</td>
-                            <td><Image width={60} src={ingrediente.imagen} /></td>
+                    categorias.length !== 0 ?
+                    categorias.map(categoria => (
+                        <tr key={categoria.id}>
+                            <td>{categoria.id}</td>
+                            <td>{categoria.nombre}</td>
                             <td><Opciones abrir={()=> {
                                 setOpen(true);
-                                setIdActual(ingrediente.id);
+                                setIdActual(categoria.id);
                             }} elimar={()=>{
                                 setElimar(true);
-                                setIdActual(ingrediente.id);
-                            }} id={ingrediente.id}/></td>
+                                setIdActual(categoria.id);
+                            }} id={categoria.id}/></td>
                         </tr>
                     )) :
                         <tr>
@@ -91,4 +98,4 @@ function PagePanelIngredientes(){
         </PagePanel>
     </React.Fragment>
     )
-}export default PagePanelIngredientes;
+}export default PagePanelCategorias;

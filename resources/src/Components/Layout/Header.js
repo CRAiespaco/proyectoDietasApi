@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import { generarUUID } from 'Functions/Funciones';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'Components/Layout/header.css';
+import LogoMenu from 'Components/Base/LogoMenu';
 
 function Header (){
     const opciones = [
@@ -73,7 +74,7 @@ function Header (){
         <React.Fragment>
         <Navbar ref={navegador} collapseOnSelect expand='md' bg="success" variant="dark" fixed='top'>
         <Container fluid>
-            <Navbar.Brand className='linkT'><img className="logo" style={{ transform:'rotate(0)',marginLeft:'100px' }} width={340} src={require('./../../images/logo10.png')}/></Navbar.Brand>
+            <Navbar.Brand className='linkT'><LogoMenu/></Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav>

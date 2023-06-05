@@ -33,11 +33,13 @@ class IngredienteController extends Controller
 
         $validacion = Validator::make($request->all(),[
             "nombre"=>"required|string",
-            "imagen"=>"string"
+            "imagen"=>"required|string"
         ]);
-        if($validacion->fails()){
+        if(false){
             return response("El ingrediente no ha podido ser almacenada",Response::HTTP_BAD_REQUEST);
         }else{
+            //$imagen = $request->file('imagen');
+            //$ruta = $imagen->store('ingredientes','public')
             $ingrediente = new Ingrediente();
             $ingrediente->nombre=$request['nombre'];
             $ingrediente->imagen=$request['imagen'];
@@ -129,6 +131,22 @@ class IngredienteController extends Controller
     public function attachIngradienteTotalNutricion(Ingrediente $ingrediente, TotalNutricion $totalNutricion){
         $ingrediente->totalNutricion()->attach($totalNutricion);
         return resolve($ingrediente);
+    }
+
+    public function getUrlImagen(string $nombre){
+        $ruta = public_path('ingredientes');
+
+        $archivosEncontrados = glob($ruta . '/*' . $nombre . '.*');
+        if (!empty($archivosEncontrados)) {
+            $archivoEncontrado = str_replace('\\','/',$archivosEncontrados[0]);
+            $pathInvertido = str_replace('\\','/',public_path());
+            $rutaCompleta = asset(str_replace($pathInvertido, '', $archivoEncontrado));
+
+            return $rutaCompleta;
+            // Resto del código...
+        }else{
+            return response('La imagen que buscas no se encuentra',404);
+        }
     }
 
 }

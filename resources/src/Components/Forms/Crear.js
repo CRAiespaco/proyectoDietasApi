@@ -159,7 +159,7 @@ function Crear(){
                     </Group>
                 </Fila>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
-                    <Button className="w-auto" variant="success">Enviar</Button>
+                    <Button className="w-auto" variant='success'>Enviar</Button>
                 </Fila>
             </Form>
             </div>

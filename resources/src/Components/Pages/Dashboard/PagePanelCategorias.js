@@ -1,40 +1,50 @@
-import React, { useState, useEffect ,useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../../App.css';
 import PagePanel from '../PagePanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Col, Container, Form, Image, Modal, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Form, Table } from 'react-bootstrap';
 import { faPenToSquare, faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import { useIngredientes } from 'hooks/useIngredientes';
-import ModalEditar from 'Components/PanelIngredientes/ModalEditar';
-import ModalEliminar from 'Components/PanelIngredientes/ModalEliminar';
-import ModalAnyadir from 'Components/PanelIngredientes/ModalAnyadir';
+import ModalEliminar from 'Components/PanelCategorias/ModalEliminar';
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 function PagePanelCategorias(){
 
     const [open, setOpen] = useState(false);
     const [elimar,setElimar] = useState(false);
-    const [anyadir,setAnyadir] = useState(false);
     const [categorias, setCategorias] = useState([]);
-
-    const handleAnyadir = () => setAnyadir(true);
-    const handleCloseAnyadir = () => setAnyadir(false);
-
+    const [categoriaNueva, setCategoriaNueva] = useState('');
+    const [categoriaEdit,setCategoriaEdit] = useState('');
     const [idActual,setIdActual] = useState(null);
 
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const handleEliminar = () => setElimar(true);
     const handleCloseEliminar = () => setElimar(false);
+
+    const handleClick = async() => {
+        if(categoriaNueva === '') return;
+        const respuesta = await axios.post(`${BASE_URL}/categoria`,{ nombre:categoriaNueva });
+        console.log(respuesta)
+        cargarCategorias();
+    }
 
     const cargarCategorias = async() => {
         const categorias = await axios.get(`${BASE_URL}/categorias`);
         const { data } = categorias;
         setCategorias(data);
     }
+
+    const handleCancelar = () => {
+        setOpen(false);
+        setIdActual(null);
+    }
+
+    const handleActualizarCategoria = async()=>{
+        await axios.put(`${BASE_URL}/categoria/${idActual}`, {nombre: categoriaEdit});
+        cargarCategorias();
+        handleCancelar();
+    }
+
+
 
     useEffect(() =>{
         cargarCategorias();
@@ -59,7 +69,6 @@ function PagePanelCategorias(){
     <React.Fragment>
         <PagePanel>
             <Container as={Col} className='d-flex flex-column justify-content-center align-items-center'>
-            <Button onClick={handleAnyadir}>Añadir Categoria</Button>
             <Table striped borderless hover style={{ maxWidth:'1000px' }}>
                 <thead>
                     <tr>
@@ -71,27 +80,58 @@ function PagePanelCategorias(){
                 <tbody>
                     {
                     categorias.length !== 0 ?
-                    categorias.map(categoria => (
+                    <>
+                    {categorias.map(categoria => (
                         <tr key={categoria.id}>
                             <td>{categoria.id}</td>
+                            {open && idActual === categoria.id ? <td>
+                                <Form.Control
+                                value={categoriaEdit}
+                                onChange={event => setCategoriaEdit(event.target.value)}
+                                />
+                            </td> :
                             <td>{categoria.nombre}</td>
+                            }
+                            {
+                            open && idActual === categoria.id ?
+                            <td>
+                                <ButtonGroup>
+                                    <Button onClick={handleActualizarCategoria}>Confirmar</Button>
+                                    <Button onClick={handleCancelar} variant='danger'>Cancelar</Button>
+                                </ButtonGroup>
+                            </td>:
+
                             <td><Opciones abrir={()=> {
-                                setOpen(true);
                                 setIdActual(categoria.id);
+                                setCategoriaEdit(categoria.nombre);
+                                setOpen(true);
                             }} elimar={()=>{
                                 setElimar(true);
                                 setIdActual(categoria.id);
                             }} id={categoria.id}/></td>
+                            }
                         </tr>
-                    )) :
+                    ))}
+                    <tr>
+                        <td colSpan={2}>
+                            <Form.Control
+                            type='text'
+                            value={categoriaNueva}
+                            onChange={event => setCategoriaNueva(event.target.value) }
+                            />
+                        </td>
+                        <td>
+                            <Button onClick={handleClick}>
+                                Añadir Categoria
+                            </Button>
+                        </td>
+                    </tr></> :
                         <tr>
                             <td colSpan={5} style={{textAlign:'center'}}>Sin Resultados</td>
                         </tr>
                     }
                 </tbody>
-                    <ModalAnyadir show={anyadir}  onHide={handleCloseAnyadir} />
-                    <ModalEditar show={open} onHide={handleClose} id={idActual}/>
-                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual}/>
+                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual} actualizar={cargarCategorias}/>
                 </Table>
 
             </Container>

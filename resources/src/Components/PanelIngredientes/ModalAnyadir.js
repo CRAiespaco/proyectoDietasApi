@@ -53,7 +53,7 @@ function ModalAnyadir({show,onHide}){
                     <Modal.Body >
                         <Row>
                             <Col xs={6}>
-                                <Image src={ingredienteID.imagen} width={190} rounded style={{aspectRatio: '1/1' }} />
+                                <Image src={ingredienteID.imagen} width={190} rounded />
                             </Col>
                             <Col xs={6}>
                             <Row>

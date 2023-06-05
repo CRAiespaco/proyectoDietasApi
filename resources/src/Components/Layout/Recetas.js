@@ -36,7 +36,7 @@ function Recetas(){
     <div className="col-1"><Button className="btn-success p-3">Buscar</Button></div>
   </div>
   <ButtonGroup className="btn-group-lg mb-2 mb-lg-4">
-    <Button className="btn-success">Categoris</Button>
+    <Button className="btn-success">Categorias</Button>
     <Button className="btn-success">Valoración</Button>
     <Button className="btn-success" >Ingredientes</Button>
   </ButtonGroup>

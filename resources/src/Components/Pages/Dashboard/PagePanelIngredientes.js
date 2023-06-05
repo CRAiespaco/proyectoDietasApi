@@ -19,7 +19,7 @@ function PagePanelIngredientes(){
     const handleCloseAnyadir = () => setAnyadir(false);
 
     const [idActual,setIdActual] = useState(null);
-    const { ingredientes } = useIngredientes();
+    const { ingredientes, cargarIngredientes } = useIngredientes();
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -82,9 +82,9 @@ function PagePanelIngredientes(){
                         </tr>
                     }
                 </tbody>
-                    <ModalAnyadir show={anyadir}  onHide={handleCloseAnyadir} />
+                    <ModalAnyadir show={anyadir}  onHide={handleCloseAnyadir} actualizar={cargarIngredientes} />
                     <ModalEditar show={open} onHide={handleClose} id={idActual}/>
-                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual}/>
+                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual} actualizar={cargarIngredientes}/>
                 </Table>
 
             </Container>

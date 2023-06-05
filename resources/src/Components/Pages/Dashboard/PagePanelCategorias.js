@@ -127,7 +127,7 @@ function PagePanelCategorias(){
                         </td>
                     </tr></> :
                         <tr>
-                            <td colSpan={5} style={{textAlign:'center'}}>Sin Resultados</td>
+                            <td colSpan={5} style={{textAlign:'center'}}>Cargando...</td>
                         </tr>
                     }
                 </tbody>

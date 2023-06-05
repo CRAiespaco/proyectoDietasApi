@@ -121,7 +121,7 @@ class IngredienteController extends Controller
             return response()->json([
                 "mensaje"=>"Se ha borrado correctamente",
                 "ingrediente"=>$ingrediente
-            ],Response::HTTP_BAD_REQUEST);
+            ],Response::HTTP_ACCEPTED);
         }else{
             return response()->json('El ingrediente no existe',Response::HTTP_BAD_REQUEST);
         }

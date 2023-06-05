@@ -3,19 +3,21 @@ import Alerta from 'Components/Base/Alerta';
 import Snackbar from '@mui/material/Snackbar';
 import { BASE_URL } from 'constant/constantes';
 import { useAlert } from 'hooks/useAlert';
-import { useState, useEffect } from 'react';
-import { Button, Col, Container, Form, Image, Modal, Row, Table } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Col, Form, Image, Modal, Row } from 'react-bootstrap';
 
-function ModalAnyadir({show,onHide}){
-    const [ingredienteID,setIngredienteID] = useState({
+function ModalAnyadir({show,onHide, actualizar}){
+    const initialIngrediente = {
         nombre: '',
         imagen: ''
-    });
-    const [ preview,setPreview ] = useState('');
+    }
+    const [ingredienteID,setIngredienteID] = useState(initialIngrediente);
     const { alert, handleErrorClose, mensajeConfirmacion, mensajeError  } = useAlert();
-
+    
     //Mejoras para el futuro.
-    /* const handleImage = event => {
+
+    /*const [ preview,setPreview ] = useState('');
+    const handleImage = event => {
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif','image/webp','image/avif'];
 
         const file = event.target.files[0];
@@ -33,12 +35,13 @@ function ModalAnyadir({show,onHide}){
     const handleSubmit = async (event) => {
         try{
             event.preventDefault();
-            console.log(ingredienteID)
             const datos = await axios.post(`${BASE_URL}/ingrediente`, ingredienteID);
-            console.log(datos)
+            onHide();
+            actualizar();
             mensajeConfirmacion(datos.data.mensaje);
+            setIngredienteID(initialIngrediente);
         }catch(error){
-            console.log(error);
+            mensajeError(error.message);
         }
 
     }

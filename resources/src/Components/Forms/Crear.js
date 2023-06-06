@@ -44,7 +44,7 @@ function Crear(){
                     <FormControl type="search"/>
                 </Fila>
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
-                    <Button className="w-auto">Enviar</Button>
+                    <Button variant="success" className="w-auto">Enviar</Button>
                 </Fila>
             </Form>
             </div>

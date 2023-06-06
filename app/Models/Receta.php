@@ -16,9 +16,10 @@ class Receta extends Model
     }
 
     public function ingredientes(){
-        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad')->onDelete('cascade');
+        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
     }
 
+    //TODO:preguntar relacion.
     public function usuario(){
         return $this->belongsTo(User::class);
     }

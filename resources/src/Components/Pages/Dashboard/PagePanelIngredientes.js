@@ -7,13 +7,19 @@ import { faPenToSquare, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import { useIngredientes } from 'hooks/useIngredientes';
 import ModalEditar from 'Components/PanelIngredientes/ModalEditar';
 import ModalEliminar from 'Components/PanelIngredientes/ModalEliminar';
+import ModalAnyadir from 'Components/PanelIngredientes/ModalAnyadir';
 
 function PagePanelIngredientes(){
 
     const [open, setOpen] = useState(false);
     const [elimar,setElimar] = useState(false);
+    const [anyadir,setAnyadir] = useState(false);
+
+    const handleAnyadir = () => setAnyadir(true);
+    const handleCloseAnyadir = () => setAnyadir(false);
+
     const [idActual,setIdActual] = useState(null);
-    const { ingredientes } = useIngredientes();
+    const { ingredientes, cargarIngredientes } = useIngredientes();
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -44,6 +50,7 @@ function PagePanelIngredientes(){
     <React.Fragment>
         <PagePanel>
             <Container as={Col} className='d-flex flex-column justify-content-center align-items-center'>
+            <Button onClick={handleAnyadir}>Añadir Ingredientes</Button>
             <Table striped borderless hover style={{ maxWidth:'1000px' }}>
                 <thead>
                     <tr>
@@ -75,8 +82,9 @@ function PagePanelIngredientes(){
                         </tr>
                     }
                 </tbody>
+                    <ModalAnyadir show={anyadir}  onHide={handleCloseAnyadir} actualizar={cargarIngredientes} />
                     <ModalEditar show={open} onHide={handleClose} id={idActual}/>
-                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual}/>
+                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual} actualizar={cargarIngredientes}/>
                 </Table>
 
             </Container>

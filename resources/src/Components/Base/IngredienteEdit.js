@@ -11,7 +11,6 @@ function IngredienteEdit({ingrediente}){
         if( valor < 0) valor = 0;
         cantidadRef.current.value = valor;
     }
-    console.log(ingrediente);
 
     return(
         <>

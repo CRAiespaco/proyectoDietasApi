@@ -25,7 +25,10 @@ class RecetaController extends Controller
     public function getRecetasPublic(){
         return response(Receta::where('validacion',true)->get());
     }
+    //Receta --> join ingrediente --> gruoup by id_Receta sum kcal
+    public function getRecetasByKcal(int $kcal){
 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -149,7 +152,10 @@ class RecetaController extends Controller
         $receta = Receta::find($id);
 
         if($receta){
-            $receta->ingredientes()->detach(); // Desvincula los ingredientes asociados a la receta
+            //Primero se quitan todas las relaciones y despues se elimina la receta.
+            $receta->ingredientes()->detach();
+            $receta->categorias()->detach();
+            $receta->usuario()->dissociate();
             $receta->delete();
             return \response()->json([
                 "mensaje"=>"La receta se ha eliminado correctamente",
@@ -158,7 +164,8 @@ class RecetaController extends Controller
             ],Response::HTTP_ACCEPTED);
         }else{
             return response()->json([
-                "mensaje" => "La receta no existe"
+                "mensaje" => "La receta no existe",
+                "receta" => $receta
             ], Response::HTTP_NOT_FOUND);
         }
     }

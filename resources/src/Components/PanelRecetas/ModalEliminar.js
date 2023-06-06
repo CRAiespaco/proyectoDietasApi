@@ -3,11 +3,14 @@ import { useRecetas } from 'hooks/useRecetas';
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
 
-function ModalEliminar({show, onHide,id}){
+function ModalEliminar({show, onHide,id, actualizar}){
+    //TODO: anñadir el alert.
     const eliminar = async() => {
         try{
-            const respuesta = await axios.delete(`${BASE_URL}/receta/${id}`);
-            console.log(respuesta);
+            const { data } = await axios.delete(`${BASE_URL}/receta/${id}`);
+            onHide();
+            actualizar();
+            console.log(data.mensaje);
         }catch(error){
             console.log(error);
         }

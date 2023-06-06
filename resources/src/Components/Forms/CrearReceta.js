@@ -113,7 +113,7 @@ function CrearReceta(){
                 </Fila>
                { ingredientesFiltrados.map((ingrediente) => <Ingrediente key={ingrediente.id} ingrediente={ingrediente} />)}
                 <Fila className="d-flex justify-content-center align-items-center pt-3">
-                    <Button className="w-auto" onClick={enviarForm}>Enviar</Button>
+                    <Button variant="success" className="w-auto" onClick={enviarForm}>Enviar</Button>
                 </Fila>
             </Form>
             </div>

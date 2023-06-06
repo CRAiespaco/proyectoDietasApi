@@ -19,6 +19,7 @@ class Receta extends Model
         return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
     }
 
+    //TODO:preguntar relacion.
     public function usuario(){
         return $this->belongsTo(User::class);
     }

@@ -6,13 +6,9 @@ import Alerta from "Components/Base/Alerta";
 import { Button, Col, Form, Image, Modal, Row } from 'react-bootstrap';
 import { useAlert } from 'hooks/useAlert';
 import { useRecetas } from 'hooks/useRecetas';
-import IngredienteAnyadido from "Components/Base/Ingredienteanyadido";
-import Ingrediente from "Components/Base/Ingrediente";
 import FormIngredientes from 'Components/Forms/FormIngredientes';
 //Modal para editar PagePanelRecetas
 function ModalEditar({show, onHide, id}){
-    const [ver,setVer] = useState(false);
-    const [recetaID, setRecetaID] = useState({});
     const [recetaUpdate, setRecetaUpdate] = useState({
         nombre: '',
         pasosASeguir: '',
@@ -24,19 +20,17 @@ function ModalEditar({show, onHide, id}){
 
     const cargarReceta = async() => {
         let receta = await axios.get(`${BASE_URL}/receta/${id}`);
-        setRecetaID(receta.data);
-        setVer(true);
-        setRecetaUpdate(prev => ({...prev, validacion: receta.data.validacion}));
+        setRecetaUpdate(receta.data);
+
     }
 
-    const handleCloseEditar = () => setVer(false);
 
     useEffect(()=> {
     if(id!==null && show){
         cargarReceta();
     }},[id]);
 
-    const handlePublicar = async(event) => {
+    const handleValidarReceta = async(event) => {
         let valido = event.target.checked;
         try{
             await axios.post(`${BASE_URL}/receta/${id}/validacion/${valido}`);
@@ -53,26 +47,16 @@ function ModalEditar({show, onHide, id}){
         try{
             let datos = await axios.put(`${BASE_URL}/receta/${id}`, recetaUpdate);
             mensajeConfirmacion(datos.data.mensaje);
-            handleCloseEditar();
+            onHide();
             cargarRecetas();
         }catch(error){
             mensajeError(error);
         }
     }
 
-    const handleInput = (event)=>{
-        let valor = event.target.value.toLowerCase();
-        if(valor !== ""){
-            let valorFiltrado = ingredientes.filter( ingrediente => ingrediente.nombre.toLowerCase().includes(valor) );
-            setIngredientesFiltrados(valorFiltrado);
-        }else{
-            setIngredientesFiltrados([]);
-        }
-    }
-
     return (
         <>
-        <Modal size='xl' centered show={ver} onHide={handleCloseEditar}>
+        <Modal size='xl' centered show={show} onHide={onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>Editar Receta</Modal.Title>
             </Modal.Header>
@@ -81,7 +65,7 @@ function ModalEditar({show, onHide, id}){
                     
                         <Row>
                             <Col xs={4}>
-                                <Image rounded src={recetaID.imagen} width={340} alt="" />
+                                <Image rounded src={recetaUpdate.imagen} width={340} alt="" />
                             </Col>
                             <Col xs={8}>
                                 <Row>
@@ -89,7 +73,7 @@ function ModalEditar({show, onHide, id}){
                                         <Form.Group controlId='formBasicEmail'>
                                             <Form.Label>Nombre</Form.Label>
                                             <Form.Control type='text' placeholder='Nombre'
-                                            defaultValue={recetaID.nombre}
+                                            value={recetaUpdate.nombre}
                                             onChange={(e)=> setRecetaUpdate(prev => ({...prev, nombre: e.target.value}))}
                                             />
                                         </Form.Group>
@@ -101,7 +85,7 @@ function ModalEditar({show, onHide, id}){
                                                     type="switch"
                                                     label="Publicar"
                                                     checked={recetaUpdate.validacion}
-                                                    onChange={handlePublicar}
+                                                    onChange={handleValidarReceta}
                                                     />
                                         </Form.Group>
                                     </Col>  
@@ -113,12 +97,12 @@ function ModalEditar({show, onHide, id}){
                                         as='textarea'
                                         style={{height: 'auto'}}
                                         rows={3}
-                                        defaultValue={recetaID.pasosASeguir}
+                                        value={recetaUpdate.pasosASeguir}
                                         onChange={(e)=> setRecetaUpdate(prev => ({...prev, pasosASeguir: e.target.value}))}
                                         />
                                     </Form.Group>
                                 </Row>
-                                <FormIngredientes ingredientesIncluidos={recetaID.ingredientes}/>
+                                <FormIngredientes ingredientesIncluidos={recetaUpdate.ingredientes}/>
                             </Col>
                         </Row>              
                 </Modal.Body>

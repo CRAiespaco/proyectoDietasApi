@@ -14,7 +14,7 @@ function PagePanelRecetas(){
     const [edit, setEdit] = useState(false);
     const [elimar,setElimar] = useState(false);
     const [idActual,setIdActual] = useState(null);
-    const { recetas } = useRecetas();
+    const { recetas, cargarRecetas } = useRecetas();
 
     const actulizarReceta = () => {
 
@@ -26,8 +26,14 @@ function PagePanelRecetas(){
     }
     const handleCloseEdit = () => setEdit(false);
 
-    const handleEliminar = () => setElimar(true);
-    const handleCloseEliminar = () => setElimar(false);
+    const handleEliminar = (id) => {
+        setElimar(true);
+        setIdActual(id);
+    }
+    const handleCloseEliminar = () => {
+        setElimar(false);
+        setIdActual(null);
+    }
 
 
 
@@ -75,7 +81,7 @@ function PagePanelRecetas(){
                     }
                 </tbody>
                     <ModalEditar show={edit} onHide={handleCloseEdit} id={idActual} />
-                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual} />
+                    <ModalEliminar show={elimar} onHide={handleCloseEliminar} id={idActual} actualizar={cargarRecetas} />
                 </Table>
 
             </Container>

@@ -193,5 +193,15 @@ class RecetaController extends Controller
             "receta"=>$receta,
         ],Response::HTTP_ACCEPTED);
     }
+    
+    //Función con ejemplo de consulta para lectura de recetas con total de calorias por ingredientes
+    public function devolverRecetasPorKCal (){
+        $recetas = Receta::withSum('ingredientes','kcal')->orderby('ingredientes_sum_kcal')->get();
+
+        return response()->json([
+            "mensaje"=>"Recetas por calorías",
+            "recetas"=>$recetas,
+        ],Response::HTTP_ACCEPTED);
+    }
 
 }

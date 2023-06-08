@@ -20,10 +20,10 @@ function Header (){
             titulo:"Personalizados",
             path:"/personalizado"
         },
-        {
-            titulo:"Incidencias",
-            path:"/incidencias"
-        },
+        // {
+        //     titulo:"Incidencias",
+        //     path:"/incidencias"
+        // },
         {
             titulo:"Creador",
             path:"/crear"

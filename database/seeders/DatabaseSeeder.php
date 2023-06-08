@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(CategoriaSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(IngredienteSeeder::class);
+        $this->call(RecetaSeeder::class);
     }
 }

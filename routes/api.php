@@ -21,9 +21,11 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
-Route::group(['middleware'=>['role:user']], function(){
-    Route::get('/categoria/{id}',[CategoriaController::class,'show']);//Ver una categoria con un id en especifico.
-    //Aqui todas las rutas que tengan que ver con autenticacion.
+Route::middleware(['auth:sanctum','role:user'])->group(function (){
+    Route::get('/categoria/{categoria}',[CategoriaController::class,'show']);
+    //Aquí tenéis que poner en lugar del {id} el nombre del modelo que vais a recuperar. Tenéis algunas rutas bajo también con {id}
+    Route::get('/logout',[UserController::class,'logout']);
+
 });
 
 Route::get('/pollo',[IngredienteController::class,'polloUrl']);

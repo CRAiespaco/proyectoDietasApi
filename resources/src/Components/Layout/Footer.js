@@ -16,7 +16,7 @@ function Footer() {
                             <div className="block-23 mb-3">
                                 <ul className='p-0'>
                                     <li className='mb-3 intereses'><FontAwesomeIcon icon={faLocationDot} className='intereses'/> Av.Reina Sofia,21,03610 Petrer,Alicante.</li>
-                                    <li className='mb-3 intereses'><FontAwesomeIcon icon={faPhone} className='intereses'/> +34 6654 147 785</li>
+                                    <li className='mb-3 intereses'><FontAwesomeIcon icon={faPhone} className='intereses'/> +34 654 147 785</li>
                                     <li className='mb-3 intereses'><FontAwesomeIcon icon={faGlobe} className='intereses'/> misrecetas.com</li>
                                 </ul>
                             </div>

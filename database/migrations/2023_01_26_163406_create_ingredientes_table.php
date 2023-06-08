@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('ingredientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
+            $table->float('proteinas');
+            $table->float('azucares');
+            $table->float('kcal');
+            //Aquí tendréis que añadir los valores nutricionales que hablamos.
             $table->timestamps();
         });
     }

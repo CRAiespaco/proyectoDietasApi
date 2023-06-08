@@ -41,6 +41,8 @@ Route::post('/receta/{id}/validacion/{opcion}',[RecetaController::class,'validar
 Route::put('/receta/{id}',[RecetaController::class,'update']);//Actualizar una receta.
 //No se elimina correctamente
 Route::delete('/receta/{id}',[RecetaController::class,'destroy']);//Eliminar una receta.
+Route::post('/receta/filtro',[RecetaController::class,'filtrarRecetas']);
+Route::get('/recetas/ultimas',[RecetaController::class, 'ultimasRecetas']);
 
 /**
  * Rutas para ingredientes.

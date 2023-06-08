@@ -194,4 +194,29 @@ class RecetaController extends Controller
         ],Response::HTTP_ACCEPTED);
     }
 
+    public function filtrarRecetas(Request $request){
+        $categorias = $request['categorias'];
+        $ingredientes = $request['ingredientes'];
+
+        $recetas = Receta::with('categorias','ingredientes')
+            ->when(count($categorias) != 0, function ($query) use ($categorias){
+                $query->whereHas('categorias', function ($query) use ($categorias) {
+                    $query->whereIn('categorias.id', $categorias);
+                });
+            })
+            ->when( count($ingredientes) != 0, function ($query) use($ingredientes){
+                $query->whereHas('ingredientes',function ($query) use ($ingredientes){
+                    $query->whereIn('ingredientes.id',$ingredientes);
+                });
+            })
+            ->get();
+
+        return response()->json($recetas);
+    }
+
+    public function ultimasRecetas(){
+        $ultimas = Receta::with('ingredientes')->latest()->limit(5)->get();
+        return \response($ultimas);
+    }
+
 }

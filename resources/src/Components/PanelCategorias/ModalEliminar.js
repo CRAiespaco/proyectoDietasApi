@@ -1,24 +1,20 @@
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
-import { useState, useEffect } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Ale } from 'react-dom'
 
 function ModalEliminar({show, onHide,id, actualizar}){
-    const [ver,setVer] = useState(false);
+    
     const eliminar = async() => {
+        console.log(id)
         await axios.delete(`${BASE_URL}/categoria/${id}`);
-        setVer(false);
+        onHide();
         actualizar();
     }
-    const handleClose = () => setVer(false);
-
-    useEffect(() => {
-        if(show) setVer(true);
-    }, [id]);
 
     return(
         <>
-            <Modal centered show={ver} onHide={handleClose}>
+            <Modal centered show={show} onHide={onHide}>
                 <Modal.Header className='d-flex justify-content-center align-items-center'>
                     <Modal.Title>¿Seguro quieres eliminar la categoria?</Modal.Title>
                 </Modal.Header>

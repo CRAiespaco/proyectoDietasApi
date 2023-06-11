@@ -117,6 +117,7 @@ class IngredienteController extends Controller
     {
         $ingrediente = Ingrediente::find($id);
         if($ingrediente){
+            $ingrediente->receta()->detach();
             $ingrediente->delete();
             return response()->json([
                 "mensaje"=>"Se ha borrado correctamente",

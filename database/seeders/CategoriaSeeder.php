@@ -15,50 +15,53 @@ class CategoriaSeeder extends Seeder
      */
     public function run()
     {
-        Categoria::create([
+        Categoria::create([ // 1
             "nombre"=>'arroz',
         ]);
-        Categoria::create([
+        Categoria::create([ // 2
             'nombre'=>'bebidas',
         ]);
-        Categoria::create([
+        Categoria::create([ // 3
             'nombre'=>'carnes',
         ]);
-        Categoria::create([
+        Categoria::create([ // 4
             'nombre'=>'dulces',
         ]);
-        Categoria::create([
+        Categoria::create([ // 5
             'nombre'=>'ensaladas',
         ]);
-        Categoria::create([
+        Categoria::create([ // 6
             'nombre'=>'mariscos',
         ]);
-        Categoria::create([
+        Categoria::create([ // 7
             'nombre'=>'legumbres&cereales',
         ]);
-        Categoria::create([
+        Categoria::create([ // 8
             'nombre'=>'pescados',
         ]);
-        Categoria::create([
+        Categoria::create([ // 9
             'nombre'=>'pizzas',
         ]);
-        Categoria::create([
+        Categoria::create([ // 10
             'nombre'=>'setas',
         ]);
-        Categoria::create([
+        Categoria::create([ // 11
             'nombre'=>'verduras&frutas',
         ]);
-        Categoria::create([
+        Categoria::create([ // 12
             'nombre'=>'sopas&cremas',
         ]);
-        Categoria::create([
+        Categoria::create([ //13
             'nombre'=>'huevos',
         ]);
-        Categoria::create([
+        Categoria::create([ // 14
             'nombre'=>'pasta',
         ]);
-        Categoria::create([
+        Categoria::create([ // 15
             'nombre'=>'lacteos',
+        ]);
+        Categoria::create([ // 16
+            'nombre'=>'postres',
         ]);
     }
 }

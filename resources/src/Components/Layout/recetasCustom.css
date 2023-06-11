@@ -1,33 +1,38 @@
 .wrapper {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;  
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.recetasListadas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+body {
+  background-color: #b3b3b3;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+@media (max-width: 875px) {
+  .wrapper {
+    width: 100vw !important;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 0;
+    margin: 0;
   }
-  .recetasListadas{
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr) );
-    gap: 10px;
-    width: 100%;
-  }
-  body{
-     background-color:#b3b3b3;
-  }
-  html,body{
-    width: 100%;
-  }
-
-@media (max-width: 875px){
-    .wrapper {
-        width: 100vw !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        margin:0;
-      }
 }

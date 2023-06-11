@@ -109,29 +109,17 @@ function DetallesReceta(){
           <div className="sidebar-title">
             <h4>Social Media</h4>
           </div>
-          <a href="#facebook">
+          <a href="https://www.facebook.com/people/Mi-Dieta-Dieta/pfbid0Kbj4PYTtNtK73wpdFhkNHpty3MnUaRQkYRuhugW2H26QctGdfGi8XnD4AvYyJmF2l/">
             <i className="fab fa-facebook-f" />
             Facebook
           </a>
-          <a href="#twitter">
+          <a href="https://twitter.com/MiDieta_oficial">
             <i className="fab fa-twitter" />
             Twitter
           </a>
-          <a href="#instagram">
+          <a href="https://www.instagram.com/midietad/">
             <i className="fab fa-instagram" />
             Instagram
-          </a>
-          <a href="#googleplus">
-            <i className="fab fa-google-plus-g" />
-            Google Plus
-          </a>
-          <a href="#youtube">
-            <i className="fab fa-youtube" />
-            Youtube
-          </a>
-          <a href="#viemo">
-            <i className="fab fa-vimeo-v" />
-            Viemo
           </a>
         </div>
         {/* ads Widget */}

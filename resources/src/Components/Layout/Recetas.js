@@ -24,7 +24,6 @@ function Recetas() {
     let valorActual = event.target.value
     setSearch(valorActual);
     let arrayObjeto = recetas.filter(objeto => Object.keys(objeto).some(clave => String(objeto[clave]).toLowerCase().includes(valorActual.toLowerCase())))
-    console.log(arrayObjeto);
     setBuscador(arrayObjeto);
   }
 

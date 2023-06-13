@@ -12,7 +12,7 @@ function PageError(){
 
     return(
         <React.Fragment>
-            <div style={{ "backgroundColor": "#b3b3b3","textAlign":"center","padding-top":"250px"}} className="h-100">
+            <div style={{ "backgroundColor": "#b3b3b3","textAlign":"center","padding-top":"16%","padding-bottom":"20%"}} className="h-100">
                 <div style={{"font-size":"75px",}}>ERROR 404</div>
                 <div style={{"font-size":"85px",}}>Página no encontrada</div>
                 <Link className="btn-sm btn btn-success p-2 fs-5" to="/">Volver a Mi Dieta</Link>

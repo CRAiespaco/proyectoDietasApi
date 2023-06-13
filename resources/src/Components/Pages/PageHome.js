@@ -29,7 +29,7 @@ function PageHome(){
                     <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center text-center">
                         <h1 className="font-weight-light">¿Cuál es nuestro propósito?</h1>
                         <p className="fs-5">Nuestra misión es ayudarte a descubrir nuevos sabores y experimentar con diferentes ingredientes, ofreciéndote recetas especialmente diseñadas para ti. ¿Eres vegetariano o tienes alergias alimentarias? ¡No hay problema! Nuestro sistema de personalización considera tus restricciones y preferencias para ofrecerte recetas únicas y deliciosas.</p>
-                        <Link className="btn-sm btn btn-success p-2 fs-5" to="/crear">Empezar ahora!</Link>
+                        <Link className="btn-sm btn btn-success p-2 fs-5" to="/crear">¡Empezar ahora!</Link>
                     </div>
                 </div>  
                 {/* <Card className="text-white bg-success my-5 py-4 text-center w-50 mx-auto">
@@ -41,7 +41,7 @@ function PageHome(){
                     <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center text-center mb-3">
                         <h1 className="font-weight-light">¡Comencemos esta aventura culinaria juntos!</h1>
                         <p className="fs-5">Interactúa con nosotros y haznos saber tus preferencias. Comparte tus creaciones culinarias con otros usuarios y déjanos tus comentarios sobre nuestras recetas. Juntos, podemos crear una comunidad de amantes de la comida y explorar juntos nuevas y emocionantes opciones culinarias.</p>
-                        <Link className="btn-sm btn btn-success p-2 fs-5" to="/crear">Empezar ahora!</Link>
+                        <Link className="btn-sm btn btn-success p-2 fs-5" to="/crear">¡Empezar ahora!</Link>
                     </div>
                     <div className="w-auto"><img className="img-fluid rounded mb-4 mb-lg-0" src={require('images/fondo.jpg')} width="840" alt="..." /></div>
                 </div>

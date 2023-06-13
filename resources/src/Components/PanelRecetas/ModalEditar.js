@@ -36,7 +36,6 @@ function ModalEditar({show, onHide, id}){
             await axios.post(`${BASE_URL}/receta/${id}/validacion/${valido}`);
             setRecetaUpdate(prev => ({...prev, validacion: valido}));
         }catch(error){
-            console.log(error);
             setRecetaUpdate(prev => ({...prev, validacion: !valido}));
         }
 

@@ -2,11 +2,12 @@ import axios from 'axios';
 import Alerta from 'Components/Base/Alerta';
 import Snackbar from '@mui/material/Snackbar';
 import { BASE_URL } from 'constant/constantes';
-import { useAlert } from 'hooks/useAlert';
+import { useAlert} from 'hooks/useAlert';
 import { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Image, Modal, Row, Table } from 'react-bootstrap';
 
 function ModalEditar({show, onHide, id}){
+
     const [ver,setVer] = useState(false);
     const [ingredienteID,setIngredienteID] = useState({
         nombre: '',
@@ -34,7 +35,7 @@ function ModalEditar({show, onHide, id}){
             const datos = await axios.put(`${BASE_URL}/ingrediente/${id}`, ingredienteID);
             mensajeConfirmacion(datos.data.mensaje);
         }catch(error){
-            console.log(error);
+            mensajeError(error);
         }
 
     }

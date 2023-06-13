@@ -23,7 +23,6 @@ function PagePanelCategorias(){
     const handleClick = async() => {
         if(categoriaNueva === '') return;
         const respuesta = await axios.post(`${BASE_URL}/categoria`,{ nombre:categoriaNueva });
-        console.log(respuesta)
         cargarCategorias();
     }
 

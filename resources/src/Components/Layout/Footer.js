@@ -25,9 +25,9 @@ function Footer() {
                         <h2 className="footer-heading">Redes Sociales</h2>
                             <div className="block-23 mb-3">
                                 <ul className=' d-flex flex-column gap-4'>
-                                    <li><FontAwesomeIcon color='#00acee' icon={faTwitter} className="icono"/><span className='nombreIcono'>&nbsp;Twitter</span></li>
-                                    <li><FontAwesomeIcon color='#3b5998' icon={faFacebook} className="icono"/><span className='nombreIcono'>&nbsp;Facebook</span></li>
-                                    <li><FontAwesomeIcon color='#bc1888' icon={faInstagram} className="icono"/><span className='nombreIcono'>&nbsp;Instagram</span></li>
+                                    <li><a href="https://twitter.com/MiDieta_oficial"><FontAwesomeIcon color='#00acee' icon={faTwitter} className="icono"/><span className='nombreIcono'>&nbsp;Twitter</span></a></li>
+                                    <li><a href="https://www.facebook.com/people/Mi-Dieta-Dieta/pfbid0Kbj4PYTtNtK73wpdFhkNHpty3MnUaRQkYRuhugW2H26QctGdfGi8XnD4AvYyJmF2l/"><FontAwesomeIcon color='#3b5998' icon={faFacebook} className="icono"/><span className='nombreIcono'>&nbsp;Facebook</span></a></li>
+                                    <li><a href="https://www.instagram.com/midietad/"><FontAwesomeIcon color='#bc1888' icon={faInstagram} className="icono"/><span className='nombreIcono'>&nbsp;Instagram</span></a></li>
                                 </ul>
                             </div>  
                         </div>

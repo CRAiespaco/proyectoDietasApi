@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function PageError(){
-    const zorrita = async()=>{
+    const error = async()=>{
         let url = fetch("http://localhost/api/error")
         .then(respuesta => respuesta.json)
-        .then(a => console.log(a));
+        .then(mensaje => console.log(mensaje));
     }
-    useEffect(()=>{
-        zorrita();
-    },[])
+    
 
     return(
         <React.Fragment>
-            <div onLoad={zorrita}>
-                HOLAAAAAAAAA
+            <div style={{ "backgroundColor": "#b3b3b3","textAlign":"center","padding-top":"250px"}} className="h-100">
+                <div style={{"font-size":"75px",}}>ERROR 404</div>
+                <div style={{"font-size":"85px",}}>Página no encontrada</div>
+                <Link className="btn-sm btn btn-success p-2 fs-5" to="/">Volver a Mi Dieta</Link>
             </div>
         </React.Fragment>
     )

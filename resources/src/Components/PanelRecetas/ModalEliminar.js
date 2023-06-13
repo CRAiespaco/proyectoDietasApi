@@ -2,17 +2,22 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useRecetas } from 'hooks/useRecetas';
 import axios from 'axios';
 import { BASE_URL } from 'constant/constantes';
+import { useAlert } from 'hooks/useAlert';
+import Snackbar from '@mui/material/Snackbar';
+import Alerta from "Components/Base/Alerta";
 
 function ModalEliminar({show, onHide,id, actualizar}){
-    //TODO: anñadir el alert.
+    //TODO: añadir el alert.
+
+    const{alert,mensajeError}=useAlert();
+
     const eliminar = async() => {
         try{
             const { data } = await axios.delete(`${BASE_URL}/receta/${id}`);
             onHide();
             actualizar();
-            console.log(data.mensaje);
         }catch(error){
-            console.log(error);
+            mensajeError(error);
         }
     }
     return(
@@ -34,6 +39,11 @@ function ModalEliminar({show, onHide,id, actualizar}){
                 </Form>
             </Modal.Body>
         </Modal>
+        <Snackbar open={alert.open} autoHideDuration={2000} onClose={handleErrorClose} anchorOrigin={{ vertical:'bottom', horizontal: 'center', }}>
+            <Alerta onClose={handleErrorClose} severity={alert.type} sx={{ width: '100%' }}>
+                {alert.message}
+            </Alerta>
+        </Snackbar>
         </>
     )
 }export default ModalEliminar;

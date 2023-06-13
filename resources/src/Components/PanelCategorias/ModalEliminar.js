@@ -6,7 +6,6 @@ import { Ale } from 'react-dom'
 function ModalEliminar({show, onHide,id, actualizar}){
     
     const eliminar = async() => {
-        console.log(id)
         await axios.delete(`${BASE_URL}/categoria/${id}`);
         onHide();
         actualizar();

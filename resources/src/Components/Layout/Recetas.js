@@ -6,32 +6,60 @@ import Tarjeta from "Components/Base/Tarjeta";
 import 'Components/Layout/recetasCustom.css'
 import { generarUUID } from "Functions/Funciones";
 import LoadingTarjeta from "Components/Base/LoadingTarjeta";
-import { useRecetas } from "hooks/useRecetas";
 import { useCategorias } from "hooks/useCategorias";
+import { useIngredientes } from "hooks/useIngredientes";
 import { Autocomplete, TextField } from "@mui/material";
+import axios from "axios";
+import { BASE_URL } from "constant/constantes";
 
 function Recetas() {
 
-  const { recetas } = useRecetas();
+  const [recetasFiltro, setRecetasFiltro] = useState([]);
   const { categorias } = useCategorias();
+  const { ingredientes } = useIngredientes();
   const [search, setSearch] = useState("");
   const [buscador, setBuscador] = useState([]);
-  const [filtro, setFiltro] = useState([]);
+
+  const [filtro, setFiltro] = useState({
+    categorias: [],
+    ingredientes: [],
+    valoracion: [],
+  });
+
+  const cargarRecetas = async () => {
+    const { data } = await axios.post(`${BASE_URL}/receta/filtro`, filtro);
+    setRecetasFiltro(data);
+    setBuscador(data);
+  }
 
   const valoraciones = ['1', '2', '3', '4', '5'];
 
   const handleChange = (event) => {
     let valorActual = event.target.value
     setSearch(valorActual);
-    let arrayObjeto = recetas.filter(objeto => Object.keys(objeto).some(clave => String(objeto[clave]).toLowerCase().includes(valorActual.toLowerCase())))
-    console.log(arrayObjeto);
+    let arrayObjeto = recetasFiltro.filter(objeto => Object.keys(objeto).some(clave => String(objeto[clave]).toLowerCase().includes(valorActual.toLowerCase())))
     setBuscador(arrayObjeto);
   }
 
-  useEffect(() => {
-    setBuscador(recetas);
-  }, [recetas])
+  const handleCategorias = (event, value) => {
+    const codigos = value.map(valor => valor.id);
+    setFiltro(prev => ({ ...prev, categorias: codigos }));
+  }
 
+  const hadleIngredientes = (event, value) => {
+    const codigos = value.map(valor => valor.id);
+    setFiltro(prev => ({ ...prev, ingredientes: codigos }));
+  }
+
+  useEffect(() => {
+    cargarRecetas();
+    setBuscador(recetasFiltro);
+  }, [filtro, search])
+
+  useEffect(() => {
+    cargarRecetas();
+    setBuscador(recetasFiltro);
+  }, [])
 
   return (
     <React.Fragment>
@@ -40,24 +68,36 @@ function Recetas() {
           <div className="col-11"><input type="search" value={search} onChange={handleChange} className="form-control p-3" placeholder="Buscar una receta aqui ..." /></div>
           <div className="col-1"><Button className="btn-success p-3">Buscar</Button></div>
         </div>
-        <div className=" mb-2 mb-lg-4">
+        <div className="d-flex gap-3 my-3 flex-wrap">
           {categorias && <Autocomplete
             multiple
-            disableCloseOnSelect
+            //disableCloseOnSelect
             options={categorias}
+            sx={{ width: '160px' }}
+            onChange={handleCategorias}
             getOptionLabel={(option) => option.nombre}
             renderInput={(params) => <TextField {...params} label='categorias' />}
           />}
           <Autocomplete
             multiple
-            disableCloseOnSelect
+            //disableCloseOnSelect
             options={valoraciones}
+            sx={{ width: '160px' }}
+            onChange={(event, value) => setFiltro(prev => ({ ...prev, valoracion: value }))}
             renderInput={(params) => <TextField {...params} label='puntuacion' />}
           />
-          <Button className="btn-success" >Ingredientes</Button>
+          {ingredientes && <Autocomplete
+            multiple
+            //disableCloseOnSelect
+            options={ingredientes}
+            sx={{ width: '160px' }}
+            onChange={hadleIngredientes}
+            getOptionLabel={(option) => option.nombre}
+            renderInput={(params) => <TextField {...params} label='ingredientes' />}
+          />}
         </div>
         <div className="recetasListadas">
-          {recetas.length !== 0 ?
+          {recetasFiltro.length !== 0 ?
             buscador.map(tarjeta => <Tarjeta key={generarUUID()} datos={tarjeta} />) :
             [...Array(5)].map(() => <LoadingTarjeta key={generarUUID()} />)}
         </div>

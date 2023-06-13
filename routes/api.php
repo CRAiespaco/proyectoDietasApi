@@ -28,6 +28,10 @@ Route::middleware(['auth:sanctum','role:user'])->group(function (){
 
 });
 
+Route::post('/favorito/{receta}/{usuario}',[UserController::class,'attachRecetaUsuario']);
+Route::post('/dislike/{receta}/{usuario}',[UserController::class,'denvincularReceta']);
+Route::get('/comprobarReceta/{receta}/{usuario}',[UserController::class,'comprobarReceta']);
+
 Route::get('/pollo',[IngredienteController::class,'polloUrl']);
 
 //TODO: Validacion de datos en todos los controladores.
@@ -82,7 +86,7 @@ Route::delete('/totalNutricional/{totalNutricional}',[TotalNutricionController::
  * Rutas para usuarios.
  */
 Route::get('/usuarios',[UserController::class,'index']);//Ver todos los usuarios.
-Route::get('/usuario/{usuario}',[UserController::class,'show']);//Ver un usuario con un id en especifico.
+Route::get('/usuario/{id}',[UserController::class,'show']);//Ver un usuario con un id en especifico.
 Route::post('/usuario/{usuario}',[UserController::class,'store']);//Guardar un usuario.
 Route::put('/usuario/{usuario}',[UserController::class,'update']);//Actualizar un usuario.
 Route::delete('/usuario/{usuario}',[UserController::class,'destroy']);//Eliminar un usuario.

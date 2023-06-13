@@ -53,6 +53,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Ingrediente::class);
     }
 
+
+
     //Proxima actualización
     /*public function objetivo(){
         return $this->HasOne(Objetivo::class);

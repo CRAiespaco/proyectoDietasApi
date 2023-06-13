@@ -66,9 +66,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($usuario)
+    public function show($id)
     {
-        return response(User::with('recetas','ingredientes')->find($usuario->id));
+        if($id == 0) return \response('El usuario no ha iniciado sesion',403);
+        return response(User::with('recetas','ingredientes')->find($id));
     }
 
     /**
@@ -95,8 +96,8 @@ class UserController extends Controller
             $usuario->nombre=$request['nombre'];
             $usuario->correo=$request['correo'];
             $usuario->contrasenya=$request['contrasenya'];
-            $this->attachIngradienteUsuario($request,$usuario,$request['ingradientes']);
-            $this->attachRecetaUsuario($request,$usuario,$request['recetas']);
+            //$this->attachIngradienteUsuario($usuario,$request['ingradientes']);
+            $this->attachRecetaUsuario($usuario,$request['recetas']);
             $usuario->save();
 
             $respuesta = [
@@ -176,13 +177,27 @@ class UserController extends Controller
 
     }
 
-    public function attachIngradienteUsuario(Request $request, Ingrediente $ingrediente, User $usuario){
-        $usuario->Ingrediente()->attach($ingrediente);
+    public function attachIngradienteUsuario(Ingrediente $ingrediente, User $usuario){
+        $usuario->ingredientes()->attach($ingrediente);
         return resolve($usuario);
     }
 
-    public function attachRecetaUsuario(Request $request, Receta $receta, User $usuario){
-        $usuario->Receta()->attach($receta);
-        return resolve($usuario);
+    public function denvincularReceta(Receta $receta,User $usuario){
+        $usuario->recetas()->detach($receta->id);
+        return $this->show($receta->id);
+    }
+
+    public function comprobarReceta(Receta $receta, User $usuario ){
+        $recetaComprobar = $usuario->recetas()->where('receta_id', $receta->id)->first();
+        if($recetaComprobar){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function attachRecetaUsuario(Receta $receta, User $usuario){
+        $usuario->recetas()->attach($receta);
+        return response($usuario);
     }
 }

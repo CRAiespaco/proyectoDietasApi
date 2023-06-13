@@ -193,7 +193,7 @@ class RecetaController extends Controller
             "receta"=>$receta,
         ],Response::HTTP_ACCEPTED);
     }
-    
+
     //Función con ejemplo de consulta para lectura de recetas con total de calorias por ingredientes
     public function devolverRecetasPorKCal (){
         $recetas = Receta::withSum('ingredientes','kcal')->orderby('ingredientes_sum_kcal')->get();
@@ -207,6 +207,7 @@ class RecetaController extends Controller
     public function filtrarRecetas(Request $request){
         $categorias = $request['categorias'];
         $ingredientes = $request['ingredientes'];
+        $valoracion = $request['valoracion'];
 
         $recetas = Receta::with('categorias','ingredientes')
             ->when(count($categorias) != 0, function ($query) use ($categorias){
@@ -219,8 +220,14 @@ class RecetaController extends Controller
                     $query->whereIn('ingredientes.id',$ingredientes);
                 });
             })
+            ->when( count($valoracion) != 0, function ($query) use($valoracion){
+                $valores = [];
+                foreach ($valoracion as $puntuacion){
+                    $valores[] = ['valoracion','=', intval($puntuacion)];
+                }
+                $query->where($valores)->get();
+            })
             ->get();
-
         return response()->json($recetas);
     }
 

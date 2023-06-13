@@ -49,7 +49,7 @@ function Login() {
       const { data } = await axios.post(`${BASE_URL}/login`, { email: correo, password: contrasenya });
       const { token, user, mensaje } = data;
       const { name, id, email, roles } = user;
-      const usuario = { name, email, id, rol: roles.name }
+      const usuario = { name, email, id, rol: roles[0].name }
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('usuario', JSON.stringify(usuario));
       let usuarioID = await axios.get(`${BASE_URL}/usuario/${id}`);

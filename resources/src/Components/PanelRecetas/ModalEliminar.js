@@ -6,44 +6,42 @@ import { useAlert } from 'hooks/useAlert';
 import Snackbar from '@mui/material/Snackbar';
 import Alerta from "Components/Base/Alerta";
 
-function ModalEliminar({show, onHide,id, actualizar}){
-    //TODO: añadir el alert.
+function ModalEliminar({ show, onHide, id, actualizar }) {
+    const { alert, handleErrorClose, mensajeError } = useAlert();
 
-    const{alert,mensajeError}=useAlert();
-
-    const eliminar = async() => {
-        try{
+    const eliminar = async () => {
+        try {
             const { data } = await axios.delete(`${BASE_URL}/receta/${id}`);
             onHide();
             actualizar();
-        }catch(error){
+        } catch (error) {
             mensajeError(error);
         }
     }
-    return(
+    return (
         <>
-        <Modal centered show={show} onHide={onHide}>
-            <Modal.Header className='d-flex justify-content-center align-items-center'>
-                <Modal.Title>¿Seguro quieres eliminar la receta?</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Row className='justify-content-between'>
-                        <Col className='d-flex justify-content-center align-items-center'>
-                            <Button variant='danger' onClick={onHide}>Cancelar</Button>
-                        </Col>
-                        <Col className='d-flex justify-content-center align-items-center'>
-                            <Button variant='success' onClick={eliminar} >Confirmar</Button>
-                        </Col>
+            <Modal centered show={show} onHide={onHide}>
+                <Modal.Header className='d-flex justify-content-center align-items-center'>
+                    <Modal.Title>¿Seguro quieres eliminar la receta?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Row className='justify-content-between'>
+                            <Col className='d-flex justify-content-center align-items-center'>
+                                <Button variant='danger' onClick={onHide}>Cancelar</Button>
+                            </Col>
+                            <Col className='d-flex justify-content-center align-items-center'>
+                                <Button variant='success' onClick={eliminar} >Confirmar</Button>
+                            </Col>
                         </Row>
-                </Form>
-            </Modal.Body>
-        </Modal>
-        <Snackbar open={alert.open} autoHideDuration={2000} onClose={handleErrorClose} anchorOrigin={{ vertical:'bottom', horizontal: 'center', }}>
-            <Alerta onClose={handleErrorClose} severity={alert.type} sx={{ width: '100%' }}>
-                {alert.message}
-            </Alerta>
-        </Snackbar>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+            <Snackbar open={alert.open} autoHideDuration={2000} onClose={handleErrorClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}>
+                <Alerta onClose={handleErrorClose} severity={alert.type} sx={{ width: '100%' }}>
+                    {alert.message}
+                </Alerta>
+            </Snackbar>
         </>
     )
-}export default ModalEliminar;
+} export default ModalEliminar;

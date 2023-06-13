@@ -7,40 +7,58 @@ import 'Components/Layout/header.css';
 import LogoMenu from 'Components/Base/LogoMenu';
 
 function Header() {
-    const opciones = [
-        {
-            titulo: "Inicio",
-            path: "/"
-        },
-        {
-            titulo: "Recetas",
-            path: "/buscador"
-        },
-        {
-            titulo: "Personalizados",
-            path: "/personalizado"
-        },
-        {
-            titulo: "Creador",
-            path: "/crear"
-        },
-        {
-            titulo: "Control Panel",
-            path: "/panel/recetas"
-        },
-        {
-            titulo: 'login',
-            path: '/login'
-        },
-        {
-            titulo: 'register',
-            path: '/register'
-        },
-        {
-            titulo: 'Mis Recetas',
-            path: '/misRecetas'
+
+    const headerOptions = () => {
+        let header = [
+            {
+                titulo: "Inicio",
+                path: "/"
+            },
+            {
+                titulo: "Recetas",
+                path: "/buscador"
+            },
+            {
+                titulo: "Creador",
+                path: "/crear"
+            },
+            {
+                titulo: 'login',
+                path: '/login'
+            },
+            {
+                titulo: 'register',
+                path: '/register'
+            },
+        ];
+        let usuario = sessionStorage.getItem('usuario');
+        if (usuario) {
+            header = [...header,
+            {
+                titulo: "Personalizados",
+                path: "/personalizado"
+            },
+            {
+                titulo: 'Mis Recetas',
+                path: '/misRecetas'
+            },
+
+            ]
+            usuario = JSON.parse(usuario);
+            const { rol } = usuario;
+            if (rol === 'admin') {
+                header = [...header,
+                {
+                    titulo: "Control Panel",
+                    path: "/panel/recetas"
+                },]
+            }
         }
-    ]
+        return header;
+    }
+
+
+    const opciones = headerOptions();
     let activeStyle = {
         color: "#FFF",
     };

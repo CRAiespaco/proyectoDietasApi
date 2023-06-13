@@ -21,15 +21,11 @@ class Receta extends Model
 
     //TODO:preguntar relacion.
     public function usuario(){
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
 /*    public function intervalo(){
         return $this->belongsTo(Intervalo::class);
     }*/
 
-    public function obtenerArrayRecetasPesos(){
-        $arrayIngredientes=$this->ingredientes->withPivot('cantidad');
-
-    }
 }

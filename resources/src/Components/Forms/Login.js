@@ -45,7 +45,7 @@ function Login() {
     correo = correo.trim();
     contrasenya = contrasenya.trim();
     const validacion = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(correo) && /^(?=.*[A-Z])(?=.*\d)[\w\W]{6,}$/.test(contrasenya);
-    if (true) {
+    if (validacion) {
       const { data } = await axios.post(`${BASE_URL}/login`, { email: correo, password: contrasenya });
       const { token, user, mensaje } = data;
       const { name, id, email, roles } = user;
@@ -56,6 +56,7 @@ function Login() {
       let recetasUser = usuarioID.data.recetas.map(receta => receta.id);
       sessionStorage.setItem('recetas', JSON.stringify(recetasUser));
       mensajeConfirmacion(mensaje);
+      navigate('/')
     } else {
       mensajeError("Correo o Contraseña Incorrectos");
       setOpen(true);

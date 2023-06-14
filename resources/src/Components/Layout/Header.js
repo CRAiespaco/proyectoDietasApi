@@ -5,8 +5,11 @@ import { generarUUID } from 'Functions/Funciones';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'Components/Layout/header.css';
 import LogoMenu from 'Components/Base/LogoMenu';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const navigate = useNavigate();
 
     const headerOptions = () => {
         let header = [
@@ -33,17 +36,7 @@ function Header() {
         ];
         let usuario = sessionStorage.getItem('usuario');
         if (usuario) {
-            header = [...header,
-            {
-                titulo: "Personalizados",
-                path: "/personalizado"
-            },
-            {
-                titulo: 'Mis Recetas',
-                path: '/misRecetas'
-            },
 
-            ]
             usuario = JSON.parse(usuario);
             const { rol } = usuario;
             if (rol === 'admin') {
@@ -53,6 +46,22 @@ function Header() {
                     path: "/panel/recetas"
                 },]
             }
+            header = header.filter(cabecera => cabecera.titulo !== 'login' && cabecera.titulo !== 'register');
+            header = [...header,
+            {
+                titulo: "Personalizados",
+                path: "/personalizado"
+            },
+            {
+                titulo: 'Mis Recetas',
+                path: '/misRecetas'
+            },
+            {
+                titulo: 'Log Out',
+                path: '/'
+            }
+            ]
+
         }
         return header;
     }
@@ -63,8 +72,18 @@ function Header() {
         color: "#FFF",
     };
 
+    const handleLogOut = () => {
+        sessionStorage.clear();
+        navigate('/');
+    }
+
     const ListarOpciones = () => {
-        return opciones.map((option) => <NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined} className='nav-link linkT' to={option.path}>{option.titulo}</NavLink>);
+        return opciones.map((option) => {
+            if (option.titulo === 'Log Out') {
+                return <NavLink key={generarUUID()} className='nav-link linkT' to={option.path} onClick={handleLogOut}>{option.titulo}</NavLink>
+            }
+            return (<NavLink key={generarUUID()} style={({ isActive }) => isActive ? activeStyle : undefined} className='nav-link linkT' to={option.path}>{option.titulo}</NavLink>)
+        });
     }
 
     let ubicacionInicial = window.pageYOffset;

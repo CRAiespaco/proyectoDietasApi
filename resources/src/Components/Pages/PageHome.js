@@ -23,7 +23,7 @@ function PageHome(){
            { <Principal/>}
             {/* <Paginacion itemsPerPage={50} totalItems={prueba}/> */}
             <div style={{ "backgroundColor": "#b3b3b3"}}> 
-                <Carrusel titulo={"Recetas más valoradas"} numTarjetas={4}/>
+                <Carrusel titulo={"Recetas más valoradas"} numTarjetas={3}/>
                 <div className="row gx-4 gx-lg-5 align-items-center my-5 justify-content-center">
                     <div className="w-auto"><img className="img-fluid rounded mb-4 mb-lg-0" src={require('images/fondo.jpg')} width="840" alt="..." /></div>
                     <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center text-center">
@@ -36,7 +36,7 @@ function PageHome(){
                 <Card.Body><p className="text-white m-0 textoBanner">   This call to action card is a great place to showcase some important information or display a clever tagline!</p></Card.Body>
             </Card> */}
 
-                <Carrusel titulo={"Últimas Recetas"} numTarjetas={4}/>
+                <Carrusel titulo={"Últimas Recetas"} numTarjetas={3}/>
                 <div className="row gx-4 gx-lg-5 align-items-center py-5 justify-content-center">
                     <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center text-center mb-3">
                         <h1 className="font-weight-light">¡Comencemos esta aventura culinaria juntos!</h1>

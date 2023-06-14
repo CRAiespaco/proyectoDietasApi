@@ -1,0 +1,8 @@
+.scroll{
+  overflow-x: scroll;
+}
+
+td {
+  vertical-align: middle;
+  width: 33.33%;
+}

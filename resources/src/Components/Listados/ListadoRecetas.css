@@ -1,0 +1,16 @@
+.tituloCarrusel{
+    text-align: center;
+    margin: 0;
+    padding: 25px;
+}
+.carruselScroll{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 350px;
+    overscroll-behavior-inline: contain;
+    overflow-x: auto;
+}
+
+.scroll{
+    overflow-x: scroll;
+}

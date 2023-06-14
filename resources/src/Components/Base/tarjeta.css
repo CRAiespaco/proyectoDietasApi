@@ -1,0 +1,40 @@
+.imagenTarjeta{
+    inline-size: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.masDetalles{
+    margin-left: 15px;
+    height: 31px;
+}
+.bodyCard{
+    position: relative;
+}
+.heartCard{
+    font-size: 25px;
+    position: absolute;
+    right: 15px;
+    top: 140px;
+    color: #FFF;
+    display: block;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #b6b6b6;
+}
+.heartCard:hover{
+    cursor: pointer;
+}
+.heartClick{
+    color: #F00;
+    animation: corazon .7s ease;
+}
+
+@keyframes corazon {
+    from{
+        transform: scale(1.3);
+    }
+    to{
+        transform: scale(1);
+    }
+}

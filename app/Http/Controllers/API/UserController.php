@@ -149,22 +149,23 @@ class UserController extends Controller
     }
 
 
-    public function login(Request $request){
-        $credenciales = $request->only('email','password');
-        if(Auth::attempt($credenciales)){
+    public function login(Request $request)
+    {
+        $credenciales = $request->only('email', 'password');
+        if (Auth::attempt($credenciales)) {
             $user = Auth::user();
             $token = $user->createToken('auth:api')->plainTextToken;
-            if($user->hasRole('user')){
+            if ($user->hasAnyRole(['user', 'admin'])) { // Verifica si el usuario tiene el rol 'user' o 'admin'
                 return \response()->json([
-                    'mensaje'=>'Login exitoso',
-                    'user'=>$user,
-                    'token'=>$token
+                    'mensaje' => 'Login exitoso',
+                    'user' => $user,
+                    'token' => $token
                 ]);
-            }else {
-                return \response('No tienes permiso para iniciar sesion.',401);
+            } else {
+                return \response('No tienes permiso para iniciar sesión.', 401);
             }
-        }else{
-            return response('No se ha podido iniciar sesion', 401);
+        } else {
+            return response('No se ha podido iniciar sesión', 401);
         }
     }
 
